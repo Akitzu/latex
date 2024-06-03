@@ -33,6 +33,5 @@ if __name__ == "__main__":
                        bbox_to_anchor=(.1, .07, .4, .3),
                        bbox_transform=ax.transAxes, loc=3)
     plot_q_profile(r, q, axins)
-    fig.savefig(folder / "q-iota-squared.pdf")
-
     plt.show()
+    fig.savefig(folder / "q-iota-squared.pdf")

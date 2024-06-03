@@ -26,5 +26,5 @@ if __name__ == "__main__":
     xydata = np.load(folder / "poincare.npy")
     fig, ax = plt.subplots()
     plot_poincare_pyoculus(xydata, ax)
-    fig.savefig(folder / "poincare.pdf")
     plt.show()
+    fig.savefig(folder / "poincare.pdf")
