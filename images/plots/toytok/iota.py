@@ -42,8 +42,9 @@ if __name__ == "__main__":
     pparams["zeta"] = 0
 
     # Set RZs for the normal (R-only) computation
+    pparams["Z"] = pyoproblem._Z0
     pparams["Rbegin"] = pyoproblem._R0+1e-3
-    pparams["Rend"] = 8.2
+    pparams["Rend"] = 9.2
 
     pplot = PoincarePlot(pyoproblem, pparams, integrator_params=iparams)
     pplot.compute()
