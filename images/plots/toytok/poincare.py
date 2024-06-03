@@ -1,10 +1,6 @@
 from pyoculus.problems import AnalyticCylindricalBfield
 from pyoculus.solvers import PoincarePlot, FixedPoint
-import matplotlib.pyplot as plt
-plt.style.use("lateky")
 import numpy as np
-import pickle
-import datetime
 import argparse
 
 if __name__ == "__main__":
@@ -105,6 +101,8 @@ if __name__ == "__main__":
     ).reshape((1, 2))
     RZs_2 = np.concatenate((RZ1, RZ2))
 
+    # A bit more point around the X-point ?
+
     RZs = np.concatenate((RZs_1, RZs_2))
 
     # Set up the Poincare plot object
@@ -116,29 +114,5 @@ if __name__ == "__main__":
     # R-Z computation
     pplot.compute(RZs)
 
-    ### Plotting the results
-
-    fig, ax = pplot.plot(marker=".", s=1)
-    # ax.set_xlim(3.0, 3.5)
-    # ax.set_ylim(-2.5, -0.3)
-
-    ax.scatter(
-        pyoproblem._R0, pyoproblem._Z0, marker="o", edgecolors="black", linewidths=1
-    )
-    if fp.successful:
-        ax.scatter(
-            results[0][0], results[0][2], marker="X", edgecolors="black", linewidths=1
-        )
-    
-    if args.save:
-        fig.set_size_inches(10, 6) 
-        date = datetime.datetime.now().strftime("%m%d%H%M")
-        dumpname = f"poincare_{date}"
-        with open(dumpname + ".pkl", "wb") as f:
-            pickle.dump(fig, f)
-
-    plt.show()
-    breakpoint()
-
-    if args.save:
-        fig.savefig(dumpname + ".png")
+    ### Saving the results
+    pplot.save("poincare.npy")
