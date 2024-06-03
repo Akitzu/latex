@@ -1,4 +1,117 @@
 \appendix
-\chapter{An appendix}
 
-\lipsum[1]
+\chapter{Geometric Basis}
+
+the basis vectors of the tangent space are $\{\partial_\rho, \partial_\phi, \partial_\theta\}$ and the euclidean metric become~~:
+
+$g = d\rho\otimes d\rho + (R_a+\rho\cos(\theta))^2\, d\phi\otimes d\phi + \rho^2\,d\theta\otimes d\theta $.
+
+\begin{align*}
+    \int\limits_\Gamma \textbf{A}\cdot\textbf{dl} \leq \int\limits_\Gamma \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert dl \leq\, L(\Gamma)\max\limits_{\textbf{x} \in \Gamma}\Vert\textbf{A(\textbf{x})}\Vert
+\end{align*}
+
+\begin{align*}
+    \textbf{x} = (x,\,y,\,z) = (R\,\cos(\phi),\,R\,\sin(\phi),\,Z)\\
+    \partial_{i'}^y = \frac{\partial}{\partial y^{i'}} = \frac{\partial x^i}{\partial y^{i'}}\frac{\partial}{\partial x^i} = \frac{\partial x^i}{\partial y^{i'}}\partial_i^x\\
+    \\
+    \partial_R = \cos(\phi)\,\partial_x + \sin(\phi)\,\partial_y\\
+    \partial_\phi = -R\,\sin(\phi)\,\partial_x + R\,\cos(\phi)\,\partial_y\\
+    \partial_Z = \partial_z
+\end{align*}
+
+\begin{align*}
+    g &= dx\otimes dx + dy\otimes dy + dz\otimes dz = \delta_{ij}\,dx^i\otimes dx^j\\
+    &= \delta_{ij}\frac{\partial x^i}{\partial y^{i'}}\frac{\partial x^j}{\partial y^{j'}}\,dy^{i'}\otimes dy^{j'} = \frac{\partial x^i}{\partial y^{i'}}\frac{\partial x^i}{\partial y^{j'}}\,dy^{i'}\otimes dy^{j'}\\
+    &= dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ
+\end{align*}
+
+\begin{align*}
+    \textbf{B} &= B^i\partial_i^x = B^x\partial_x + B^y\partial_y + B^z\partial_z\\
+     &= B^{i'}\partial_{i'}^y =  B^R\partial_R + B^\phi\partial_\phi + B^Z\partial_Z
+\end{align*}
+
+\begin{align*}
+    \gamma : \mathbb{R}^+\rightarrow\mathcal{M}\\
+    t \mapsto \gamma(t) = (x(t),\,y(t),\,z(t))\\
+    \gamma(0) = (R_0, 0, Z_0)
+\end{align*}
+\begin{align*}
+    \dot{\gamma}(t) \in T_{\gamma(t)}\mathbb{R}^3 \\
+    \gamma(t) = \int_0^t\dot{\gamma}(s)ds
+\end{align*}
+\begin{align*}
+    (t,\,R,\,\phi,\,Z)\\
+    \gamma(s) = (t(s),\,R(s),\,\phi(s),\,Z(s))\\
+    \dot{\gamma}(s) = (\frac{dt}{ds},\,\frac{dR}{ds},\,\frac{d\phi}{ds},\,\frac{dZ}{ds}) = (\frac{dt}{ds},\,\frac{dR}{ds},\,1,\,\frac{dZ}{ds})\\
+    \dot{\gamma}(\tau) = (\frac{dt}{d\tau},\,\frac{dR}{d\tau},\,\frac{d\phi}{d\tau},\,\frac{dZ}{d\tau}) = (1,\,\frac{dR}{d\tau},\,\frac{d\phi}{d\tau},\,\frac{dZ}{d\tau}) = (1, B^R, B^\phi, B^Z)
+\end{align*}
+
+\begin{align*}
+    \dot{\gamma}(t) &= (1,\,\frac{dR}{dt},\,\frac{d\phi}{dt},\,\frac{dZ}{dt}) = (1, B^R, B^\phi, B^Z)\\
+    \dot{\gamma}(\phi) &= (\frac{dt}{d\phi},\,\frac{dR}{d\phi},\,1,\,\frac{dZ}{d\phi}) = \frac{dt}{d\phi}\cdot(1,\,\frac{dR}{dt},\,1,\,\frac{dZ}{dt})\\
+    &= \frac{1}{B^\phi}\cdot(1,\,B^R,\,1,\,B^Z)
+\end{align*}
+
+condition that $B^\phi > 0$  then the change of variable $h$ given by
+
+\begin{align*}
+    t(\phi) = \int \frac{dt}{d\phi}d\phi = \int_0^\phi \frac{1}{B^\phi}d\phi
+\end{align*}
+is one to one and onto (bijection), thus 
+
+Now consider the mapping 
+\begin{align*}
+    F : \Omega \rightarrow \mathbb{R}_+^*\times\mathbb{R}\\
+    (\tilde{R},\tilde{Z}) \mapsto F(\tilde{R},\tilde{Z}) &= \int_0^{2\pi}\begin{pmatrix}
+        \dot{\gamma}^{\tilde{R}}(\phi)\\
+        \dot{\gamma}^{\tilde{Z}}(\phi)
+    \end{pmatrix}d\phi
+\end{align*}
+with $\Omega$ the set of point for which $B^\phi$ never get to 0 on the curve for $\phi$ between 0 and 2pi
+
+
+\begin{align*}
+    \textbf{M} = \frac{\partial F^{\{\tilde{R},\tilde{Z}\}}}{\partial \{\tilde{R},\tilde{Z}\}}\\
+    M^{\tilde{R}}_{\,\:\tilde{R}} = \frac{\partial}{\partial \tilde{R}}\left[\int_0^{2\pi}\dot{\gamma}^R(\phi)d\phi\right] = \int_0^{2\pi}\partial_{\tilde{R}}\dot{\gamma}^R(\phi)d\phi = \int_0^{2\pi}\partial_{\tilde{R}}\left(\frac{B^R}{B^\phi}\right)d\phi = *\\
+    B^R = B^R(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))\\
+    B^\phi = B^\phi(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))\\
+    \partial_{\tilde{R}}\left(\frac{B^R}{B^\phi}\right) = 
+\end{align*}
+
+\subsection{Pyoculus Implementation}
+
+The Jacobian of F as a matrix form $\textbf{DF} = \textbf{M} = \partial F^{\{\tilde{R},\tilde{Z}\}}/{\partial \{\tilde{R},\tilde{Z}\}} \in \mathbb{R}^{2\times2}$. For instance~:
+\begin{align*}
+    M^{\tilde{R}}_{\,\:\tilde{R}} = \frac{\partial}{\partial \tilde{R}}\left[\int_{\phi_i}^{T+\phi_i}\dot{\gamma}^R(\phi)d\phi\right] + 1 = \int_{\phi_i}^{T+\phi_i}\partial_{\tilde{R}}\dot{\gamma}^R(\phi)d\phi + 1 = \int_0^{2\pi}\partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right]d\phi + 1 = *
+\end{align*}
+
+\begin{align*}
+  B^R = B^R(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))\\
+    B^\phi = B^\phi(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))
+\end{align*}
+\begin{align*}
+    \partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right] &= \partial_{R}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}R + \partial_{Z}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}Z = \frac{1}{B^\phi}\frac{\partial B^R}{\partial\tilde{R}} - \frac{B^R}{(B^\phi)^2}\frac{\partial B^\phi}{\partial\tilde{R}} \\&= \frac{1}{B^\phi}\left(\frac{\partial B^R}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^R}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right) - \frac{B^R}{(B^\phi)^2}\left(\frac{\partial B^\phi}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^\phi}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right)
+\end{align*}
+
+In matrix form
+
+\begin{align}
+    \textbf{M} = \int_{\phi_i}^{T+\phi_i}\begin{pmatrix}
+        \partial_{R}\left[B^R/B^\phi\right] & \partial_{Z}\left[B^R/B^\phi\right]\\
+        \partial_{R}\left[B^Z/B^\phi\right] & \partial_{Z}\left[B^Z/B^\phi\right]
+    \end{pmatrix}\cdot\begin{pmatrix}
+        \partial_{\tilde{R}}R & \partial_{\tilde{Z}}R\\
+        \partial_{\tilde{R}}Z & \partial_{\tilde{Z}}Z
+    \end{pmatrix}d\phi + \mathbb{I}_2
+\end{align}
+
+\subsection{Pyoculus Newton method}
+
+Then to find a fixed point of the map we want to perform the following :
+\begin{align*}
+    F(\tilde{R}^*, \tilde{Z}^*) = (\tilde{R}^*, \tilde{Z}^*)\,\quad\text{with}\quad \delta\textbf{x}=(\delta \tilde{R}, \delta \tilde{Z})\\
+    F(\tilde{R}^*+\delta \tilde{R}, \tilde{Z}^*+\delta \tilde{Z}) = (\tilde{R}^*, \tilde{Z}^*) + M\delta\textbf{x}+ o(\Vert \delta\textbf{x}\Vert^2)\\
+    F(\tilde{R}_n,\tilde{Z}_n) = (\tilde{R}^*, \tilde{Z}^*) + M((\tilde{R}_n,\tilde{Z}_n) - (\tilde{R}^*, \tilde{Z}^*))+ o(\Vert \delta\textbf{x}\Vert^2)\\
+    F(\tilde{R}_n,\tilde{Z}_n) - (\tilde{R}^*, \tilde{Z}^*)  = M(\tilde{R}_n,\tilde{Z}_n) - M(\tilde{R}^*, \tilde{Z}^*)+ o(\Vert \delta\textbf{x}\Vert^2)\\
+    (\tilde{R}_{n+1},\tilde{Z}_{n+1}) = (\tilde{R}_n,\tilde{Z}_n)
+\end{align*}
