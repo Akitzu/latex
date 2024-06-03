@@ -32,9 +32,7 @@ pplot = PoincarePlot(pyoproblem, pparams, integrator_params=iparams)
 
 # # R-only computation
 pplot.compute()
-fig, ax = pplot.plot(marker=".", s=1)
-
-fig.savefig("poincare-squared.png")
+pplot.save("poincare.npy")
 
 # Iota plot
 rs = np.linspace(pparams["Rbegin"], pparams["Rend"], pparams["nPtrj"]+1)
