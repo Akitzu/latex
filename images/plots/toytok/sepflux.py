@@ -1,58 +1,42 @@
-from pyoculus.problems import AnalyticCylindricalBfield
-from pyoculus.solvers import PoincarePlot, FixedPoint
+from pyoculus.toybox import psi_circularcurrentloop, psi_squared
+import matplotlib.pyplot as plt
+plt.style.use("lateky")
+import matplotlib.lines as mlines
 import numpy as np
-import argparse
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Compute the Poincare plot of a perturbed tokamak field")
-    parser.add_argument('--save', type=bool, default=True, help='Saving the plot')
-    args = parser.parse_args()
+### Creating the meshgrid and check at the psi values
+r = np.linspace(3.5, 9.2, 40)
+z = np.linspace(-6, 2.5, 40)
+R, Z = np.meshgrid(r, z)
 
-    ### Creating the pyoculus problem object
-    print("\nCreating the pyoculus problem object\n")
+separatrix = {"R": 6, "Z": -5.5}
+equilibrium = {"R": 6, "Z": 0}
 
-    separatrix = {"type": "circular-current-loop", "amplitude": -10, "R": 6, "Z": -5.5}
-    
-    # Creating the pyoculus problem object, adding the perturbation here use the R, Z provided as center point
-    pyoproblem = AnalyticCylindricalBfield.without_axis(
-        6,
-        0,
-        0.91,
-        0.6,
-        perturbations_args=[separatrix],
-        Rbegin=1,
-        Rend=8,
-        niter=800,
-        guess=[6.41, -0.7],
-        tol=1e-9,
-    )
-    # pyoproblem = AnalyticCylindricalBfield(6, 0, 0.91, 0.6, perturbations_args=[separatrix])
+psi_b = np.array([psi_squared([rr, 0., zz], **equilibrium) for rr, zz in zip(R.flatten(), Z.flatten())]).reshape(R.shape)
+psi_sep = np.array([-10*psi_circularcurrentloop([rr, 0., zz], **separatrix) for rr, zz in zip(R.flatten(), Z.flatten())]).reshape(R.shape)
 
-    ### Finding the X-point
-    print("\nFinding the X-point\n")
+### Plot the flux surfaces
+fig, ax = plt.subplots()
 
-    # set up the integrator for the FixedPoint
-    iparams = dict()
-    iparams["rtol"] = 1e-12
+ax.set_xlim(3.5, 9.2)
+ax.set_ylim(-6, 2.5)
 
-    pparams = dict()
-    pparams["nrestart"] = 0
-    pparams["niter"] = 300
+contour1 = ax.contour(R, Z, psi_b, levels=50, colors="black", alpha=0.7)
+contour2 = ax.contour(R, Z, psi_sep, levels=50, colors="red", alpha=0.9)
 
-    # set up the FixedPoint object
-    fp = FixedPoint(pyoproblem, pparams, integrator_params=iparams)
+# Create proxy artists
+line1 = mlines.Line2D([], [], color='black', alpha=0.5, label=r"$\psi$ equilibrium")
+line2 = mlines.Line2D([], [], color='red', alpha=0.5, label=r"$\psi$ separatrix")
 
-    # find the X-point
-    guess = [6.18, -4.45]
-    # guess = [6.21560891, -4.46981856]
-    print(f"Initial guess: {guess}")
+# Create legend from proxy artists
+ax.legend(handles=[line1, line2], framealpha=1)
 
-    fp.compute(guess=guess, pp=0, qq=1, sbegin=1, send=8, tol=1e-10)
+ax.scatter(equilibrium["R"], equilibrium["Z"], marker="o", edgecolors="black", linewidths=1, zorder=10)
+ax.scatter(separatrix["R"], separatrix["Z"], marker="o", edgecolors="black", linewidths=1, zorder=10)
 
-    if fp.successful:
-        results = [list(p) for p in zip(fp.x, fp.y, fp.z)]
-    else:
-        results = [[6.14, 0., -4.45]]
+ax.set_xlabel(r"R")
+ax.set_ylabel(r"Z")
 
-    ### Plot the flux surfaces
-    
+fig.savefig("sepflux.pdf")
+
+plt.show()
