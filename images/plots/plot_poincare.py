@@ -7,7 +7,7 @@ import argparse
 def plot_poincare_pyoculus(xydata, ax):
     rdata, zdata = xydata
     for rs, zs in zip(rdata, zdata):
-        ax.scatter(rs, zs, marker=".", color="black", s=1)
+        ax.scatter(rs, zs, marker=".", color="black", s=1, zorder=10)
 
     ax.set_xlim(3.5, 9.2)
     ax.set_ylim(-6, 2.5)
