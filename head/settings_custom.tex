@@ -35,3 +35,15 @@
 \newcommand{\equref}[1]{Eq.~\ref{#1}}
 \newcommand{\figref}[1]{Fig.~\ref{#1}}
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
+
+%\usepackage{mathabx}
+%\newcommand{\iotaslash}{\mathord{\not\iota}}
+\usepackage{stackengine}
+\usepackage{graphicx}
+\newcommand{\iotaslash}{%
+  \stackinset{c}{0pt}{c}{0pt}{$\iota$}{\rotatebox{90}{$\backslash$}}}
+
+\usepackage{tcolorbox} 
+
+% Change back mathcal to default
+\usepackage[cal=cm]{mathalpha}
