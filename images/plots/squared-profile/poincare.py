@@ -9,8 +9,8 @@ import numpy as np
 pyoproblem = AnalyticCylindricalBfield(
     6,
     0,
-    0.8875,
-    0.2
+    1,
+    0.5
 )
 
 # set up the integrator for the Poincare
@@ -23,7 +23,7 @@ pparams["nPtrj"] = 10
 pparams["nPpts"] = 300
 pparams["zeta"] = 0
 
-# Set RZs for the normal (R-only) computation
+# Set RZs for the normal (R-only) computation   
 pparams["Rbegin"] = pyoproblem._R0+1e-3
 pparams["Rend"] = 8
 

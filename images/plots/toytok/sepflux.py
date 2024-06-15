@@ -25,8 +25,8 @@ contour1 = ax.contour(R, Z, psi_b, levels=50, colors="black", alpha=0.7)
 contour2 = ax.contour(R, Z, psi_sep, levels=50, colors="red", alpha=0.9)
 
 # Create proxy artists
-line1 = mlines.Line2D([], [], color='black', alpha=0.5, label=r"$\psi$ equilibrium")
-line2 = mlines.Line2D([], [], color='red', alpha=0.5, label=r"$\psi$ separatrix")
+line1 = mlines.Line2D([], [], color='black', alpha=0.5, label=r"$\psi_{eq}$")
+line2 = mlines.Line2D([], [], color='red', alpha=0.5, label=r"$\psi_{sep}$")
 
 # Create legend from proxy artists
 ax.legend(handles=[line1, line2], framealpha=1)
@@ -36,7 +36,9 @@ ax.scatter(separatrix["R"], separatrix["Z"], marker="o", edgecolors="black", lin
 
 ax.set_xlabel(r"R")
 ax.set_ylabel(r"Z")
+ax.set_aspect('equal')
 
 fig.savefig("sepflux.pdf")
+fig.savefig("sepflux.png")
 
 plt.show()
