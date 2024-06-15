@@ -35,6 +35,7 @@
 \newcommand{\equref}[1]{Eq.~\ref{#1}}
 \newcommand{\figref}[1]{Fig.~\ref{#1}}
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
+\newcommand{\appref}[1]{App.~\ref{#1}}
 
 %\usepackage{mathabx}
 %\newcommand{\iotaslash}{\mathord{\not\iota}}
@@ -47,3 +48,13 @@
 
 % Change back mathcal to default
 \usepackage[cal=cm]{mathalpha}
+
+\usepackage{float}
+
+\newcommand\smallO{
+  \mathchoice
+    {{\scriptstyle\mathcal{O}}}% \displaystyle
+    {{\scriptstyle\mathcal{O}}}% \textstyle
+    {{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+    {\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+  }
