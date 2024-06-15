@@ -1,9 +1,41 @@
 \chapter{Poincare Map}
-In the case of a toroidal apparatus, the intersection between particle trajectories and constant $\phi$ cross-section is indicative of the different regions of phase space.
+\newcommand{\dpmap}{\mathcal{D}\mathcal{P}}
+\newcommand{\pmap}{\mathcal{P}}
+\newcommand{\nfp}{n_\text{fp}}
 
-[w7x / ncsx poincare section]
+In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. In the case of particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
-To compute it, the evolution of a particle along the magnetic field $\textbf{B}$ will be described using the non-unitary cylindrical basis given by $B =\{\partial_R, \partial_\phi, \partial_Z\}$ of $\mathcal{M} = \mathbb{R}^+\times[0,2\pi[\times\mathbb{R}$. By taking into account only the center of the gyro-motion, the particle follow the curve $\gamma : \mathbb{R}\rightarrow\mathcal{M}$, $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. This defines a family of curves. By specifying the initial point $\gamma(0) = \textbf{x}_0$, we can write~:
+\begin{figure}[h!]
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.3\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.3\textwidth]{example-image-b}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.3\textwidth]{example-image-c}
+    }
+    \caption{[w7x and other stell poincare section]}
+\end{figure}
+
+See for instance 
+
+in experiments using fluorencent rod one can find this.
+
+To compute a Poincare section, the evolution of a particle along the magnetic field $\textbf{B}$ will be described in cylindrical coordinates. 
+
+
+\noindent
+\makebox[\textwidth]{%
+  \begin{tcolorbox}[colback=lightgray!10, colframe=black, width=0.85\textwidth, boxrule=0.5mm, sharp corners]
+    \textbf{Geometric consideration} : Throughout this document, the convention adpoted is that of the contravariant component for vectors. That is, for example, $\textbf{B}$ in cylindrical coordinates has the form $B^R = \textbf{B}\cdot\nabla R$, $B^\phi = \textbf{B}\cdot\nabla\phi$ and $B^Z = \textbf{B}\cdot\nabla Z$. In the formalism of differential geometry, one writes $B=B^i\partial_i$. The basis $\{\partial_i\}_i$ is orthogonal and holonomic but the element may not be unitary, as for $\partial_\phi$. On the other hand, the component in the common orthonormal basis $e_i$ will be written with subscript as $\tilde{B}^i$. [SEE APP]
+  \end{tcolorbox}
+}
+
+with basis $B =\{\partial_R, \partial_\phi, \partial_Z\}$  $\mathcal{M} = \mathbb{R}^+\times[0,2\pi[\times\mathbb{R}$.
+By taking into account only the center of the gyro-motion, the particle follow the curve $\gamma : \mathbb{R}\rightarrow\mathcal{M}$, $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. This defines a family of curves. By specifying the initial point $\gamma(0) = \textbf{x}_0$, we can write~:
 \begin{align*}
     \gamma(t) = \int_0^t\dot{\gamma}(s)ds + \textbf{x}_0,
 \end{align*}
@@ -37,76 +69,112 @@ The magnetic field has an azymuthal period $T = 2\pi/n_\text{fp}$ with $n_\text{
 with $\textbf{x}_0^i = (\tilde{R},\,\phi_i,\,\tilde{Z})$. 
 the trajectory becomes $r_i$ with $z_{i+1} = F(z_i)$.
 
-Note here that due to $\nabla\cdot\textbf{B} = 0$ the flux through any surface $A$ is the same as the one through $F(A)$~:
+Note here that due to $\nabla\cdot\textbf{B} = 0$ the flux through any surface closed surface $A$ in the 2d plane $\phi_i$ is equal to the one through $F(A)$ in the $\phi_i + T$ plane~:
 \begin{align*}
     \iint\limits_{A}\textbf{B}\cdot\textbf{dS} = \iint\limits_{F(A)}\textbf{B}\cdot\textbf{dS} \Leftrightarrow \int\limits_{A}\beta = \int\limits_{F(A)}\beta = \int\limits_{A}F^\star\beta
 \end{align*}
-where $\beta = i_Bdx^i\wedge dx^j$ is the flux form and $F^\star\beta$ the pullback of $\beta$ through the $F$ map, meaning that the poincare map is an area-preserving map for the flux for \cite{meiss_thirty_2015}. It implies on the determinant of the Jacobian $\textbf{DF} = \textbf{M}$ that given the identities~:
+
+for the one familiar with differential forms
+where $\beta = B^\phi dR^\wedge dZ$ is the flux form and $F^\star\beta$ the pullback of $\beta$ through the $F$ map
+, meaning that the poincare map is an  preserving map for the flux form \cite{meiss_thirty_2015}. It implies on the determinant of the Jacobian $\textbf{DF} = \textbf{M}$ that given the identities~:
 \begin{align*}
     \beta &= \beta_{ij}dx^i\wedge dx^j = \beta_{ij}dx^i\otimes dx^j\\
     F^\star\beta &= M^{i'}_{\,\:i}M^{j'}_{\,\:j}\beta_{i'j'}dx^i\wedge dx^j = \frac{1}{2}\beta_{i'j'}\left(M^{i'}_{\,\:i}M^{j'}_{\,\:j}-M^{i'}_{\,\:j}M^{j'}_{\,\:i}\right)dx^i\otimes dx^j\\ &= \frac{1}{2}\beta_{i'j'}\delta^{i'j'}_{ij} \det(\textbf{M})dx^i\otimes dx^j = \beta_{ij}\det(\textbf{M})dx^i\otimes dx^j
 \end{align*}
-that $\text{det}(\textbf{DF}(\tilde{R},\tilde{Z}))i_B(F(\tilde{R},\tilde{Z})) = i_B(\tilde{R},\tilde{Z})$. which can be seen as eq 8 from invariant in the case of a div free field. 
+
+an non form way to see it is through this formula that relate the divergence with the determinant following which is more general and also work for a divergence free case [cite equation]
+[FORMULA]
+
+In either case for the det of F we have
+that 
+\begin{align*}
+    \text{det}(\dpmap(\tilde{R},\tilde{Z}))\beta(\pmap(\tilde{R},\tilde{Z})) = \beta(\tilde{R},\tilde{Z}) \implies \text{det}(\dpmap) = B^\phi/B^\phi
+\end{align*}
+
+from this formula we know how to have the determinant from f just by taking the ratio of $B^\phi/B^\phi$
 
 \section{Fixed point of the Poincare map}
-The fixed point of $F$, $x\in\Omega$ such that $F(x) = x$, are of tw
+The fixed point of $F$, $x\in\Omega$ of order $k$ is such that $F^k(x) = x$. 
 
-X/O points are hyperbolic and elliptic points.
+it implies on the determinant that $\text{det}(\dpmap^k(x^\star)) = \beta(x^\star)/\beta(F^k(x^\star)) = 1$
+it makes it an element of SL(2,R). 
 
-can be seen by viewing the into the poincare map paradigm by fixed point of F. The magnetic axis is one of such point with 
+We have that the therefore the writing the eigen value $\lambda_1$ and $\lambda_2$ we see that there is multiple 
+the eigenvalues can be complex and you have stable 
 
-the rotational transform $\iota$ is the one also $q=m/n$.
+you can have either complex conjugate of modulus one and you have an elliptic point indicating rotation around the fixed point. It is the O-point of islands. you can also have.
 
-Here the O/X-point of a q island is then a fixed-point the $F^p$ with $p = m//\gcd{m,n}$, 
+[opoint and xpoint figure]
 
-the $\gcd{m,n}$ informs of how many different islands there are,
+there is also the case -1 +1 but [Possible in magnetic field ?].
 
-indeed take a $m/n$ island chain then by applying $lcm(m, n_fp)$ the map then we are back at the same point and have done $2\pi$
+in fact this is linked to Greenes residue [cite].
+$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
+
+[insert the image from smiet]
+
+In the case of an island or island chain, the surface on which they happen (under resonable condition you can have them [CITE]), the number of winding that a field line starting on that surface does around the magnetic axis is given by the rotational transform $\iota$ over 2pi and is equal to $n/m$. It means that initial fixed point $x^\star$ evolves and after $m$ toroidal turns it will come back to itself, having perform n poloidal turns. We can see then that the number of intersections will be equal to $m$. the order of this fixed point for the poincare map is then at max $k=m\nfp$.
+
+Actually using the field periodicity of the field, we know that $m\nfp$ evolution is the same as $m$ evolution, if we have $m$ intersection applying the map $m$ time will take us back.
+
+here if $g = \gcd{m,n} = 1$ this works, otherwise we could have done only $m/g$ evolution and $g$ gives the number of different islands in the island chain.
 
 
 %%% -- CHAPTER --- %%%
 \chapter{Toybox}
-An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ corresponds one-to-one to the element of the resulting magnetic fields $\textbf{B}_i$. A tokamak-like equilibrium is therefore implemented as the basis of this so-called \textit{Toybox}, to which perturbations can be added by summing their respective magnetic potential.
+An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. A tokamak-like equilibrium is therefore implemented as the basis of this so-called \textit{Toybox}, to which perturbations can be added by summing their respective magnetic potential.
 
-More specifically in axisymmetric equilibrium (i.e. perfect tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces is well defined by the poloidal flux function $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
+More specifically in axisymmetric equilibria (i.e. perfect tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces are well defined by the poloidal flux function $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
 \begin{align*}
     \textbf{B} = B^i\partial_i = -\frac{1}{R}\frac{\partial\psi}{\partial Z}\partial_R +\frac{1}{R}\frac{\partial\psi}{\partial R}\partial_Z + \left(\frac{\partial A^R}{\partial Z} - \frac{\partial A^Z}{\partial R}\right)\partial_\phi.
 \end{align*}
-with $\psi = R^2 A^\phi$. The choice of Gauge can be exploited to assume $A^Z = 0$. For completeness, note that in the formulation of the Grad-Sharfranov equation, the $B^\phi$ term is related to a $F(\psi)$ flux function as $B^\phi = (\mu_0) F/R^2$.
+with $\psi = R^2 A^\phi$. The choice of Gauge can be exploited to assume $A^Z = 0$. For completeness, note that in the formulation of the Grad-Sharfranov equation, the $B^\phi$ term is related to a function $F(\psi)$ as $B^\phi = (\mu_0) F/R^2$.
 
-A convenient geometry to study is nested toroidal flux surfaces centered on a magnetic axis of RZ-coordinates $(R_a, Z_a)$. Introducing toroidal coordinates $(\rho, \phi, \theta)$, where $\rho$ is the distance from the axis, the poloidal flux is thus $\psi(R, Z) \propto (R - R_a)^2 + (Z - Z_a)^2 = \rho^2$ and we will in fact take the equality due to the freedom of dimension in the implementation. For large aspect ratio tokamaks $R_a/\rho >> 1$ the safety factor profile can be approximated by~:
+A convenient geometry to study for the flux surfaces is nested toroids centered on the magnetic axis of RZ-coordinates $(R_0, Z_0)$. Introducing toroidal coordinates $(\rho, \phi, \theta)$, with $\rho$ the distance from the axis, the poloidal flux is thus $\psi(R, Z) \propto (R - R_0)^2 + (Z - Z_0)^2 = \rho^2$. In fact, due to the freedom in dimensions, we will take the equality. For large aspect ratio tokamaks $R_0/\rho >> 1$ the safety factor profile can be approximated by~:
 \begin{align*}
-    q \approx \frac{\Delta\phi}{\Delta\theta} = \frac{\rho \tilde{B}^\phi}{R_a \tilde{B}^\theta} = \frac{2\pi}{\mu_0\tilde{I}^\phi R_a} \rho^2.
+    q \approx \frac{\Delta\phi}{\Delta\theta} = \frac{\rho \tilde{B}^\phi}{R_0 \tilde{B}^\theta} = \frac{2\pi}{\mu_0\tilde{I}^\phi R_0} \rho^2
 \end{align*}
-Here the multipole expansion of $\tilde{B}^\theta$ is considered only up to first order. The $\tilde{B}^\phi$ component and the plasma current $\tilde{I}^\phi$ are imposed by the toroidal field coils and the central solenoid respectively. The q-profile is calculated more specifically by integrating along a flux tube in a phi cross section \cite[pp.111-112]{wesson_tokamaks_2011} as~:
+calculating the multipole expansion of $\tilde{B}^\theta$ only up to first order. The $\tilde{B}^\phi$ component and the plasma current $\tilde{I}^\phi$ are imposed by the toroidal field coils and the central solenoid respectively. It would be desirable to achieve this quadratic behaviour of $q$ in the tokamak model as well. In more precise details, the $q$-profile can be calculated in a single $\phi$ section by integrating over the poloidal closed curve defined by $\psi = \text{const}$ \cite[pp.111-112]{wesson_tokamaks_2011}. In this specific case, as $\psi = \rho^2$, this path simply reduce to an integration over $\theta$ as~:
 \begin{align}\label{eq:q-profile-th}
-    q(\rho) = \frac{1}{2\pi}\oint \frac{d\phi}{d\theta}d\theta = \frac{1}{2\pi}\oint \frac{B^\phi}{B^\theta}d\theta
+    q(\rho) = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{d\phi}{d\theta}d\theta = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{B^\phi}{B^\theta}d\theta
 \end{align}
-Introducing heuristicaly the $\phi$ component of $\textbf{B}$ to be~:
+The $\theta$ component can be derived directly from coordinate transformation, as follows~:
 \begin{align*}
-    B^\phi = 2\sqrt{R^2-\rho^2}\,(\text{sf}+\text{shear}\rho^2)/R^2
+    B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R_a+\rho\cos{\theta}}.
 \end{align*}
-with corresponding $A^R$ given in [App1] and writing the transformation of the field to get the $\theta$ component~:
+The $\phi$ component of $\textbf{B}$ is introduced heuristically as~:
 \begin{align*}
-    B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R_a+\rho\cos{\theta}}
+    B^\phi = 2\sqrt{R^2-\rho^2}\,(\text{sf}+\frac{\text{shear}}{2}\rho^2)/R^2
 \end{align*}
-finally inserting them into \eqref{eq:q-profile-th} gives~:
+with its corresponding $A^R$ provided in [App1]. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
 \begin{align*}
-     q(\rho) = (\text{sf}+\text{shear}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_a + \rho\cos{\theta}}d\theta = \text{sf}+\text{shear}\rho^2
+     q(\rho) = (\text{sf}+\frac{\text{shear}}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_a + \rho\cos{\theta}}d\theta = \text{sf}+\frac{\text{shear}}{2}\rho^2
 \end{align*}
-the last integral is calculated analytically for $\rho < R$ the last two term cancel. \ref{fig:toytok-eq} shows the 
+where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:basis-poincare} shows the reconstructed cross section using field line tracing on a such an equilibrium with an $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.
+
+the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp = 1$ for latter when we add perturbation. here the poincare plot is done with 
+
 
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
+        \label{fig:basis-poincare}
         \includegraphics[width=0.5\textwidth]{images/plots/squared-profile/poincare.pdf}
     }
     \hfill
     \subfloat[First sub-figure]{%
+        \label{fig:basis-qprofile}
         \includegraphics[width=0.5\textwidth]{images/plots/squared-profile/q-iota-squared.pdf}
     }
     \caption{[figure without perturbations]}
-    \label{fig:basis}
 \end{figure}
+
+The helicity of a field line can be interpreted as the number of times it wraps around another one. By following of both the magnetic axis as well as the starting point, the helicity $\iotaslash = 1/q$ can be computed by integrating the angle evolution. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reasuring.
+
+An essential feature of the diverted tokamak edge structure is the separatrix. Combining a quadratic $q$ equilibrium with the field generated by a circular current loop at appropriate position and amplitude will result in a single null equilibrium. The vector potential of a loop at position $(R_l, 0)$ is given in \cite{simpson_simple_2001} as~:
+\begin{align*}
+    A^\phi = \frac{\mu_0}{4\pi}\frac{4IR_l}{\beta R}\left(\frac{(2-k^2)K(k^2)-2E(k^2)}{k^2}\right).
+\end{align*}
+with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position, replace $Z \mapsto Z-Z_l$.
 
 \begin{figure}[h!]
     \begin{minipage}{0.5\textwidth}
@@ -130,16 +198,18 @@ the last integral is calculated analytically for $\rho < R$ the last two term ca
     \label{fig:basis}
 \end{figure}
 
-A separatrix is essential to achieve a proper diverted tokamak structure. Combining the q-squared equilibrium with the field generated by a circular current loop at appropriate position and amplitude will produce the desired single null equilibrium. The vector potential of a loop at position $(0, a)$ is given in \cite{simpson_simple_2001} as~:
-\begin{align*}
-    A^\phi = \frac{\mu_0}{4\pi}\frac{4Ia}{\beta R}\left(\frac{(2-k^2)K(k^2)-2E(k^2)}{k^2}\right)
-\end{align*}
-with $\alpha^2 = a^2 + R^2 + Z^2 - 2aR$, $\beta^2 = a^2+R^2+Z^2+2aR$ and $k = 1 - \alpha^2/\beta^2$. we just need to shift the Z coordinates by $Z-a$.
+Setting 
+$R = 6, Z = 0, q_0 = 0.91, shear 1.2$
 
+\figref{fig:toytok-eq} shows the contour of $\psi_\text{sep}$ on $\psi$.
 [comparison with d3d or tcv for the reality of the toybox]
 
 \section{Perturbations}
-adding perturbation, not axisymmetric anymore. In the toroidal coordinates the $\phi$ and $\theta$ angles are both $\in [0, 2\pi)$ with $R_\text{max}(\theta)$ and thus one can develop any component into Fourier series as for the magnetic vector potential $\textbf{A}$.
+adding perturbation to create chaos, not axisymmetric anymore.
+
+The perturbations can be added into the straight field line coordinates or as hamiltonian formalism. show there equivalence.
+
+In the toroidal coordinates the $\phi$ and $\theta$ angles are both $\in [0, 2\pi)$ with $R_\text{max}(\theta)$ and thus one can develop any component into Fourier series as for the magnetic vector potential $\textbf{A}$.
 \begin{align*}
     A^i(\rho,\phi,\theta) = \sum\limits_{n\in\mathbb{N}}\sum\limits_{m\in\mathbb{N}} A^i(\rho)\cos(n\phi + \varphi_n)\cos(m\theta + \varphi_m)
 \end{align*}
@@ -160,32 +230,112 @@ In fact, the transformation to toroidal does not have to be the one of a circle.
     \theta &= \text{arctan2}(\frac{Z-Z_a}{B}, \frac{R-R_a}{A})\\
 \end{align*}
 
+and when straight field line coordinate are defined, one can transform $\theta$ and $\rho$ to be the 
+
+
 talk about mode mixing : this is an choice in the way we apply the perturbation to mix mode.
 
-[show some pertubations with the psi plot/mode mixing]
+
+\begin{figure}[h!]
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-b}
+    }
+    \caption{3/2 in the high aspect ratio case and 6/1 in the toytok case}
+\end{figure}
+
+we can see that they follow the field on the trargeted q for the high aspect and at the separatrix for the toytok. 
+
+however the toroidal coordinates are not the straight field and if we plot at a $\rho = const$ we can see that
+\begin{figure}[h!]
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-b}
+    }
+    \caption{mode mixing for the toyHA}
+\end{figure}
+
+\begin{figure}[h!]
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-b}
+    }
+    \caption{mode mixing for the toytok}
+\end{figure}
 
 mode mixing is good because it create chaos fast, non definition of flux coordinate at the separatrix. The chaos appearing by ramping up the amplitude.
 
+\begin{figure}[h!]
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[First sub-figure]{%
+        \includegraphics[width=0.5\textwidth]{example-image-b}
+    }
+    \caption{ramping up the amplitude make the chaos appear in the 6/1 case}
+\end{figure}
+
 \chapter{Tangles and Turnstile}
 
-[cite poincare]
+when chaos appear the separation of a separatrix when.
+KAM theory
+
+tangles for the tokamap, the henon map
+we see that there were a separatrix and then they break to give.
+
+the tangles
+
+The jacobian of $\dpmap$ is $\mathcal{P}(x^\star) = x^\star$ fixed points of a discrete dynamical system.
+
+\section{Stable and Unstable Manifolds}
+
 from poincare also called them trellis [cite]
-manifold, manifold ordering 
+manifold, manifold ordering.
+
+algorithm to plot them, from.
 
 [plot of the manifold, toytok 6-1, toystell 3/2]
 
 laking behind due to the q-profile
+the shape first goes out and then comes back.
+
+the tangle structure they create
 
 \section{Hetero/Homo-clinic points}
 [floer homology from sonja]
 what are they and algorithm to find them
 
+interested in primary homo-hetero clinic points
+
+algorithm to find them on 6/1 and the fact that we need to find another one, say that we can just initialize with lambda being half.
+
+the rosenbruck structure, and the sneaking returns when the amplitude is increased
+
+the fact that we have more than one
 higher order homoclinic points
-[toytok 12-2, toystell 3/2]
+toyha in 3 2 
+
+the idea to initilize with specific epsilon values to have a nice initial guess. The fact that this is the main point were robustness may be increased.
 
 \section{Turnstile}
 
-the conservation, meiss
+the definition of a bounded rezonance zone with island inside and a chaotic layer.
+
+the formal definition by Meiss
+
+[FIGURE with evolution entering and exiting sets]
+
+How the conservation of the flux implies that the entering and exiting sets have the same flux.
 
 \subsection{Integration of the action}
 
@@ -199,19 +349,17 @@ The curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ alon
 \end{align*}
 Thus for a $q=m/n=1/0$ fixed point of with $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
 
-\begin{figure}[!ht]
-    \subfloat[First sub-figure\label{subfig-1:dummy}]{%
-      \includegraphics[width=0.45\textwidth]{example-image-a}
-    }
-    \hfill
-    \subfloat[First sub-figure\label{subfig-2:dummy}]{%
-      \includegraphics[width=0.45\textwidth]{example-image-b}
-    }
-    \caption{Dummy figure}
-    \label{fig:turnstile-area-sketches}
-\end{figure}
+\subsection{algorithm}
 
-calculation and convergence
+the use of stokes theorem, cite Meiss again.
+The specific contour
 
-[toytok 6-1 with evolving and convergence, toystell same]
--
+the mapping forward and backward to reduce the lenght and bring them back where there geometry is easy.
+
+then in the linear regime take just segments for gamma 1 and gamma 3 and approximate the integral which takes literally no time.
+
+question ? why not just find the contour with many points and calculate a dot dl ? This is an idea however here we remember that the poincare map is performed by integrating the field and in the latter case of real stellarator geometry it will take long to compute for instance even 100 points in u and s. (200pts * 5 integrations each will give) 1000 necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it. The complexity is different, here it is used for verification.
+
+actual calculation with the path 
+
+verification with triangle, shoelace and the a dot dl along the contour.
