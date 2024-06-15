@@ -1,31 +1,33 @@
-\chapter{Poincare Map}
+\chapter{Poincare map}
 \newcommand{\dpmap}{\mathcal{D}\mathcal{P}}
 \newcommand{\pmap}{\mathcal{P}}
 \newcommand{\nfp}{n_\text{fp}}
+\newcommand{\z}{z}
 
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. In the case of particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
 \begin{figure}[h!]
-    \subfloat[First sub-figure]{%
+    \subfloat[W7-X]{%
         \includegraphics[width=0.3\textwidth]{example-image-a}
     }
     \hfill
-    \subfloat[First sub-figure]{%
+    \subfloat[NCSX]{%
         \includegraphics[width=0.3\textwidth]{example-image-b}
     }
     \hfill
-    \subfloat[First sub-figure]{%
+    \subfloat[LHD]{%
         \includegraphics[width=0.3\textwidth]{example-image-c}
     }
     \caption{[w7x and other stell poincare section]}
 \end{figure}
-
+[
 See for instance 
-
 in experiments using fluorencent rod one can find this.
+]
 
-To compute a Poincare section, the evolution of a particle along the magnetic field $\textbf{B}$ will be described in cylindrical coordinates. 
+To compute a Poincare section numerically, the field line need to be traced and the crossings recorded. The evolution of a particle along the magnetic field $\textbf{B}$ will be described in cylindrical coordinates. By taking into account only the center of the gyro-motion.
 
+In fact it is a map defined by looking at the flow of vector field.
 
 \noindent
 \makebox[\textwidth]{%
@@ -34,91 +36,103 @@ To compute a Poincare section, the evolution of a particle along the magnetic fi
   \end{tcolorbox}
 }
 
-with basis $B =\{\partial_R, \partial_\phi, \partial_Z\}$  $\mathcal{M} = \mathbb{R}^+\times[0,2\pi[\times\mathbb{R}$.
-By taking into account only the center of the gyro-motion, the particle follow the curve $\gamma : \mathbb{R}\rightarrow\mathcal{M}$, $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. This defines a family of curves. By specifying the initial point $\gamma(0) = \textbf{x}_0$, we can write~:
+The trajectory curve $\gamma : \mathbb{R}\rightarrow\mathbb{R}^+\times[0,2\pi[\times\mathbb{R} \eqqcolon \mathcal{M}$, $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ we are interested in is such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. Specifying the initial point $\gamma(0) = \textbf{x}_0$ identifies a specific curve~:
 \begin{align*}
-    \gamma(t) = \int_0^t\dot{\gamma}(s)ds + \textbf{x}_0,
+    \gamma(t) = \int_0^t\dot{\gamma}(s)ds + \textbf{x}_0 \quad \text{with} \quad   \dot{\gamma}^i(t)= (\frac{dR}{dt},\,\frac{d\phi}{dt},\,\frac{dZ}{dt}) = (B^R, B^\phi, B^Z).
 \end{align*}
-with the component of the tangent vector being~:
-\begin{align*}
-    \dot{\gamma}^i(t)= (\frac{dR}{dt},\,\frac{d\phi}{dt},\,\frac{dZ}{dt}) = (B^R, B^\phi, B^Z).
-\end{align*}
-On the condition that the sign of $B^\phi(R, \phi, Z)$ remains either positive or negative on $\gamma$ the map~:
-\begin{align*}
+Provided that the sign of $B^\phi(R, \phi, Z)$ is either positive or negative on $\gamma$, $B^\phi$ is never zero, the map~:
+\begin{equation*}
     t(\phi) = \int \frac{dt}{d\phi}d\phi = \int_0^\phi \frac{1}{B^\phi}d\phi
-\end{align*}
-is one-to-one and onto and therefore defines a handy change of variable for which the $\phi$ evolution is linear. Indeed $\gamma$ can be re-parameterized as $\phi \mapsto \gamma(\phi) = (R(\phi),\,\phi,\,Z(\phi))$ with~$\dot{\gamma}$~:
-\begin{align*}
+\end{equation*}
+
+defines a handy change of variable for which the $\phi$ evolution is linear. Indeed $\gamma$ can be re-parameterized as $\phi \mapsto \gamma(\phi) = (R(\phi),\,\phi,\,Z(\phi))$ with~$\dot{\gamma}$~:
+\begin{equation*}
     \dot{\gamma}^i(\phi) = (\frac{dR}{d\phi},\,1,\,\frac{dZ}{d\phi}) = (\frac{dR}{dt}\frac{dt}{d\phi},\,1,\,\frac{dZ}{dt}\frac{dt}{d\phi}) = (B^R/B^\phi,\, 1,\,B^Z/B^\phi).
-\end{align*}
+\end{equation*}
+Due to the choice of coordinates the field will have at most a $\phi$ periodicity of $2\pi$, yet in stellarator configurations have azymuthal redundancy. Their period is $T = 2\pi/n_\text{fp}$ where $n_\text{fp}\in\mathbb{N}^\star$ is the number of field period in a complete toroidal rotation. For example, W7X and LHD have 5 and 10 field periods respectively. If the field is not periodic then $n_\text{fp} = 1$ and, in contrast, for an axisymmetric device without defaults $n_\text{fp} = +\infty$, the case of ideal Tokamaks.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics{images/theory/poincare-torus.pdf}
-    \caption{Trajectory of a particle in a toroidal device (Tokamak/Stellarator) from a starting point $(\tilde{R}, \tilde{Z})$ in a $\phi = \phi_i$ section to a point in the $\phi = \phi_i + T$ plane with $T$ the azymuthal periodicity of the magnetic field.}
-    \label{fig:poincare-map}
-\end{figure}
-
-The magnetic field has an azymuthal period $T = 2\pi/n_\text{fp}$ with $n_\text{fp}\in\mathbb{N}^\star$ the number of field period in a complete rotation. If the field is not periodic then $n_\text{fp} = 1$, on the contrary for an axisymmetric device without defaults $n_\text{fp} = +\infty$. The Poincare section is thus the same for $\phi_i$ and $\phi_i+kT$, $k\in\mathbb{Z}$. The Poincare map $F : \Omega \rightarrow \mathbb{R}_+\times\mathbb{R}$ is defined on $\Omega \subset \mathbb{R}_+\times\mathbb{R}$, the points for which the curve is indeed re-parametrizable between $\phi_i$ and $\phi_i + T$, by~:
-\begin{align*}
-    (\tilde{R},\tilde{Z}) \mapsto F(\tilde{R},\tilde{Z}) = \int_{\phi_i}^{\phi_i+T}(
+The Poincare section is hence identical for $\phi_i$ and $\phi_i+kT$, $k\in\mathbb{Z}$. Writing $\Omega$ the set of initial points in the $\phi_i$ plane for which $\gamma$ is effectively re-parametrizable between $\phi_i$ and $\phi_i + T$, allows to define the map $\pmap : \Omega \rightarrow \mathbb{R}_+\times\mathbb{R}$ as~:
+\begin{equation*}
+    (\tilde{R},\tilde{Z}) \mapsto \pmap(\tilde{R},\tilde{Z}) = \int_{\phi_i}^{\phi_i+T}(
         \dot{\gamma}^R(s),\,
         \dot{\gamma}^Z(s)
     )\,ds + (\tilde{R},\tilde{Z})
-\end{align*}
-with $\textbf{x}_0^i = (\tilde{R},\,\phi_i,\,\tilde{Z})$. 
-the trajectory becomes $r_i$ with $z_{i+1} = F(z_i)$.
+\end{equation*}
+with $\textbf{x}_0 = (\tilde{R},\,\phi_i,\,\tilde{Z})$. \figref{fig:th-poincare-map} represent an hypothetical $\nfp = 3$ configuration where an initial starting point $z_0\coloneqq (\tilde{R}_i,\tilde{Z}_i)$ gets map to the $\phi_i + T$ cross section. The evolution of the intersection for $z_0$ is then simply $z_{i+1} = \pmap(z_i)$ and $z_n = \pmap^n(z_0)$. 
 
-Note here that due to $\nabla\cdot\textbf{B} = 0$ the flux through any surface closed surface $A$ in the 2d plane $\phi_i$ is equal to the one through $F(A)$ in the $\phi_i + T$ plane~:
-\begin{align*}
-    \iint\limits_{A}\textbf{B}\cdot\textbf{dS} = \iint\limits_{F(A)}\textbf{B}\cdot\textbf{dS} \Leftrightarrow \int\limits_{A}\beta = \int\limits_{F(A)}\beta = \int\limits_{A}F^\star\beta
-\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/theory/poincare-torus.pdf}
+    \caption{Trajectory of a particle in a toroidal device (Tokamak/Stellarator) from a starting point $(\tilde{R}, \tilde{Z})$ in a $\phi = \phi_i$ section to a point in the $\phi = \phi_i + T$ plane with $T$ the azymuthal periodicity of the magnetic field.}
+    \label{fig:th-poincare-map}
+\end{figure}
 
-for the one familiar with differential forms
-where $\beta = B^\phi dR^\wedge dZ$ is the flux form and $F^\star\beta$ the pullback of $\beta$ through the $F$ map
-, meaning that the poincare map is an  preserving map for the flux form \cite{meiss_thirty_2015}. It implies on the determinant of the Jacobian $\textbf{DF} = \textbf{M}$ that given the identities~:
-\begin{align*}
-    \beta &= \beta_{ij}dx^i\wedge dx^j = \beta_{ij}dx^i\otimes dx^j\\
-    F^\star\beta &= M^{i'}_{\,\:i}M^{j'}_{\,\:j}\beta_{i'j'}dx^i\wedge dx^j = \frac{1}{2}\beta_{i'j'}\left(M^{i'}_{\,\:i}M^{j'}_{\,\:j}-M^{i'}_{\,\:j}M^{j'}_{\,\:i}\right)dx^i\otimes dx^j\\ &= \frac{1}{2}\beta_{i'j'}\delta^{i'j'}_{ij} \det(\textbf{M})dx^i\otimes dx^j = \beta_{ij}\det(\textbf{M})dx^i\otimes dx^j
-\end{align*}
+As the evolution is performed by following $\mathbf{B}$ and due to the magnetic field been divergence free $\nabla\cdot\textbf{B} = 0$, the flux through any surface obtained by mapping a simple path in $\phi_i$ to $\phi_i + T$ will be zero. This result in the key property of $\pmap$ being flux-conserving ; the flux through any closed surface $\Sigma \subset \Omega$ is equal to the one through $\pmap(\Sigma)$~:
+\begin{equation*}
+    \iint\limits_{\Sigma}\textbf{B}\cdot\textbf{dS} = \iint\limits_{\pmap(\Sigma)}\textbf{B}\cdot\textbf{dS}.
+\end{equation*}
+The determinant of the Jacobian matrix for a general flow $\Phi(x_0, t)$ of a vector field $v$, which does not depend on time, is related to the divergence of $v$ \cite[p.408]{hirsch_differential_2013} by~:
+\begin{equation}\label{eq:det-div-flow}
+    \text{det}(\mathcal{D}\Phi(x_0, t)) = \text{det}(\mathcal{D}\Phi(x_0, 0))\exp\left(\int_0^t\text{Tr}(\nabla v(s)) ds\right) = \exp\left(\int_0^t \nabla\cdot v(s) ds\right)
+\end{equation}
+with $v(\Phi(x_0, s))$ written implicitly as $v(s)$. In the case of the flow in cylindrical coordinates, \citeauthor{wei_invariant_2023} use \equref{eq:det-div-flow} to derive the relation~(Eq.8):
+\begin{equation*}\label{eq:det-div-pmap}
+    \text{det}(\mathcal{D}\Phi(x_0, \phi_i, \phi_e)) = \exp\left(\int_{\phi_i}^{\phi_e} \frac{R\,(\nabla\cdot v)}{\tilde{v}^\phi} ds\right)\frac{\tilde{v}^\phi(\phi_i)}{\tilde{v}^\phi(\phi_e)}.
+\end{equation*}
+It gives for the determinant of $\dpmap \in \mathbb{R}^{2\times2}$ that~:
+\begin{equation}\label{eq:pmap-det}
+    \text{det}(\dpmap(\tilde{R}, \tilde{Z})) = B^\phi(\tilde{R},\phi_i, \tilde{Z})/B^\phi(\pmap^{\tilde{R}}(\tilde{R},\tilde{Z}), \phi_i+T,\pmap^{\tilde{Z}}(\tilde{R},\tilde{Z})).
+\end{equation}
+The last identity may also be recovered more directly using differential forms as in \cite{meiss_thirty_2015}, the derivation is given in \appref{forms}.
 
-an non form way to see it is through this formula that relate the divergence with the determinant following which is more general and also work for a divergence free case [cite equation]
-[FORMULA]
-
-In either case for the det of F we have
-that 
-\begin{align*}
-    \text{det}(\dpmap(\tilde{R},\tilde{Z}))\beta(\pmap(\tilde{R},\tilde{Z})) = \beta(\tilde{R},\tilde{Z}) \implies \text{det}(\dpmap) = B^\phi/B^\phi
-\end{align*}
-
-from this formula we know how to have the determinant from f just by taking the ratio of $B^\phi/B^\phi$
-
-\section{Fixed point of the Poincare map}
-The fixed point of $F$, $x\in\Omega$ of order $k$ is such that $F^k(x) = x$. 
-
-it implies on the determinant that $\text{det}(\dpmap^k(x^\star)) = \beta(x^\star)/\beta(F^k(x^\star)) = 1$
-it makes it an element of SL(2,R). 
-
-We have that the therefore the writing the eigen value $\lambda_1$ and $\lambda_2$ we see that there is multiple 
-the eigenvalues can be complex and you have stable 
-
-you can have either complex conjugate of modulus one and you have an elliptic point indicating rotation around the fixed point. It is the O-point of islands. you can also have.
-
-[opoint and xpoint figure]
-
-there is also the case -1 +1 but [Possible in magnetic field ?].
-
-in fact this is linked to Greenes residue [cite].
-$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
-
-[insert the image from smiet]
+\section{Fixed points}
+Periodic orbit of the Poincaré map $\pmap$ are particularly important as they define field line that are close. A fixed point $\z^\star\in\Omega$ of order $k$ for $\pmap$ is such that $\pmap^k(\z^\star) = \z^\star$. 
 
 In the case of an island or island chain, the surface on which they happen (under resonable condition you can have them [CITE]), the number of winding that a field line starting on that surface does around the magnetic axis is given by the rotational transform $\iota$ over 2pi and is equal to $n/m$. It means that initial fixed point $x^\star$ evolves and after $m$ toroidal turns it will come back to itself, having perform n poloidal turns. We can see then that the number of intersections will be equal to $m$. the order of this fixed point for the poincare map is then at max $k=m\nfp$.
+
+\begin{figure}[H]
+    \subfloat[5/5 island in]{%
+        \includegraphics[width=0.5\textwidth]{example-image-a}
+    }
+    \hfill
+    \subfloat[Ncsx 7/3]{%
+        \includegraphics[width=0.5\textwidth]{example-image-c}
+    }
+    \caption{}
+\end{figure}
 
 Actually using the field periodicity of the field, we know that $m\nfp$ evolution is the same as $m$ evolution, if we have $m$ intersection applying the map $m$ time will take us back.
 
 here if $g = \gcd{m,n} = 1$ this works, otherwise we could have done only $m/g$ evolution and $g$ gives the number of different islands in the island chain.
+we have g dif orbit to search for.
 
+To distinguish between O and X point we can come back to \equref{eq:pmap-det}, the determinant $\text{det}(\dpmap^k(\z^\star)) = 1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. Remembering that the behaviour of the nearby field lines are describe using the Taylor expansion~:
+\begin{equation*}
+    \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star}, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2)
+\end{equation*}
+by the jacobian $\dpmap^k\vert_{\z^\star}$, the eigenvalues $\lambda_1$ and $\lambda_2$ are especially of interest.
+
+Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$
+
+If they are either complex conjugate $\lambda = e^{\pm i}$ of modulus 1 and indicate rotation around the fixed point
+
+
+there is also the case -1 +1 but 
+[Possible in magnetic field ?].
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image-a}
+    \caption{[insert the image from sawtooth}
+    \label{fig:enter-label}
+\end{figure}
+
+in fact this is linked to Greenes residue [cite].
+$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
+
+how to find them, using the newton method, details in the appendix.
+
+the sensitivity to initial conditions.
 
 %%% -- CHAPTER --- %%%
 \chapter{Toybox}

@@ -115,3 +115,18 @@ Then to find a fixed point of the map we want to perform the following :
     F(\tilde{R}_n,\tilde{Z}_n) - (\tilde{R}^*, \tilde{Z}^*)  = M(\tilde{R}_n,\tilde{Z}_n) - M(\tilde{R}^*, \tilde{Z}^*)+ o(\Vert \delta\textbf{x}\Vert^2)\\
     (\tilde{R}_{n+1},\tilde{Z}_{n+1}) = (\tilde{R}_n,\tilde{Z}_n)
 \end{align*}
+
+
+\chapter{Flux conservation as forms}\label{forms}
+
+\begin{equation*}
+    \iint\limits_{\Sigma}\textbf{B}\cdot\textbf{dS} = \iint\limits_{\pmap(\Sigma)}\textbf{B}\cdot\textbf{dS} \Leftrightarrow \int\limits_{\Sigma}\beta = \int\limits_{\pmap(\Sigma)}\beta = \int\limits_{\Sigma}\pmap^\star\beta
+\end{equation*}
+
+where on the on the right the equivalent differential form formalism is introduced with $\beta = B^\phi dR\wedge dZ$ the flux form and $\pmap^\star\beta$ the pullback of $\beta$ through the $F$ map.
+
+\begin{align*}
+    \beta &= \beta_{ij}dx^i\wedge dx^j = \beta_{ij}dx^i\otimes dx^j\\
+    F^\star\beta &= M^{i'}_{\,\:i}M^{j'}_{\,\:j}\beta_{i'j'}dx^i\wedge dx^j = \frac{1}{2}\beta_{i'j'}\left(M^{i'}_{\,\:i}M^{j'}_{\,\:j}-M^{i'}_{\,\:j}M^{j'}_{\,\:i}\right)dx^i\otimes dx^j\\ &= \frac{1}{2}\beta_{i'j'}\delta^{i'j'}_{ij} \det(\textbf{M})dx^i\otimes dx^j = \beta_{ij}\det(\textbf{M})dx^i\otimes dx^j
+\end{align*}
+
