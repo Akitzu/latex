@@ -6,22 +6,32 @@
 
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. For particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/theory/w7x.png}
+        \caption{W7-X, $\nfp = 5$}
+        \label{fig:w7x-default}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/theory/ncsx.png}
+        \caption{NCSX, $\nfp = 3$}
+        \label{fig:ncsx-default}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/theory/lhd.png}
+        \caption{LHD, $\nfp = 10$}
+        \label{fig:enter-label}
+    \end{subfigure}
 
-
-%\begin{figure}[h!]
-%    \subfloat[W7-X, $\nfp = 5$]{\label{fig:w7x-default}
-%        \includegraphics[width=0.3\textwidth]{images/theory/w7x.png}
-%    }
-%    \hfill
-%    \subfloat[NCSX, $\nfp = 3$]{\label{fig:ncsx-default}
-%        \includegraphics[width=0.3\textwidth]{images/theory/ncsx.png}
-%    }
-%    \hfill
-%    \subfloat[LHD, $\nfp = 10$]{%
-%        \includegraphics[width=0.3\textwidth]{images/theory/lhd.png}
-%    }
-%    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}\label{fig:poincare-example}
-%\end{figure}
+    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}\label{fig:poincare-example}
+    \label{fig:enter-label}
+\end{figure}
 
 Using Biot-Savart law to get the field generated from the known currents and coil geometry and by neglecting the gyro-motion around the field lines, the crossings can be numerically recorded. In \figref{fig:poincare-example} the Poincaré sections for three well known devices are computed using Runge-Kutta integration scheme. The closed flux surfaces appear from the magnetic axis up to the edge region. For W7-X and NCSX configuration, one island is predominant. For LHD on the contrary, the edge region is chaotic and multiple small islands are present in the chaotic edge region. Such a figure can be produced experimentally in stellarators by firing an electron beam, sweeping a fluorescent rod and using a long camera exposure \cite{pedersen_confirmation_2016}. To define a map that gives the evolution of the position of the crossings in the $\phi$ semi-plane, first note that for each initial point $\textbf{x}_0$ there is an associated curve $\gamma(t)$ depending on time which is link to the flow $\gamma(t) = \Phi(\textbf{x}_0, t)$ of the magnetic vector field. The cylindrical coordinates are a natural choice here.
 
@@ -166,7 +176,7 @@ The $\phi$ component of $\textbf{B}$ is introduced heuristically as~:
 \begin{align*}
     B^\phi = 2\sqrt{R^2-\rho^2}\,(\text{sf}+\frac{\text{shear}}{2}\rho^2)/R^2
 \end{align*}
-with its corresponding $A^R$ provided in [App1]. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
+with its corresponding $A^R$ provided in \appref{sec:jaxpot}. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
 \begin{align*}
      q(\rho) = (\text{sf}+\frac{\text{shear}}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_a + \rho\cos{\theta}}d\theta = \text{sf}+\frac{\text{shear}}{2}\rho^2
 \end{align*}
@@ -278,30 +288,33 @@ and when straight field line coordinate are defined, one can transform $\theta$ 
 talk about mode mixing : this is an choice in the way we apply the perturbation to mix mode.
 Chirikov overlap parameter
 
-\begin{figure}[h!]
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-a}
-    }
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.55\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/psi_pert.png}
+        \caption{}
+        \label{fig:toyha-32-psi}
+    \end{subfigure}
     \hfill
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-b}
-    }
-    \caption{high aspect ratio psi pert and result}
+    \begin{subfigure}[t]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/perturbed_3_2.png}
+        \caption{}
+        \label{fig:toyha-32-p}
+    \end{subfigure}
+    \caption{}
+    \label{fig:toyha-32}
 \end{figure}
 
 we can see that they follow the field on the trargeted q for the high aspect and at the separatrix for the toytok. 
 
 however the toroidal coordinates are not the straight field and if we plot at a $\rho = const$ we can see that
 
-\begin{figure}[h!]
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-a}
-    }
-    \hfill
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-b}
-    }
-    \caption{mode mixing for the toyHA}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/high-aspect-ratio/fieldlines.png}
+    \caption{mode mixing}
 \end{figure}
 
 mode mixing is good because it create chaos fast, non definition of flux coordinate at the separatrix. 
@@ -327,15 +340,11 @@ mode mixing is good because it create chaos fast, non definition of flux coordin
 
 The chaos appearing by ramping up the amplitude.
 
-\begin{figure}[h!]
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-a}
-    }
-    \hfill
-    \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-b}
-    }
-    \caption{ramping up the amplitude make the chaos appear in the 6/1 case}
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Caption}
+    \label{fig:enter-label}
 \end{figure}
 
 \chapter{Tangles and Turnstile}
