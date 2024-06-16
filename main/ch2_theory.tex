@@ -381,7 +381,7 @@ algorithm to plot them, from.
         \centering
         \begin{subfigure}[b]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/toytok/unperturbed/sepflux.png}
+            \includegraphics[width=\textwidth]{images/manifold/manifold_start.png}
             \caption{}
             \label{fig:}
         \end{subfigure}
@@ -390,7 +390,7 @@ algorithm to plot them, from.
         \vfill
         \begin{subfigure}[b]{0.99\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/toytok/unperturbed/q-iota-squared.png}
+            \includegraphics[width=\textwidth]{images/manifold/manifold_closer.png}
             \caption{}
             \label{fig:}
         \end{subfigure}
@@ -399,7 +399,7 @@ algorithm to plot them, from.
         \centering
         \begin{subfigure}[b]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/toytok/unperturbed/poincare.png}
+            \includegraphics[width=\textwidth]{images/manifold/manifold.png}
             \caption{}
             \label{fig:}
         \end{subfigure}
@@ -426,6 +426,25 @@ the rosenbruck structure, and the sneaking returns when the amplitude is increas
 the fact that we have more than one
 higher order homoclinic points
 toyha in 3 2 
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{}
+    \label{}
+\end{figure}
 
 the idea to initilize with specific epsilon values to have a nice initial guess. The fact that this is the main point were robustness may be increased.
 
@@ -471,6 +490,25 @@ then in the linear regime take just segments for gamma 1 and gamma 3 and approxi
 question ? why not just find the contour with many points and calculate a dot dl ? This is an idea however here we remember that the poincare map is performed by integrating the field and in the latter case of real stellarator geometry it will take long to compute for instance even 100 points in u and s. (200pts * 5 integrations each will give) 1000 necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it. The complexity is different, here it is used for verification.
 
 actual calculation with the path 
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{}
+    \label{}
+\end{figure}
 
 verification with triangle, shoelace and the a dot dl along the contour.
 
