@@ -152,25 +152,25 @@ the sensitivity to initial conditions.
 \chapter{Toybox}
 An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. Defining the model in this way has the advantage of making it possible to use automatic differentiation from the 
 \href{https://jax.readthedocs.io/en/latest/index.html}{\textcolor{blue}{\textit{JAX}}}
-package from \cite{bradbury_jax_2018}. The vector potential is the only quantity that needs to be defined analytically. The resulting $\textbf{B}$ or, in fact, any derivative of any reasonable order of $A$ can then be computed. A tokamak-like equilibrium is implemented as the basis of this so-called \textit{Toybox}.
+package \cite{bradbury_jax_2018}. The vector potential is the only quantity that needs to be defined analytically. The resulting $\textbf{B}$ or, in fact, any derivative of any reasonable order of $A$ can then be computed. A tokamak-like equilibrium is implemented as the basis of this so-called \textit{Toybox}.
 
-More specifically in axisymmetric equilibria (i.e. perfect tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces are well defined by the poloidal flux function $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
+More specifically in axisymmetric equilibria (i.e. perfect Tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces are well defined by the flux function  $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
 \begin{align*}
     \textbf{B} = B^i\partial_i = -\frac{1}{R}\frac{\partial\psi}{\partial Z}\partial_R +\frac{1}{R}\frac{\partial\psi}{\partial R}\partial_Z + \left(\frac{\partial A^R}{\partial Z} - \frac{\partial A^Z}{\partial R}\right)\partial_\phi.
 \end{align*}
 with $\psi = R^2 A^\phi$. The choice of Gauge can be exploited to assume $A^Z = 0$. For completeness, note that in the formulation of the Grad-Sharfranov equation, the $B^\phi$ term is related to a function $F(\psi)$ as $B^\phi = (\mu_0) F/R^2$.
 
-A convenient geometry to study for the flux surfaces is nested toroids centered on the magnetic axis of RZ-coordinates $(R_0, Z_0)$. Introducing toroidal coordinates $(\rho, \phi, \theta)$, with $\rho$ the distance from the axis, the poloidal flux is thus $\psi(R, Z) \propto (R - R_0)^2 + (Z - Z_0)^2 = \rho^2$. In fact, due to the freedom in dimensions, we will take the equality. For large aspect ratio tokamaks $R_0/\rho >> 1$ the safety factor profile can be approximated by~:
+A convenient geometry to study for the flux surfaces is nested toroids centered on the magnetic axis of RZ-coordinates $(R_0, Z_0)$. Introducing toroidal coordinates $(\rho, \phi, \theta)$, with $\rho$ the distance from the axis, the poloidal flux is thus $\psi(R, Z) \propto (R - R_0)^2 + (Z - Z_0)^2 = \rho^2$. In fact, due to the freedom in the dimension of the implementation, the equality can be choosen. For large aspect ratio tokamaks $R_0/\rho >> 1$ the safety factor profile can be approximated by~:
 \begin{align*}
     q \approx \frac{\Delta\phi}{\Delta\theta} = \frac{\rho \tilde{B}^\phi}{R_0 \tilde{B}^\theta} = \frac{2\pi}{\mu_0\tilde{I}^\phi R_0} \rho^2
 \end{align*}
-calculating the multipole expansion of $\tilde{B}^\theta$ only up to first order. The $\tilde{B}^\phi$ component and the plasma current $\tilde{I}^\phi$ are imposed by the toroidal field coils and the central solenoid respectively. It would be desirable to achieve this quadratic behaviour of $q$ in the tokamak model as well. In more precise details, the $q$-profile can be calculated in a single $\phi$ section by integrating over the poloidal closed curve defined by $\psi = \text{const}$ \cite[pp.111-112]{wesson_tokamaks_2011}. In this specific case, as $\psi = \rho^2$, this path simply reduce to an integration over $\theta$ as~:
+calculating the multipole expansion of $\tilde{B}^\theta$ only up to first order. The $\tilde{B}^\phi$ component and the plasma current $\tilde{I}^\phi$ are imposed by the toroidal field coils and the central solenoid respectively. It would be desirable to achieve this quadratic behaviour of $q$ in the tokamak model as well. In more details, the $q$-profile can be calculated in a single $\phi$ section by integrating over the poloidal closed curve defined by $\psi = \text{const}$ \cite[pp.111-112]{wesson_tokamaks_2011}. In this specific case, as $\psi = \rho^2$, this path simply reduce to an integration over $\theta$ as~:
 \begin{align}\label{eq:q-profile-th}
-    q(\rho) = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{d\phi}{d\theta}d\theta = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{B^\phi}{B^\theta}d\theta
+    q(\rho) = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{d\phi}{d\theta}d\theta = \frac{1}{2\pi}\int\limits_0^{2\pi} \frac{B^\phi}{B^\theta}d\theta.
 \end{align}
 The $\theta$ component can be derived directly from coordinate transformation, as follows~:
 \begin{align*}
-    B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R_a+\rho\cos{\theta}}.
+    B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R} = \frac{2}{R_0+\rho\cos{\theta}}.
 \end{align*}
 The $\phi$ component of $\textbf{B}$ is introduced heuristically as~:
 \begin{align*}
@@ -178,40 +178,36 @@ The $\phi$ component of $\textbf{B}$ is introduced heuristically as~:
 \end{align*}
 with its corresponding $A^R$ provided in \appref{sec:jaxpot}. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
 \begin{align*}
-     q(\rho) = (\text{sf}+\frac{\text{shear}}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_a + \rho\cos{\theta}}d\theta = \text{sf}+\frac{\text{shear}}{2}\rho^2
+     q(\rho) = (\text{sf}+\frac{\text{shear}}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_0 + \rho\cos{\theta}}d\theta = \text{sf}+\frac{\text{shear}}{2}\rho^2
 \end{align*}
-where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:basis-poincare} shows the reconstructed cross section using field line tracing on a such an equilibrium with an $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.
-
-the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp = 1$ for latter when we add perturbation.
+where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:toyha-basis-p} shows the cross section obtained by tracing the field line over a full toroidal revolution for the equilibrium with $R_0 = 6$, $Z_0 = 0$, $\text{sf} = 0.8875$ and $\text{shear} = 0.4$. While the effective number of field periods is $\nfp = \infty$, calculating the Poincare section by integrating over $2\pi$ remains correct even when perturbations are added and the axisymmetry breaks. The density of intersections is higher on the inside than on the outside. Since $B^\rho = 0$ and $\Tilde{B}^\phi/\tilde{B}^\theta \propto \sqrt{(\rho/R)^2-1}$ for constant $\rho$, a field line revolves faster in $\phi$ when $\theta \sim \pi$ then when $\theta \sim 0$ and thus make more crossings.
 
 \begin{figure}
     \centering
     \begin{subfigure}[t]{0.43\textwidth}
         \centering
-        \label{fig:b}
         \includegraphics[width=\textwidth]{images/high-aspect-ratio/unperturbed.pdf}
-        \caption{Poincare section}
+        \caption{\label{fig:toyha-basis-p}}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.54\textwidth}
         \centering
-        \label{fig:b}
         \includegraphics[width=\textwidth]{images/high-aspect-ratio/iota_q.pdf}
-        \caption{$\iotaslash$ and $q$ profiles}
+        \caption{\label{fig:toyha-basis-iotaq}}
     \end{subfigure}
-    \caption{High aspect ratio Toy-Tokamak profile with nested toroids flux surface geometry. The values of $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.}
-    \label{fig:a}
+    \caption{High aspect ratio Toy-Tokamak equilibrium with $R_0 = 6$, $Z_0 = 0$, $\text{sf} = 0.8875$ and $\text{shear} = 0.4$. (a) Poincar\'e section computed with Runge-Kutta algorithm. (b) Rotational transform $\iota/2\pi$ and $q$ profile with respect to the distance $\rho$ from the axis.}
+    \label{fig:toyha-basis}
 \end{figure}
 
-The rotational transform $\iotaslash$ of the field lines can be computed by integration of both the magnetic axis as well as the starting point trajectories. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reassuring.
+The rotational transform $\iotaslash$ of field lines are computed by integrating both the field line themselves and the magnetic axis, tracking the evolution of the winding. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with $\rho\in [0, 2]$ gives the $\iotaslash$ profile in \figref{fig:toyha-basis-iotaq}. The calculated $q$-profile is in great agreement with its analytical form, which is reassuring.
 
-The density of field line is higher for lower R value which needs to be the case for divergence free field. Indeed if the value of $\tilde{B}^\phi$ decreases rougly with $R^{-1}$ then as $B^\theta$ is not changing as much $\rho*R^{-1}$, a field line on the inside goes fast in phi and as the time to cross several times the phi plane until the btheta take it away. a field line on the outside on the other hand moves in theta faster with respect to the phi and stays there for a shorter.
-
-An essential feature of the diverted tokamak edge structure is the separatrix. Combining a quadratic $q$ equilibrium with the field generated by a circular current loop at appropriate position and amplitude will result in a single null equilibrium. The vector potential of a loop at position $(R_l, 0)$ is given in \cite{simpson_simple_2001} as~:
+An essential feature of the diverted tokamak edge structure is the separatrix. Combining a quadratic $q$ equilibrium with the field generated by a circular current loop at appropriate position and amplitude will result in a single null equilibrium. The vector potential of a curent loop at position $(R_l, 0)$ is given in \cite{simpson_simple_2001} as~:
 \begin{align*}
     A^\phi = \frac{\mu_0}{4\pi}\frac{4IR_l}{\beta R}\left(\frac{(2-k^2)K(k^2)-2E(k^2)}{k^2}\right).
 \end{align*}
-with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position, replace $Z \mapsto Z-Z_l$.
+with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position from this expression, $Z$ can be substituted  with $Z-Z_l$.
+
+The superposition of $\psi_{sep}$ with $I = 10\,\pi/\mu_0$, $R_l = 6$ and $Z_l = -5.5$ on the $\psi_{eq}$ for nested toroids with $R_0 = 6, Z_0 = 0, \text{sf} = 0.91, \text{shear} = 1.2$ is shown in \figref{fig:toytok-base-psi}. $\psi_{sep}$ produces only a field lying in the poloidal plane, and by taking the current direction in the loop identical to the direction of $B^\phi_{eq}$, the poloidal component of the field cancels out somewhere between the former axis and the position of the loop, producing the desired X-point. The resulting analytical Tokamak equilibrium is shown in \figref{fig:toytok-base-p}. The separatrix appears clearly. It can be appreciated that for small distances with respect to the axis the $q$-profile is still quadratic \figref{fig:toytok-base-p} and tends to infinity as it approaches the separatrix.
 
 \begin{figure}[H]
     \centering
@@ -220,8 +216,8 @@ with $K, E$ the complete elliptic integral of the first and second kind and with
         \begin{subfigure}[b]{\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/toytok/unperturbed/sepflux.png}
-            \caption{First sub-figure}
-            \label{fig:left1}
+            \caption{}
+            \label{fig:toytok-base-psi}
         \end{subfigure}
         \vfill
         \vspace{10px}
@@ -229,8 +225,8 @@ with $K, E$ the complete elliptic integral of the first and second kind and with
         \begin{subfigure}[b]{0.99\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/toytok/unperturbed/q-iota-squared.png}
-            \caption{Second sub-figure}
-            \label{fig:left2}
+            \caption{}
+            \label{fig:toytok-base-iotaq}
         \end{subfigure}
     \end{minipage}%
     \begin{minipage}{0.5\textwidth} % Adjust width as needed
@@ -238,20 +234,13 @@ with $K, E$ the complete elliptic integral of the first and second kind and with
         \begin{subfigure}[b]{\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/toytok/unperturbed/poincare.png}
-            \caption{Third sub-figure}
-            \label{fig:right}
+            \caption{}
+            \label{fig:toytok-base-p}
         \end{subfigure}
     \end{minipage}
-    \caption{Stacked subfigures on the left and one subfigure on the right.}
-    \label{fig:main}
+    \caption{Analytical Tokamak equilibrium obtained by (a) the addition of the $\psi_{sep}$ function generated by a current loop on top of a high aspect-ratio toroids equilibrium. (b) $\iota/2\pi$ and $q$ profiles and (c) resulting Poincaré section.}
+    \label{fig:toytok-base}
 \end{figure}
-
-Setting 
-$R = 6, Z = 0, q_0 = 0.91, shear 1.2$
-
-\figref{fig:toytok-eq} shows the contour of $\psi_\text{sep}$ on $\psi$.
-
-The equilibrium obtained has two 
 
 \section{Perturbations}
 The \textit{ToyTok} is not chaotic and will make it not axisymmetric anymore.
@@ -260,7 +249,7 @@ The \textit{ToyTok} is not chaotic and will make it not axisymmetric anymore.
 the hamiltonian formalism is describe for instance in \cite{viana_hamiltonian_2023} or in
 \cite{escande_description_2024} $\delta\textbf{A} = -\delta\psi_P\nabla\phi/2\pi$ which is adding adding in straight field line coordinates with. 
 
-The perturbations can be added into the straight field line coordinates or as hamiltonian formalism. show there equivalence  .
+In 
 
 In the toroidal coordinates the $\phi$ and $\theta$ angles are both $\in [0, 2\pi)$ with $R_\text{max}(\theta)$ and thus one can develop any component into Fourier series as for the magnetic vector potential $\textbf{A}$.
 \begin{align*}
@@ -288,7 +277,7 @@ and when straight field line coordinate are defined, one can transform $\theta$ 
 talk about mode mixing : this is an choice in the way we apply the perturbation to mix mode.
 Chirikov overlap parameter
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \begin{subfigure}[t]{0.55\textwidth}
         \centering
@@ -314,10 +303,13 @@ however the toroidal coordinates are not the straight field and if we plot at a 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/high-aspect-ratio/fieldlines.png}
-    \caption{mode mixing}
+    \caption{Angle between $B^\phi$ and $\textbf{B}$ in radian against the $\theta$ and $\phi$ angle for the magnetic surface $\rho = 1.75$.\label{fig:mode-mixing}}
 \end{figure}
 
-mode mixing is good because it create chaos fast, non definition of flux coordinate at the separatrix. 
+\figref{fig:mode-mixing} shows that while the field for the $B^\rho = 0$ we are not in straight field line coordinate as the angle clearly changes with respect to the $\theta$ and $\phi$ values. 
+
+The coordinate transformation [cite] 
+It induces chaos quickly as one can 
 
 \begin{figure}
     \centering
@@ -338,37 +330,83 @@ mode mixing is good because it create chaos fast, non definition of flux coordin
     \label{fig:toytok-61}
 \end{figure}
 
-The chaos appearing by ramping up the amplitude.
+A closer look at the x-point to show the correctness.
 
 \begin{figure}
     \centering
-    \includegraphics{}
+    \includegraphics[width=0.5\textwidth]{images/toytok/perturbed-6-1/perturbed_6_1_closer.png}
     \caption{Caption}
     \label{fig:enter-label}
 \end{figure}
 
 \chapter{Tangles and Turnstile}
 
-the separatrix that links 
-
-when chaos appear the separation of a separatrix when.
+small epsilon when chaos appear the separation of a separatrix when.
 KAM theory
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{}
+    \label{}
+\end{figure}
 
 tangles for the tokamap, the henon map
 we see that there were a separatrix and then they break to give.
 
-the tangles
-
-The jacobian of $\dpmap$ is $\mathcal{P}(x^\star) = x^\star$ fixed points of a discrete dynamical system.
+and a really great can be found in \cite{hohloch_homoclinic_2017}\cite{hohloch_transport_2012}.
+from poincare also called them trellis [cite]
 
 \section{Stable and Unstable Manifolds}
 
-from poincare also called them trellis [cite]
 manifold, manifold ordering.
 
 algorithm to plot them, from.
 
-[plot of the manifold, toytok 6-1, toystell 3/2]
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/toytok/unperturbed/sepflux.png}
+            \caption{}
+            \label{fig:}
+        \end{subfigure}
+        \vfill
+        \vspace{10px}
+        \vfill
+        \begin{subfigure}[b]{0.99\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/toytok/unperturbed/q-iota-squared.png}
+            \caption{}
+            \label{fig:}
+        \end{subfigure}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/toytok/unperturbed/poincare.png}
+            \caption{}
+            \label{fig:}
+        \end{subfigure}
+    \end{minipage}
+    \caption{}
+    \label{fig:}
+\end{figure}
 
 laking behind due to the q-profile
 the shape first goes out and then comes back.
@@ -376,10 +414,10 @@ the shape first goes out and then comes back.
 the tangle structure they create
 
 \section{Hetero/Homo-clinic points}
-[floer homology from sonja]
+
 what are they and algorithm to find them
 
-interested in primary homo-hetero clinic points
+interested in primary homo-hetero clinic points, there definition.
 
 algorithm to find them on 6/1 and the fact that we need to find another one, say that we can just initialize with lambda being half.
 
@@ -435,3 +473,5 @@ question ? why not just find the contour with many points and calculate a dot dl
 actual calculation with the path 
 
 verification with triangle, shoelace and the a dot dl along the contour.
+
+\subsection{Inner and outer turnstiles}
