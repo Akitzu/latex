@@ -8,7 +8,7 @@ In the study of continuous dynamical systems, it is often convenient to consider
 
 \begin{figure}[h!]
     \subfloat[W7-X]{%
-        \includegraphics[width=0.3\textwidth]{example-image-a}
+        \includegraphics[width=0.3\textwidth]{}
     }
     \hfill
     \subfloat[NCSX]{%
@@ -86,9 +86,40 @@ It gives for the determinant of $\dpmap \in \mathbb{R}^{2\times2}$ that~:
 The last identity may also be recovered more directly using differential forms as in \cite{meiss_thirty_2015}, the derivation is given in \appref{forms}.
 
 \section{Fixed points}
-Periodic orbit of the Poincaré map $\pmap$ are particularly important as they define field line that are close. A fixed point $\z^\star\in\Omega$ of order $k$ for $\pmap$ is such that $\pmap^k(\z^\star) = \z^\star$. 
+Periodic orbit of the Poincaré map $\pmap$ are particularly important as they define field line that are close. The magnetic axis, whose existence is guaranteed by the Hairy ball theorem, is a closed field line that has only one intersection with any $\phi$ plane. Therefore the point $\z_0\in\Omega$ describing this intersection is a fixed point $\pmap^1(\z_0) = \z_0$. In general a fixed point $z^\star\in\Omega$ is of order $k\in\mathbb{N}^\star$ if $\pmap^k(\z^\star) = \z^\star$ and $\pmap^j(\z^\star) \neq \z^\star$ for $j < k$.
 
-In the case of an island or island chain, the surface on which they happen (under resonable condition you can have them [CITE]), the number of winding that a field line starting on that surface does around the magnetic axis is given by the rotational transform $\iota$ over 2pi and is equal to $n/m$. It means that initial fixed point $x^\star$ evolves and after $m$ toroidal turns it will come back to itself, having perform n poloidal turns. We can see then that the number of intersections will be equal to $m$. the order of this fixed point for the poincare map is then at max $k=m\nfp$.
+It's worth noting that the toroidal geometry of the magnetic field requires the field lines to twist around the magnetic axis in order to average out the $\nabla\textbf{B}$ drift. The twisting is quantify by the rotational transform $\iotaslash$ which indicates the fraction of poloidal turns
+performed after one toroidal turn. More precisely, if $\iotaslash$ is rational, one can write $\iotaslash = n/m$ which means that after $m$ toroidal turns the field line will have wrapped around the magnetic axis poloidally $n$ times. In Tokamaks, due to its relation with magnetohydrodynamic stability limit, it is more common to use the safety factor $q=1/\iotaslash$.
+
+Magnetic islands (chains) are present at rational $\iotaslash$ values. After $m$ toroidal turns, the initial starting point $\z^\star$ returns to itself and, recalling that there is $\nfp$ Poincaré sections in a toroidal turn, the order of the fixed point is at most $k=m\nfp$. Furthermore, as the field line makes $m$ turns, it will intersect a constant $\phi$ semi-plane exactly $m$ times. Using the periodicity of the field we see that after $m$ iterations the point will already be back to itself and $\pmap^m(\z^\star) = \z^\star$. The order of $\z^\star$ is thus $k=m$ and the poloidal winding angle will be only $2\pi\cdot n/\nfp$ for $m$ iterations. 
+
+For instance in figure \figref{} we see the 
+
+When $g = \gcd{(m,n)} = 1$, one island rotates and recording the $\pmap^j(\z^\star)$ for $j = 1, ..., k$ 
+of one O-point and one X-point is enough to recover all of their coordinates. When $g \neq 1$ on the other hand, there are $g$ different island rotating and $g$ orbits to search for both X and O point. 
+
+To distinguish between O and X point it can used that the behaviour of the nearby field lines are describe using the Taylor expansion~:
+\begin{equation*}
+    \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star},\, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2)
+\end{equation*}
+by the jacobian $\dpmap^k\vert_{\z^\star}$ and especially by its eigenvalues $\lambda_1$ and $\lambda_2$. Using \equref{eq:pmap-det}, the determinant of $\text{det}(\dpmap^k\vert_{\z^\star})~=~1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$, the eigenvalues are either~:
+
+in fact this is linked to Greenes residue [cite].
+$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
+
+- Complex conjugate $\lambda = e^{\pm i}$ of modulus 1 and indicate rotation around the fixed point making it an O point.
+- Tr() > 2 both real which mean that there is $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$ note here that there is one case for which.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/theory/smeit_sawtooth.jpg}
+    \caption{[insert the image from sawtooth here $\dpmap$ is written as $M$.}
+    \label{fig:enter-label}
+\end{figure}
+
+There is there is actually a more topological way to define the O/X point and the alternating hyperbolic are o points.
+
+how to find them, using the newton method, details in the appendix, however we see that the region of convergence are not big.
 
 \begin{figure}[H]
     \subfloat[5/5 island in]{%
@@ -101,42 +132,14 @@ In the case of an island or island chain, the surface on which they happen (unde
     \caption{}
 \end{figure}
 
-Actually using the field periodicity of the field, we know that $m\nfp$ evolution is the same as $m$ evolution, if we have $m$ intersection applying the map $m$ time will take us back.
-
-here if $g = \gcd{m,n} = 1$ this works, otherwise we could have done only $m/g$ evolution and $g$ gives the number of different islands in the island chain.
-we have g dif orbit to search for.
-
-To distinguish between O and X point we can come back to \equref{eq:pmap-det}, the determinant $\text{det}(\dpmap^k(\z^\star)) = 1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. Remembering that the behaviour of the nearby field lines are describe using the Taylor expansion~:
-\begin{equation*}
-    \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star}, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2)
-\end{equation*}
-by the jacobian $\dpmap^k\vert_{\z^\star}$, the eigenvalues $\lambda_1$ and $\lambda_2$ are especially of interest.
-
-Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$
-
-If they are either complex conjugate $\lambda = e^{\pm i}$ of modulus 1 and indicate rotation around the fixed point
-
-
-there is also the case -1 +1 but 
-[Possible in magnetic field ?].
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{smiet-}
-    \caption{[insert the image from sawtooth}
-    \label{fig:enter-label}
-\end{figure}
-
-in fact this is linked to Greenes residue [cite].
-$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
-
-how to find them, using the newton method, details in the appendix.
-
 the sensitivity to initial conditions.
 
 %%% -- CHAPTER --- %%%
 \chapter{Toybox}
 An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. A tokamak-like equilibrium is therefore implemented as the basis of this so-called \textit{Toybox}, to which perturbations can be added by summing their respective magnetic potential.
+
+Defining 
+This allows to define analytically only the potential themselves and use automatic differentiation \textit{JAX} to calculate $\textbf{B}$ or any $D^\alpha B^i$.
 
 More specifically in axisymmetric equilibria (i.e. perfect tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces are well defined by the poloidal flux function $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
 \begin{align*}
@@ -351,9 +354,11 @@ the formal definition by Meiss
 
 How the conservation of the flux implies that the entering and exiting sets have the same flux.
 
+the algorithm meiss uses.
+
 \subsection{Integration of the action}
 
-The vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$.
+For the algorhithm in []. The vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$.
 
 $g = dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ$
 
@@ -361,7 +366,7 @@ The curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ alon
 \begin{align*}
     \int_0^\phi g(\textbf{A},\textbf{dl}) = \int_0^\phi g(\textbf{A}(\gamma(s)),\dot{\gamma}(s))ds\\ = \int_0^\phi (A^R\dot{\gamma}^R + R^2A^\phi\dot{\gamma}^\phi + A^Z\dot{\gamma}^Z) ds
 \end{align*}
-Thus for a $q=m/n=1/0$ fixed point of with $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
+Thus for a $q=m/n=1/0$ fixed point of an axisymmetric equilibrium $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
 
 \subsection{algorithm}
 
@@ -369,6 +374,12 @@ the use of stokes theorem, cite Meiss again.
 The specific contour
 
 the mapping forward and backward to reduce the lenght and bring them back where there geometry is easy.
+
+The first idea is to iterate the map until 
+\begin{align*}
+    \int\limits_{\gamma_i} \textbf{A}\cdot\textbf{dl} \leq \int\limits_{\gamma_i} \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert \leq\, L(\gamma_i)\max\limits_{\textbf{x} \in\gamma_i}\Vert\textbf{A(\textbf{x})}\Vert \lesssim L(\gamma_i)
+\end{align*}
+however this was found to work but a nice fix is that we don't need to 
 
 then in the linear regime take just segments for gamma 1 and gamma 3 and approximate the integral which takes literally no time.
 
