@@ -4,30 +4,24 @@
 \newcommand{\nfp}{n_\text{fp}}
 \newcommand{\z}{z}
 
-In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. In the case of particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
+In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. For particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
 \begin{figure}[h!]
-    \subfloat[W7-X]{\label{fig:w7x-default}
-        \includegraphics[width=0.3\textwidth]{images/theory/default.pdf}
+    \subfloat[W7-X, $\nfp = 5$]{\label{fig:w7x-default}
+        \includegraphics[width=0.3\textwidth]{images/theory/w7x.png}
     }
     \hfill
-    \subfloat[NCSX]{%
-        \includegraphics[width=0.3\textwidth]{example-image-b}
+    \subfloat[NCSX, $\nfp = 3$]{\label{fig:ncsx-default}
+        \includegraphics[width=0.3\textwidth]{images/theory/ncsx.png}
     }
     \hfill
-    \subfloat[LHD]{%
-        \includegraphics[width=0.3\textwidth]{example-image-c}
+    \subfloat[LHD, $\nfp = 10$]{%
+        \includegraphics[width=0.3\textwidth]{images/theory/lhd.png}
     }
-    \caption{[w7x and other stell poincare section]}
+    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}\label{fig:poincare-example}
 \end{figure}
-[
-See for instance 
-in experiments using fluorencent rod one can find this.
-]
 
-To compute a Poincare section numerically, the field line need to be traced and the crossings recorded. The evolution of a particle along the magnetic field $\textbf{B}$ will be described in cylindrical coordinates. By taking into account only the center of the gyro-motion.
-
-In fact it is a map defined by looking at the flow of vector field.
+Using Biot-Savart law to get the field generated from the known currents and coil geometry and by neglecting the gyro-motion around the field lines, the crossings can be numerically recorded. In \figref{fig:poincare-example} the Poincaré sections for three well known devices are computed using Runge-Kutta integration scheme. The closed flux surfaces appear from the magnetic axis up to the edge region. For W7-X and NCSX configuration, one island is predominant. For LHD on the contrary, the edge region is chaotic and multiple small islands are present in the chaotic edge region. Such a figure can be produced experimentally in stellarators by firing an electron beam, sweeping a fluorescent rod and using a long camera exposure \cite{pedersen_confirmation_2016}. To define a map that gives the evolution of the position of the crossings in the $\phi$ semi-plane, first note that for each initial point $\textbf{x}_0$ there is an associated curve $\gamma(t)$ depending on time which is link to the flow $\gamma(t) = \Phi(\textbf{x}_0, t)$ of the magnetic vector field. The cylindrical coordinates are a natural choice here.
 
 \noindent
 \makebox[\textwidth]{%
@@ -71,13 +65,13 @@ As the evolution is performed by following $\mathbf{B}$ and due to the magnetic 
 \begin{equation*}
     \iint\limits_{\Sigma}\textbf{B}\cdot\textbf{dS} = \iint\limits_{\pmap(\Sigma)}\textbf{B}\cdot\textbf{dS}.
 \end{equation*}
-The determinant of the Jacobian matrix for a general flow $\Phi(x_0, t)$ of a vector field $v$, which does not depend on time, is related to the divergence of $v$ \cite[p.408]{hirsch_differential_2013} by~:
+The determinant of the Jacobian matrix for a general flow $\Phi(\textbf{x}_0, t)$ of a vector field $v$, which does not depend on time, is related to the divergence of $v$ \cite[p.408]{hirsch_differential_2013} by~:
 \begin{equation}\label{eq:det-div-flow}
-    \text{det}(\mathcal{D}\Phi(x_0, t)) = \text{det}(\mathcal{D}\Phi(x_0, 0))\exp\left(\int_0^t\text{Tr}(\nabla v(s)) ds\right) = \exp\left(\int_0^t \nabla\cdot v(s) ds\right)
+    \text{det}(\mathcal{D}\Phi(\textbf{x}_0, t)) = \text{det}(\mathcal{D}\Phi(\textbf{x}_0, 0))\exp\left(\int_0^t\text{Tr}(\nabla v(s)) ds\right) = \exp\left(\int_0^t \nabla\cdot v(s) ds\right)
 \end{equation}
-with $v(\Phi(x_0, s))$ written implicitly as $v(s)$. In the case of the flow in cylindrical coordinates, \citeauthor{wei_invariant_2023} use \equref{eq:det-div-flow} to derive the relation~(Eq.8):
+with $v(\Phi(\textbf{x}_0, s))$ written implicitly as $v(s)$. In the case of the flow in cylindrical coordinates, \citeauthor{wei_invariant_2023} use \equref{eq:det-div-flow} to derive the relation~(Eq.8):
 \begin{equation*}\label{eq:det-div-pmap}
-    \text{det}(\mathcal{D}\Phi(x_0, \phi_i, \phi_e)) = \exp\left(\int_{\phi_i}^{\phi_e} \frac{R\,(\nabla\cdot v)}{\tilde{v}^\phi} ds\right)\frac{\tilde{v}^\phi(\phi_i)}{\tilde{v}^\phi(\phi_e)}.
+    \text{det}(\mathcal{D}\Phi(\textbf{x}_0, \phi_i, \phi_e)) = \exp\left(\int_{\phi_i}^{\phi_e} \frac{R\,(\nabla\cdot v)}{\tilde{v}^\phi} ds\right)\frac{\tilde{v}^\phi(\phi_i)}{\tilde{v}^\phi(\phi_e)}.
 \end{equation*}
 It gives for the determinant of $\dpmap \in \mathbb{R}^{2\times2}$ that~:
 \begin{equation}\label{eq:pmap-det}
@@ -93,32 +87,39 @@ performed after one toroidal turn. More precisely, if $\iotaslash$ is rational, 
 
 Magnetic islands (chains) are present at rational $\iotaslash$ values. After $m$ toroidal turns, the initial starting point $\z^\star$ returns to itself and, recalling that there is $\nfp$ Poincaré sections in a toroidal turn, the order of the fixed point is at most $k=m\nfp$. Furthermore, as the field line makes $m$ turns, it will intersect a constant $\phi$ semi-plane exactly $m$ times. Using the periodicity of the field we see that after $m$ iterations the point will already be back to itself and $\pmap^m(\z^\star) = \z^\star$. The order of $\z^\star$ is thus $k=m$ and the poloidal winding angle will be only $2\pi\cdot n/\nfp$ for $m$ iterations. 
 
-For instance in figure \figref{fig:w7x-default} we see the 
+When $g = \gcd{(m,\,n)} = 1$ one island rotates 
+$k = m/gcd(\nfp, n)$
 
-When $g = \gcd{(m,n)} = 1$, one island rotates and recording the $\pmap^j(\z^\star)$ for $j = 1, ..., k$ 
-of one O-point and one X-point is enough to recover all of their coordinates. When $g \neq 1$ on the other hand, there are $g$ different island rotating and $g$ orbits to search for both X and O point. 
 
-To distinguish between O and X point it can used that the behaviour of the nearby field lines are describe using the Taylor expansion~:
+It is the case in \figref{fig:ncsx-default} were $\iotaslash = 3/7$. There is one island that rotates around the magnetic axis and gives the 7 intersections. When $g \neq 1$ on the other hand, there are $g$ different island rotating. 
+
+We see this for \figref{fig:w7x-default} were $\iotaslash = 5/5$. There are five different islands.
+
+In term of the number of orbit
+and recording the $\pmap^j(\z^\star)$ for $j = 1, ..., k$ of one O-point and one X-point is enough to recover all of their coordinates.
+
+
+
+To distinguish between O and X points, the behaviour of nearby field lines can be described using the Taylor expansion~:
 \begin{equation*}
     \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star},\, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2)
 \end{equation*}
-by the jacobian $\dpmap^k\vert_{\z^\star}$ and especially by its eigenvalues $\lambda_1$ and $\lambda_2$. Using \equref{eq:pmap-det}, the determinant of $\text{det}(\dpmap^k\vert_{\z^\star})~=~1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. 
+by the jacobian and especially by its eigenvalues $\lambda_1$ and $\lambda_2$. Using \equref{eq:pmap-det}, the determinant of $\dpmap^k\vert_{\z^\star}$  is equal to 1 which is equivalent as stating that the matrix is an element of $\text{SL}(2,\mathbb{R})$. Depending on the value of the trace or equivalently on the value of the Greenes Residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k\vert_{\z^\star})$, the eigenvalues are either~:
+\begin{enumerate}
+    \item Complex conjugate and of modulus 1 ; $\lambda_{1,2} = e^{\pm i\theta}$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert < 2$ and $0 < \mathcal{R} < 1$. They indicate rotation around the fixed point which is the behaviour of an O-point.
+    \item Both real with $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert > 2$ and $\mathcal{R}$.
+    \item $\lambda_1 = \lambda_2 = \pm 1$
+\end{enumerate}
 
-
-Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$ or equivalently on the value of the Greenes residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$, the eigenvalues are either~:
-
-
-- Complex conjugate $\lambda = e^{\pm i}$ of modulus 1 and indicate rotation around the fixed point making it an O point.
-- Tr() > 2 both real which mean that there is $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$ note here that there is one case for which.
+we want to differentiate between $\lambda_s, \lambda_u < 0$ and $\lambda_s, \lambda_u > 0$. In fact due to more topologycal resons the the O/X point and the alternating hyperbolic are o points.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/theory/smeit_sawtooth.jpg}
-    \caption{[insert the image from sawtooth here $\dpmap$ is written as $M$.}
+    \caption{[insert the image from sawtooth here $\dpmap$ is written as $M$ \cite{smiet_bifurcations_2020}.}
     \label{fig:enter-label}
 \end{figure}
 
-There is there is actually a more topological way to define the O/X point and the alternating hyperbolic are o points.
 
 The method to find fixed point is simply using the newton algorithm, details in the appendix, however we see that the region of convergence are not big.
 
@@ -169,8 +170,7 @@ with its corresponding $A^R$ provided in [App1]. Inserting $B^\theta$ and $B^\ph
 \end{align*}
 where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:basis-poincare} shows the reconstructed cross section using field line tracing on a such an equilibrium with an $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.
 
-the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp = 1$ for latter when we add perturbation. here the poincare plot is done with 
-
+the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp = 1$ for latter when we add perturbation.
 
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
@@ -182,10 +182,12 @@ the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp
         \label{fig:basis-qprofile}
         \includegraphics[width=0.5\textwidth]{images/plots/squared-profile/q-iota-squared.pdf}
     }
-    \caption{[figure without perturbations]}
+    \caption{High aspect ratio Toy-Tokamak profile with nested toroids flux surface geometry. The values of $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.}
 \end{figure}
 
 The rotational transform $\iotaslash$ of the field lines can be computed by integration of both the magnetic axis as well as the starting point trajectories. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reassuring.
+
+The density of field line is higher for lower R value which needs to be the case for divergence free field. Indeed if the value of $\tilde{B}^\phi$ decreases rougly with $R^{-1}$ then as $B^\theta$ is not changing as much $\rho*R^{-1}$, a field line on the inside goes fast in phi and as the time to cross several times the phi plane until the btheta take it away. a field line on the outside on the other hand moves in theta faster with respect to the phi and stays there for a shorter.
 
 An essential feature of the diverted tokamak edge structure is the separatrix. Combining a quadratic $q$ equilibrium with the field generated by a circular current loop at appropriate position and amplitude will result in a single null equilibrium. The vector potential of a loop at position $(R_l, 0)$ is given in \cite{simpson_simple_2001} as~:
 \begin{align*}
@@ -211,8 +213,8 @@ with $K, E$ the complete elliptic integral of the first and second kind and with
             \includegraphics[width=\textwidth]{images/plots/toytok/poincare.pdf}
         }
     \end{minipage}
-    \caption{Figure without perturbations}
-    \label{fig:basis}
+    \caption{}
+    \label{fig:toybox-basis}
 \end{figure}
 
 Setting 
@@ -266,12 +268,13 @@ Chirikov overlap parameter
     \subfloat[First sub-figure]{%
         \includegraphics[width=0.5\textwidth]{example-image-b}
     }
-    \caption{3/2 in the high aspect ratio case and 6/1 in the toytok case}
+    \caption{high aspect ratio psi pert and result}
 \end{figure}
 
 we can see that they follow the field on the trargeted q for the high aspect and at the separatrix for the toytok. 
 
 however the toroidal coordinates are not the straight field and if we plot at a $\rho = const$ we can see that
+
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
         \includegraphics[width=0.5\textwidth]{example-image-a}
@@ -283,18 +286,20 @@ however the toroidal coordinates are not the straight field and if we plot at a 
     \caption{mode mixing for the toyHA}
 \end{figure}
 
+mode mixing is good because it create chaos fast, non definition of flux coordinate at the separatrix. 
+
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-a}
+        \includegraphics[width=0.5\textwidth]{images/plots/toytok-pert/perturbation.png}
     }
     \hfill
     \subfloat[First sub-figure]{%
-        \includegraphics[width=0.5\textwidth]{example-image-b}
+        \includegraphics[width=0.5\textwidth]{images/plots/toytok-6-1/poincare.png}
     }
-    \caption{mode mixing for the toytok}
+    \caption{}
 \end{figure}
 
-mode mixing is good because it create chaos fast, non definition of flux coordinate at the separatrix. The chaos appearing by ramping up the amplitude.
+The chaos appearing by ramping up the amplitude.
 
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
