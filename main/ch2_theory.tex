@@ -7,8 +7,8 @@
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. In the case of particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
 \begin{figure}[h!]
-    \subfloat[W7-X]{%
-        \includegraphics[width=0.3\textwidth]{}
+    \subfloat[W7-X]{\label{fig:w7x-default}
+        \includegraphics[width=0.3\textwidth]{images/theory/default.pdf}
     }
     \hfill
     \subfloat[NCSX]{%
@@ -93,7 +93,7 @@ performed after one toroidal turn. More precisely, if $\iotaslash$ is rational, 
 
 Magnetic islands (chains) are present at rational $\iotaslash$ values. After $m$ toroidal turns, the initial starting point $\z^\star$ returns to itself and, recalling that there is $\nfp$ Poincaré sections in a toroidal turn, the order of the fixed point is at most $k=m\nfp$. Furthermore, as the field line makes $m$ turns, it will intersect a constant $\phi$ semi-plane exactly $m$ times. Using the periodicity of the field we see that after $m$ iterations the point will already be back to itself and $\pmap^m(\z^\star) = \z^\star$. The order of $\z^\star$ is thus $k=m$ and the poloidal winding angle will be only $2\pi\cdot n/\nfp$ for $m$ iterations. 
 
-For instance in figure \figref{} we see the 
+For instance in figure \figref{fig:w7x-default} we see the 
 
 When $g = \gcd{(m,n)} = 1$, one island rotates and recording the $\pmap^j(\z^\star)$ for $j = 1, ..., k$ 
 of one O-point and one X-point is enough to recover all of their coordinates. When $g \neq 1$ on the other hand, there are $g$ different island rotating and $g$ orbits to search for both X and O point. 
@@ -102,10 +102,11 @@ To distinguish between O and X point it can used that the behaviour of the nearb
 \begin{equation*}
     \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star},\, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2)
 \end{equation*}
-by the jacobian $\dpmap^k\vert_{\z^\star}$ and especially by its eigenvalues $\lambda_1$ and $\lambda_2$. Using \equref{eq:pmap-det}, the determinant of $\text{det}(\dpmap^k\vert_{\z^\star})~=~1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$, the eigenvalues are either~:
+by the jacobian $\dpmap^k\vert_{\z^\star}$ and especially by its eigenvalues $\lambda_1$ and $\lambda_2$. Using \equref{eq:pmap-det}, the determinant of $\text{det}(\dpmap^k\vert_{\z^\star})~=~1$ which is equivalent as saying that $\dpmap^k(\z^\star)$ is an element of $\text{SL}(2,\mathbb{R})$. 
 
-in fact this is linked to Greenes residue [cite].
-$\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
+
+Depending on the value of $\text{Tr}(\dpmap^k\vert_{\z^\star})$ or equivalently on the value of the Greenes residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$, the eigenvalues are either~:
+
 
 - Complex conjugate $\lambda = e^{\pm i}$ of modulus 1 and indicate rotation around the fixed point making it an O point.
 - Tr() > 2 both real which mean that there is $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$ note here that there is one case for which.
@@ -119,7 +120,7 @@ $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k)$
 
 There is there is actually a more topological way to define the O/X point and the alternating hyperbolic are o points.
 
-how to find them, using the newton method, details in the appendix, however we see that the region of convergence are not big.
+The method to find fixed point is simply using the newton algorithm, details in the appendix, however we see that the region of convergence are not big.
 
 \begin{figure}[H]
     \subfloat[5/5 island in]{%
@@ -136,10 +137,9 @@ the sensitivity to initial conditions.
 
 %%% -- CHAPTER --- %%%
 \chapter{Toybox}
-An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. A tokamak-like equilibrium is therefore implemented as the basis of this so-called \textit{Toybox}, to which perturbations can be added by summing their respective magnetic potential.
-
-Defining 
-This allows to define analytically only the potential themselves and use automatic differentiation \textit{JAX} to calculate $\textbf{B}$ or any $D^\alpha B^i$.
+An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. Defining the model in this way has the advantage of making it possible to use automatic differentiation from the 
+\href{https://jax.readthedocs.io/en/latest/index.html}{\textcolor{blue}{\textit{JAX}}}
+package from \cite{bradbury_jax_2018}. The vector potential is the only quantity that needs to be defined analytically. The resulting $\textbf{B}$ or, in fact, any derivative of any reasonable order of $A$ can then be computed. A tokamak-like equilibrium is implemented as the basis of this so-called \textit{Toybox}.
 
 More specifically in axisymmetric equilibria (i.e. perfect tokamaks), following e.g \cite[p.108]{wesson_tokamaks_2011}, the shape of the magnetic surfaces are well defined by the poloidal flux function $\psi$. Indeed, for cylindrical coordinates, all components/functions are constant along $\phi$, which yields~:
 \begin{align*}
@@ -185,7 +185,7 @@ the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp
     \caption{[figure without perturbations]}
 \end{figure}
 
-The helicity of a field line can be interpreted as the number of times it wraps around another one. By following of both the magnetic axis as well as the starting point, the helicity $\iotaslash = 1/q$ can be computed by integrating the angle evolution. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reasuring.
+The rotational transform $\iotaslash$ of the field lines can be computed by integration of both the magnetic axis as well as the starting point trajectories. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reassuring.
 
 An essential feature of the diverted tokamak edge structure is the separatrix. Combining a quadratic $q$ equilibrium with the field generated by a circular current loop at appropriate position and amplitude will result in a single null equilibrium. The vector potential of a loop at position $(R_l, 0)$ is given in \cite{simpson_simple_2001} as~:
 \begin{align*}
@@ -193,7 +193,7 @@ An essential feature of the diverted tokamak edge structure is the separatrix. C
 \end{align*}
 with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position, replace $Z \mapsto Z-Z_l$.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \subfloat[First sub-figure]{%
             \label{fig:toytok-eq}
@@ -219,12 +219,18 @@ Setting
 $R = 6, Z = 0, q_0 = 0.91, shear 1.2$
 
 \figref{fig:toytok-eq} shows the contour of $\psi_\text{sep}$ on $\psi$.
-[comparison with d3d or tcv for the reality of the toybox]
+
+The equilibrium obtained has two 
+
 
 \section{Perturbations}
-adding perturbation to create chaos, not axisymmetric anymore.
+The \textit{ToyTok} is not chaotic and will make it not axisymmetric anymore.
 
-The perturbations can be added into the straight field line coordinates or as hamiltonian formalism. show there equivalence.
+
+the hamiltonian formalism is describe for instance in \cite{viana_hamiltonian_2023} or in
+\cite{escande_description_2024} $\delta\textbf{A} = -\delta\psi_P\nabla\phi/2\pi$ which is adding adding in straight field line coordinates with. 
+
+The perturbations can be added into the straight field line coordinates or as hamiltonian formalism. show there equivalence  .
 
 In the toroidal coordinates the $\phi$ and $\theta$ angles are both $\in [0, 2\pi)$ with $R_\text{max}(\theta)$ and thus one can develop any component into Fourier series as for the magnetic vector potential $\textbf{A}$.
 \begin{align*}
@@ -249,9 +255,8 @@ In fact, the transformation to toroidal does not have to be the one of a circle.
 
 and when straight field line coordinate are defined, one can transform $\theta$ and $\rho$ to be the 
 
-
 talk about mode mixing : this is an choice in the way we apply the perturbation to mix mode.
-
+Chirikov overlap parameter
 
 \begin{figure}[h!]
     \subfloat[First sub-figure]{%
@@ -303,6 +308,8 @@ mode mixing is good because it create chaos fast, non definition of flux coordin
 \end{figure}
 
 \chapter{Tangles and Turnstile}
+
+the separatrix that links 
 
 when chaos appear the separation of a separatrix when.
 KAM theory
