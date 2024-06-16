@@ -50,6 +50,11 @@
 \usepackage[cal=cm]{mathalpha}
 
 \usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption} % For subfigures
+\captionsetup[figure]{justification=centering} % Center figure captions
+\captionsetup[subfigure]{justification=centering} % Center subfigure captions
+
 
 \newcommand\smallO{
   \mathchoice
@@ -58,3 +63,4 @@
     {{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
     {\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
   }
+

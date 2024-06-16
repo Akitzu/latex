@@ -6,20 +6,22 @@
 
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. For particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
-\begin{figure}[h!]
-    \subfloat[W7-X, $\nfp = 5$]{\label{fig:w7x-default}
-        \includegraphics[width=0.3\textwidth]{images/theory/w7x.png}
-    }
-    \hfill
-    \subfloat[NCSX, $\nfp = 3$]{\label{fig:ncsx-default}
-        \includegraphics[width=0.3\textwidth]{images/theory/ncsx.png}
-    }
-    \hfill
-    \subfloat[LHD, $\nfp = 10$]{%
-        \includegraphics[width=0.3\textwidth]{images/theory/lhd.png}
-    }
-    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}\label{fig:poincare-example}
-\end{figure}
+
+
+%\begin{figure}[h!]
+%    \subfloat[W7-X, $\nfp = 5$]{\label{fig:w7x-default}
+%        \includegraphics[width=0.3\textwidth]{images/theory/w7x.png}
+%    }
+%    \hfill
+%    \subfloat[NCSX, $\nfp = 3$]{\label{fig:ncsx-default}
+%        \includegraphics[width=0.3\textwidth]{images/theory/ncsx.png}
+%    }
+%    \hfill
+%    \subfloat[LHD, $\nfp = 10$]{%
+%        \includegraphics[width=0.3\textwidth]{images/theory/lhd.png}
+%    }
+%    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}\label{fig:poincare-example}
+%\end{figure}
 
 Using Biot-Savart law to get the field generated from the known currents and coil geometry and by neglecting the gyro-motion around the field lines, the crossings can be numerically recorded. In \figref{fig:poincare-example} the Poincaré sections for three well known devices are computed using Runge-Kutta integration scheme. The closed flux surfaces appear from the magnetic axis up to the edge region. For W7-X and NCSX configuration, one island is predominant. For LHD on the contrary, the edge region is chaotic and multiple small islands are present in the chaotic edge region. Such a figure can be produced experimentally in stellarators by firing an electron beam, sweeping a fluorescent rod and using a long camera exposure \cite{pedersen_confirmation_2016}. To define a map that gives the evolution of the position of the crossings in the $\phi$ semi-plane, first note that for each initial point $\textbf{x}_0$ there is an associated curve $\gamma(t)$ depending on time which is link to the flow $\gamma(t) = \Phi(\textbf{x}_0, t)$ of the magnetic vector field. The cylindrical coordinates are a natural choice here.
 
@@ -172,17 +174,23 @@ where the last two term cancel for $\rho < R$. At this point, we can make sense 
 
 the axisymmetric equilibirium would mean $\nfp \to \infty$ however we take $\nfp = 1$ for latter when we add perturbation.
 
-\begin{figure}[h!]
-    \subfloat[First sub-figure]{%
-        \label{fig:basis-poincare}
-        \includegraphics[width=0.5\textwidth]{images/plots/squared-profile/poincare.pdf}
-    }
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.43\textwidth}
+        \centering
+        \label{fig:b}
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/unperturbed.pdf}
+        \caption{Poincare section}
+    \end{subfigure}
     \hfill
-    \subfloat[First sub-figure]{%
-        \label{fig:basis-qprofile}
-        \includegraphics[width=0.5\textwidth]{images/plots/squared-profile/q-iota-squared.pdf}
-    }
+    \begin{subfigure}[t]{0.54\textwidth}
+        \centering
+        \label{fig:b}
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/iota_q.pdf}
+        \caption{$\iotaslash$ and $q$ profiles}
+    \end{subfigure}
     \caption{High aspect ratio Toy-Tokamak profile with nested toroids flux surface geometry. The values of $R_0$ of 6 meters, sf of 0.8875 and shear equal to 0.4.}
+    \label{fig:a}
 \end{figure}
 
 The rotational transform $\iotaslash$ of the field lines can be computed by integration of both the magnetic axis as well as the starting point trajectories. Performing such a calculation for starting points of the form $(R_0+\rho,0)$ with increasing $\rho$ gives $\iotaslash$ which is represented in \figref{fig:basis-qprofile}. The calculated $q$-profile is in great agreement with its analytical form, which is reassuring.
@@ -196,25 +204,34 @@ An essential feature of the diverted tokamak edge structure is the separatrix. C
 with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position, replace $Z \mapsto Z-Z_l$.
 
 \begin{figure}[H]
-    \begin{minipage}{0.5\textwidth}
-        \subfloat[First sub-figure]{%
-            \label{fig:toytok-eq}
-            \includegraphics[width=\textwidth]{images/plots/toytok/sepflux.pdf}
-        }
-        \hfill
-        \subfloat[Second sub-figure]{%
-            \label{fig:toytok-qprofile}
-            \includegraphics[width=\textwidth]{images/plots/toytok/q-iota-squared.pdf}
-        }
+    \centering
+    \begin{minipage}{0.6\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{example-image-a}
+            \caption{First sub-figure}
+            \label{fig:left1}
+        \end{subfigure}
+        \vfill
+        \begin{subfigure}[b]{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{example-image-b}
+            \caption{Second sub-figure}
+            \label{fig:left2}
+        \end{subfigure}
+    \end{minipage}%
+    \begin{minipage}{0.4\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{example-image-c}
+            \caption{Third sub-figure}
+            \label{fig:right}
+        \end{subfigure}
     \end{minipage}
-    \begin{minipage}{0.5\textwidth}
-        \subfloat[Third sub-figure]{%
-            \label{fig:toytok-poincare}
-            \includegraphics[width=\textwidth]{images/plots/toytok/poincare.pdf}
-        }
-    \end{minipage}
-    \caption{}
-    \label{fig:toybox-basis}
+    \caption{Stacked subfigures on the left and one subfigure on the right.}
+    \label{fig:main}
 \end{figure}
 
 Setting 
