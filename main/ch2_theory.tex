@@ -454,6 +454,25 @@ the definition of a bounded rezonance zone with island inside and a chaotic laye
 
 the formal definition by Meiss
 
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{}
+    \label{}
+\end{figure}
+
 [FIGURE with evolution entering and exiting sets]
 
 How the conservation of the flux implies that the entering and exiting sets have the same flux.
@@ -477,6 +496,20 @@ Thus for a $q=m/n=1/0$ fixed point of an axisymmetric equilibrium $n_\text{fp} =
 the use of stokes theorem, cite Meiss again.
 The specific contour
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/turnstile/tokamak-tangles.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/turnstile/line_tangle.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 the mapping forward and backward to reduce the lenght and bring them back where there geometry is easy.
 
 The first idea is to iterate the map until 
@@ -495,14 +528,14 @@ actual calculation with the path
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth]{images/turnstile/verification_triangle.png}
         \caption{}
         \label{fig:}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=\textwidth]{images/turnstile/verification_loop.png}
         \caption{}
         \label{}
     \end{subfigure}
@@ -510,6 +543,13 @@ actual calculation with the path
     \label{}
 \end{figure}
 
-verification with triangle, shoelace and the a dot dl along the contour.
+verification with triangle, 
+
+shoelace formula 
+\begin{equation*}
+    \vert\Sigma_{lobe}\vert = \iint\limits_{\Sigma_{lobe}}1dx =  \iint\limits_{\Sigma_{lobe}}\frac{1}{2}\nabla\times (x\,\textbf{e}_y - y\,\textbf{e}_x)dx =  
+\end{equation*}
+
+and the a dot dl along the contour.
 
 \subsection{Inner and outer turnstiles}
