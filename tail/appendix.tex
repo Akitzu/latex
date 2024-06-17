@@ -34,6 +34,17 @@ using this formalism there is a really elegant way to describe the differential 
     \Delta f &= \star d \star d f\\
 \end{align*}
 
+\section{Integration of the action}
+
+For the algorhithm in []. The vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$.
+
+$g = dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ$
+
+The curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ along $\gamma$~:
+\begin{align*}
+    \int_0^\phi g(\textbf{A},\textbf{dl}) = \int_0^\phi g(\textbf{A}(\gamma(s)),\dot{\gamma}(s))ds\\ = \int_0^\phi (A^R\dot{\gamma}^R + R^2A^\phi\dot{\gamma}^\phi + A^Z\dot{\gamma}^Z) ds
+\end{align*}
+Thus for a $q=m/n=1/0$ fixed point of an axisymmetric equilibrium $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
 
 \chapter{Flux conservation as forms}\label{forms}
 

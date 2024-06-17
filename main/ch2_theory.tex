@@ -448,12 +448,6 @@ toyha in 3 2
 
 the idea to initilize with specific epsilon values to have a nice initial guess. The fact that this is the main point were robustness may be increased.
 
-\section{Turnstile}
-
-the definition of a bounded rezonance zone with island inside and a chaotic layer.
-
-the formal definition by Meiss
-
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
@@ -473,23 +467,36 @@ the formal definition by Meiss
     \label{}
 \end{figure}
 
+\section{Turnstile}
+
+the definition of a bounded rezonance zone with island inside and a chaotic layer.
+
+the formal definition by Meiss
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/turnstile/01Resonance.png}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/turnstile/2DLobe.png}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{\cite{meiss_thirty_2015}}
+    \label{}
+\end{figure}
+
 [FIGURE with evolution entering and exiting sets]
 
 How the conservation of the flux implies that the entering and exiting sets have the same flux.
 
 the algorithm meiss uses.
-
-\subsection{Integration of the action}
-
-For the algorhithm in []. The vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$.
-
-$g = dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ$
-
-The curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ along $\gamma$~:
-\begin{align*}
-    \int_0^\phi g(\textbf{A},\textbf{dl}) = \int_0^\phi g(\textbf{A}(\gamma(s)),\dot{\gamma}(s))ds\\ = \int_0^\phi (A^R\dot{\gamma}^R + R^2A^\phi\dot{\gamma}^\phi + A^Z\dot{\gamma}^Z) ds
-\end{align*}
-Thus for a $q=m/n=1/0$ fixed point of an axisymmetric equilibrium $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
 
 \subsection{algorithm}
 
@@ -524,7 +531,7 @@ question ? why not just find the contour with many points and calculate a dot dl
 
 actual calculation with the path 
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
@@ -544,6 +551,10 @@ actual calculation with the path
 \end{figure}
 
 verification with triangle, 
+ -3.890e-01
+Area using the triangle approximation: -4.198e-01
+Area using the integral of A on the loop approximation: -0.38584216929450854
+
 
 shoelace formula 
 \begin{equation*}
@@ -553,3 +564,22 @@ shoelace formula
 and the a dot dl along the contour.
 
 \subsection{Inner and outer turnstiles}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/heteroclinics_outer_3.png}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/closeup.png}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{}
+    \label{}
+\end{figure}
