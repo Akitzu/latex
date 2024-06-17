@@ -431,14 +431,14 @@ toyha in 3 2
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth]{images/clinicsearch/clinic_start.png}
         \caption{}
         \label{fig:}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=\textwidth]{images/clinicsearch/search_domain.png}
         \caption{}
         \label{}
     \end{subfigure}
@@ -463,7 +463,7 @@ the idea to initilize with specific epsilon values to have a nice initial guess.
         \caption{}
         \label{}
     \end{subfigure}
-    \caption{}
+    \caption{the search domain for both of 61 and 183}
     \label{}
 \end{figure}
 
@@ -498,7 +498,9 @@ How the conservation of the flux implies that the entering and exiting sets have
 
 the algorithm meiss uses.
 
-\subsection{algorithm}
+\subsection{Adapting Meiss's action principle for the map $\pmap$}
+\newcommand{\Sl}{\Sigma_{lobe}}
+\newcommand{\Se}{\Sigma_{ev}}
 
 the use of stokes theorem, cite Meiss again.
 The specific contour
@@ -507,27 +509,83 @@ The specific contour
     \centering
     \includegraphics[width=0.5\textwidth]{images/turnstile/tokamak-tangles.png}
     \caption{Caption}
-    \label{fig:enter-label}
+    \label{fig:tangle-3d}
 \end{figure}
+
+In fact the flux through the surface $\Sl$ is the turnstile area that we want to calculate and using stokes theorem we obtain that
+\begin{equation}
+    \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} = \int_{\Sl} \nabla\times\textbf{A}\cdot\textbf{dS} = \int_{\gamma_0+\gamma_1} \textbf{A}\cdot \textbf{dl}
+\end{equation}
+Now the tricky part is to see that by taking the $\gamma_0$ is joining two homoclinics and tracing it backward to $\pmap^{-1}(\gamma_0)$ the surface create by taking this evolution $\Se$ is not adding contribution to the flux calculation as it was obtained by following the magnetic field $\textbf{B}$. it can therefore be written that eq.. becomes~:
+\begin{equation}
+    \Phi_{lobe} = \int_{\Sl+\Se} \textbf{B}\cdot\textbf{dS} = \int_{\Gamma} \textbf{A}\cdot \textbf{dl}
+\end{equation}
+where $\Gamma = \gamma_1 + \gamma_2 + \gamma_3 + \gamma_4$ with $\gamma_3 = \pmap^{-1}(\gamma_0)$. 
+
+Insert \figref{fig:flat-tangle} shows a flat version of a manifold in a 2d $\phi$ section. 
+
+we see that the backward evolution takes the curve $\gamma_0$ to $\gamma_3$ and this can be used by repetively applying the to make the $\gamma_0$ curve go towards the $x_u^\star$ fixed point.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/turnstile/line_tangle.png}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \vspace{10px}
+    \caption{Flat version of the manifold tangle structure. 
+    The forward evolution $\pmap$ maps point from the $x_u^\star$ fixed point in the direction of $x_s^\star$. The backward evolution does the converse. Here there are two hetero/homo-clinics denoted by the squared $s$ and the $circ$. The "closing curves" $\gamma_1$ and $\gamma_3$ are explicitly enhance.
+    }
+    \label{fig:flat-tangle}
 \end{figure}
 
-the mapping forward and backward to reduce the lenght and bring them back where there geometry is easy.
+Now the flux through the lobe is also the same due to the flux conservation of $\pmap$ as the one through $\pmap^k(\Sigma)$ and one can take the same reasoning to make the $\gamma_1$ curve as small as possible.
 
-The first idea is to iterate the map until 
+Indeed using cauchy-schwartz inequality we have that
 \begin{align*}
     \int\limits_{\gamma_i} \textbf{A}\cdot\textbf{dl} \leq \int\limits_{\gamma_i} \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert \leq\, L(\gamma_i)\max\limits_{\textbf{x} \in\gamma_i}\Vert\textbf{A(\textbf{x})}\Vert \lesssim L(\gamma_i)
 \end{align*}
-however this was found to work but a nice fix is that we don't need to 
 
-then in the linear regime take just segments for gamma 1 and gamma 3 and approximate the integral which takes literally no time.
+if we write $m^t$ and $h^t$ the two homoclinics intersections we see how they are related to the case of the standard map.
+
+
+in the case of and that was the idea however it was also found to not work well due to the fact that the exponential behaviour near the fixed point cause the number of iteration to be limited.
+A better way to consider the closing integrals are by stopping in the linear regime describe in [sec:manifold]. We know that there the curves $\gamma_1$ near $x$ and $\gamma_3$ near $x$ are in fact segments and we can estimate by discretizing the integral have a.
 
 question ? why not just find the contour with many points and calculate a dot dl ? This is an idea however here we remember that the poincare map is performed by integrating the field and in the latter case of real stellarator geometry it will take long to compute for instance even 100 points in u and s. (200pts * 5 integrations each will give) 1000 necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it. The complexity is different, here it is used for verification.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.5\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/turnstile/turnstile_poincare_3.png}
+            \caption{}
+            \label{fig:}
+        \end{subfigure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth} % Adjust width as needed
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/turnstile/coutour_fwd_5.png}
+            \caption{}
+            \label{fig:}
+        \end{subfigure}
+        \vfill
+        \vspace{10px}
+        \vfill
+        \begin{subfigure}[b]{0.99\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/turnstile/coutour_bwd_1.png}
+            \caption{}
+            \label{}
+        \end{subfigure}
+    \end{minipage}%
+    \caption{}
+    \label{fig:}
+\end{figure}
+
+we see here in figure 
 
 actual calculation with the path 
 
@@ -565,6 +623,8 @@ and the a dot dl along the contour.
 
 \subsection{Inner and outer turnstiles}
 
+in the case of an island we have first that the need to goes $\pmap^m$ to come back on the same part of the poincare section. it means for example in the case of the high aspect ratio perturbed with a $n/m = 2/3$ perturbation that
+
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[c]{0.49\textwidth}
@@ -583,3 +643,5 @@ and the a dot dl along the contour.
     \caption{}
     \label{}
 \end{figure}
+
+we also see here that there are in fact two manifold structure, one joining the $x_1^\star$ and $x_2^\star$ by the inside and the othere joining them by the outside.
