@@ -172,7 +172,7 @@ The $\theta$ component can be derived directly from coordinate transformation, a
 \begin{align*}
     B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R} = \frac{2}{R_0+\rho\cos{\theta}}.
 \end{align*}
-The $\phi$ component of $\textbf{B}$ is introduced heuristically as~:
+The $\phi$ component of $\textbf{B}$\footnote{In the implementation used in this document, the $B^\phi$ has been oriented along the -$\partial_\phi$ direction, which has no direct effect on the calculation themselves, but may occasionally cause some sign reversal, e.g. the latter value of the current in the circular loop coil. It also flips the way the field line rotate around the axis.} is introduced heuristically as~:
 \begin{align*}
     B^\phi = 2\sqrt{R^2-\rho^2}\,(\text{sf}+\frac{\text{shear}}{2}\rho^2)/R^2
 \end{align*}
@@ -492,98 +492,102 @@ the formal definition by Meiss
     \label{}
 \end{figure}
 
-[FIGURE with evolution entering and exiting sets]
+in the case of there are more
 
 How the conservation of the flux implies that the entering and exiting sets have the same flux.
 
 the algorithm meiss uses.
 
+In the particular context of the map $\pmap$ the would required $\Omega = \beta$.
+
 \subsection{Adapting Meiss's action principle for the map $\pmap$}
 \newcommand{\Sl}{\Sigma_{lobe}}
 \newcommand{\Se}{\Sigma_{ev}}
 
-the use of stokes theorem, cite Meiss again.
-The specific contour
+we will first discuss for the case of the toytok with the perturbation 6 1 that has 
+When there are two homoclinic , the turnstile flux is the sum of all incoming or outgoing sets. when two there are only one exiting and
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/turnstile/tokamak-tangles.png}
-    \caption{Caption}
+    \caption{Schematic representation of the intricate tangle structure formed by $W^s$ and $W^u$ in a chaotic configuration of the Toy-Tokamak with perturbation $m/n = 6/1$. A turnstile lobe is depicted as $\Sl$ with boundary $\gamma_0 + \gamma_1$ and the boundary of a more complex surface with identical flux $\Sigma = \Sl + \Se$ is especially emphasised in pink.}
     \label{fig:tangle-3d}
 \end{figure}
 
-In fact the flux through the surface $\Sl$ is the turnstile area that we want to calculate and using stokes theorem we obtain that
-\begin{equation}
-    \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} = \int_{\Sl} \nabla\times\textbf{A}\cdot\textbf{dS} = \int_{\gamma_0+\gamma_1} \textbf{A}\cdot \textbf{dl}
+The boundary $\partial\Sl$ of a specific lobe $\Sl$ of the turnstile can be subdivided, as illustrated in \figref{fig:tangle-3d}, into two curves : $\gamma_0\subset W^u$ and $\gamma_1\subset W^s$. $\gamma_0$ joins the intersections $h_0$ of the homoclinic $h$ field line to the intersection $m_0$ for the second homoclinic $m$ and $\gamma_1$ returns from $m_0$ to $h_0$. Using Stokes theorem, the flux  $\Phi_{lobe}$  through $\Sl$ can therefore be written as~:
+\begin{equation}\label{eq:contour-1}
+    \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} = \int_{\Sl} \nabla\times\textbf{A}\cdot\textbf{dS} = \int_{\gamma_0+\gamma_1} \textbf{A}\cdot \textbf{dl}.
 \end{equation}
-Now the tricky part is to see that by taking the $\gamma_0$ is joining two homoclinics and tracing it backward to $\pmap^{-1}(\gamma_0)$ the surface create by taking this evolution $\Se$ is not adding contribution to the flux calculation as it was obtained by following the magnetic field $\textbf{B}$. it can therefore be written that eq.. becomes~:
-\begin{equation}
-    \Phi_{lobe} = \int_{\Sl+\Se} \textbf{B}\cdot\textbf{dS} = \int_{\Gamma} \textbf{A}\cdot \textbf{dl}
+To directly, numerically, calculate the integral in \equref{eq:contour-1} requires the curves $\gamma_0$ and $\gamma_1$ to be discretized. In practise, it would mean that many initial positions need to be set in the linear regime of $W^u$ and $W^s$ in between position of $h$ and $m$, then their field line have to be traced up until they form the boundary $\partial\Sl$. The number of points must be sufficient and appropriately tuned to describe the bending of the manifolds well enough to avoid introducing too many errors. Although it is not necessary to locate the homoclinics beforehand, and further approximations (such as assuming that the points describe a Bezier curve) are possible improvements to such a method, it becomes very expensive to increase the accuracy as it means more integrations have to be performed. This will prove impractical in a general stellarator field. A more elegant algorithm for calculating the lobe flux is suggested, based on the principle of the turnstile calculation for the standard map presented by Meiss [REF].
+
+Tracing the curve $\gamma_0$ backward around the torus generates a surface $\Se$, depicted in \figref{fig:tangle-3d}, for which the normal $\textbf{dS}$ is always orthogonal to the magnetic field $\textbf{B}$ according to definition of FLT. It means that the flux through $\Sigma \coloneqq \Sl+\Se$ is equal to the one through $\Sl$ and \equref{eq:contour-1} becomes~:
+\begin{equation}\label{eq:contour-2}
+    \Phi_{lobe} =  \int_{\Sl} \textbf{B}\cdot\textbf{dS} = \int_{\Sl+\Se} \textbf{B}\cdot\textbf{dS} = \int_{\partial\Sigma} \textbf{A}\cdot \textbf{dl}.
 \end{equation}
-where $\Gamma = \gamma_1 + \gamma_2 + \gamma_3 + \gamma_4$ with $\gamma_3 = \pmap^{-1}(\gamma_0)$. 
-
-Insert \figref{fig:flat-tangle} shows a flat version of a manifold in a 2d $\phi$ section. 
-
-we see that the backward evolution takes the curve $\gamma_0$ to $\gamma_3$ and this can be used by repetively applying the to make the $\gamma_0$ curve go towards the $x_u^\star$ fixed point.
+The oriented boundary $\partial\Sigma = \gamma_1 + \gamma_2 + \gamma_3 + \gamma_4$ is composed of four paths~: $-\gamma_2$ and $\gamma_4$ are obtained as the trajectories of the homoclinics $h$ and $m$ from $h_{-1}\coloneqq\pmap^{-1}(h_0)$ and $m_{-1}\coloneqq\pmap^{-1}(m_0)$ to $h_{0}, m_{0}$ around the torus. $\gamma_1$ and $\gamma_3$ which will be referred to as joining curves and lie in the Poincare section. As for $\gamma_0$, $\gamma_3$ is part of the unstable manifold and while $\gamma_0$ connects $h_0$ to $m_0$, $\gamma_3$ joins $h_{-1}$ to $m_{-1}$. A flat representation of the tangle structure is shown in \figref{fig:flat-tangle}. The unstable manifold, initially straight around the fixed point $x_u^\star$, has an increasing curvature as it approaches $x_s^\star$. The stable manifold shows a similar behaviour with the points reversed. Their intersections $h_i$ and $m_i$ are shown as a circle and a square respectively, and the joining integral path can be seen more clearly.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/turnstile/line_tangle.png}
     \vspace{10px}
-    \caption{Flat version of the manifold tangle structure. 
-    The forward evolution $\pmap$ maps point from the $x_u^\star$ fixed point in the direction of $x_s^\star$. The backward evolution does the converse. Here there are two hetero/homo-clinics denoted by the squared $s$ and the $circ$. The "closing curves" $\gamma_1$ and $\gamma_3$ are explicitly enhance.
-    }
+    \caption{Flatten out version of the manifold tangle structure between two saddle fixed points $x_s^\star$ and $x_u^\star$. The forward evolution $\pmap$ maps points close to $x_u^\star$ in the direction of $x_s^\star$ and the backward evolution the opposite. Two different hetero/homo-clinics are present and are denoted by the squared and circular markers. The surface of the lobe $\Sl$, as well as the joining curves $\gamma_1$ and $\gamma_3$ are highlighted.}
     \label{fig:flat-tangle}
 \end{figure}
 
-Now the flux through the lobe is also the same due to the flux conservation of $\pmap$ as the one through $\pmap^k(\Sigma)$ and one can take the same reasoning to make the $\gamma_1$ curve as small as possible.
+With respect to the integration path taken in \equref{eq:contour-1}, the path of $\eqref{eq:contour-2}$ contains the trajectory of the homoclinic as part of the contour. The relationship with the formula given by Meiss appears, however, the difficulty of finding $\gamma_1$ and $\gamma_3$ remains. 
 
-Indeed using cauchy-schwartz inequality we have that
-\begin{align*}
-    \int\limits_{\gamma_i} \textbf{A}\cdot\textbf{dl} \leq \int\limits_{\gamma_i} \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert \leq\, L(\gamma_i)\max\limits_{\textbf{x} \in\gamma_i}\Vert\textbf{A(\textbf{x})}\Vert \lesssim L(\gamma_i)
-\end{align*}
+To take care of those joining integrals, note that the argument for $\Se$ is still true by applying the map more than once backward on $\gamma_0$. Indeed, by repetitively applying the backward evolution, $\pmap^{-k}(\gamma_0)\subset W^u$ joins $h_{-k}$ and $m_{-k}$ that are closer and closer as they approach $x_u^\star$. The length of the the curve converges to 0 as $t\to\infty$ and using Cauchy-Schwartz inequality, the integral of $\textbf{A}\cdot\textbf{dl}$ also converges to zero~:
+\begin{equation*}
+    \int\limits_{\pmap^{-k}(\gamma_0)} \textbf{A}\cdot\textbf{dl} \leq \int\limits_{\pmap^{-k}(\gamma_0)} \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert \leq\, L(\pmap^{-k}(\gamma_0))\max\limits_{\textbf{x} \in\pmap^{-k}(\gamma_0)}\Vert\textbf{A(\textbf{x})}\Vert \lesssim L(\pmap^{-k}(\gamma_0)).
+\end{equation*}
+Following the trajectory of the homoclinic points $h_0$ and $m_0$ and tracing them enough time backward allows to reduce and at some point forget about the contribution of $\gamma_1$ to the flux. Since the flux through $\Sl$ and $\pmap^k(\Sl)$ is equal (again, flux conservation of $\pmap$), the same idea as for $\gamma_3$ can be applied to $\gamma_1$. Applying the map repetitively will make the length of $\pmap^k(\gamma_1)$ and thus its contribution to the flux calculation tend to zero. Including these considerations in \equref{eq:contour-2} and taking the the number of forward and backward iterations to infinity gives~:
+\begin{equation}\label{eq:flux-algorithm}
+    \Phi_{lobe} = \lim\limits_{k\to\infty}\,\,\int\limits_{m_{-k}}^{m_{k}}\textbf{A}\cdot\textbf{dl} - \int\limits_{h_{-k}}^{h_{k}}\textbf{A}\cdot\textbf{dl}
+\end{equation}
+where the similarity with the equation provided for the standard map \cite[Eq. 21]{meiss_thirty_2015} is now striking.
 
-if we write $m^t$ and $h^t$ the two homoclinics intersections we see how they are related to the case of the standard map.
-
-
-in the case of and that was the idea however it was also found to not work well due to the fact that the exponential behaviour near the fixed point cause the number of iteration to be limited.
-A better way to consider the closing integrals are by stopping in the linear regime describe in [sec:manifold]. We know that there the curves $\gamma_1$ near $x$ and $\gamma_3$ near $x$ are in fact segments and we can estimate by discretizing the integral have a.
-
-question ? why not just find the contour with many points and calculate a dot dl ? This is an idea however here we remember that the poincare map is performed by integrating the field and in the latter case of real stellarator geometry it will take long to compute for instance even 100 points in u and s. (200pts * 5 integrations each will give) 1000 necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it. The complexity is different, here it is used for verification.
+The calculation of \equref{eq:flux-algorithm} requires enough iterations for the distance between the homoclinics to converges to 0. However, due to the exponential behaviour around the X-points and the inherent lack of infinity in double precision, once the field line is close to the fixed point, only a small number of crossings will be recorded before the numerical error causes the point shifted away, ending the possibility of convergence. To overcome this, and in fact to make the algorithm much more robust, a small tweak is introduced. In \equref{eq:contour-1} the difficulty of a numerical computation would have been to get the shape of the manifold precisely. Here instead for a certain finite value of $k$ : $\pmap^k(\gamma_2)$ and $\pmap^{-k}(\gamma_0)$ are mapped back into the linear regime of $x_s^\star$ and $x_u^\star$. There, the manifolds are simply segments and the joining integrals can be approximated by the midpoint rule, which requires only few evaluations of the vector potential $\textbf{A}$, but no additional field line tracing.
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.5\textwidth} % Adjust width as needed
+    \begin{minipage}[c]{0.55\textwidth} % Adjust width as needed
         \centering
         \begin{subfigure}[b]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/turnstile/turnstile_poincare_3.png}
+            \includegraphics[width=\textwidth]{images/turnstile/coutour_fwd.png}
             \caption{}
             \label{fig:}
         \end{subfigure}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.45\textwidth} % Adjust width as needed
+    \begin{minipage}[c]{0.42\textwidth} % Adjust width as needed
         \centering
-        \begin{subfigure}[b]{\textwidth}
+        \begin{subfigure}[b]{0.95\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/turnstile/coutour_fwd_5.png}
+            \includegraphics[width=\textwidth]{images/turnstile/coutour_c1.png}
             \caption{}
             \label{fig:}
         \end{subfigure}
         \vfill
         \vspace{10px}
         \vfill
-        \begin{subfigure}[b]{0.99\textwidth}
+        \begin{subfigure}[b]{0.95\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/turnstile/coutour_bwd_1.png}
+            \includegraphics[width=\textwidth]{images/turnstile/coutour_c2.png}
             \caption{}
             \label{}
         \end{subfigure}
     \end{minipage}%
-    \caption{}
+    \caption{Evolution of the turnstile lobe boundary for forward and backward iterations, note here that $\pmap$ sends points in a counterclockwise manner. The transition to the X-point can be observed in (a) where the manifolds are close to one another. In (b) and (c) the stretching of $\pmap^k(\gamma_0)$ and $\pmap^{-k}(\gamma_1)$ can be witnessed as well as the straightening/shrinking of $\pmap^{-k}(\gamma_0)$ in red and $\pmap^{k}(\gamma_1)$ in green.}
     \label{fig:}
 \end{figure}
+
+
+
+The overall cost 
+necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it.
+
+The complexity is different, here it is used for verification.
 
 we see here in figure 
 
@@ -591,35 +595,64 @@ actual calculation with the path
 
 \begin{figure}[H]
     \centering
+    \includegraphics[width=0.7\textwidth]{images/turnstile/turnstile_area_final.png}
+    \caption{Lobe flux $\Phi_{lobe}$ calculation as in \equref{eq:flux-algorithm} against the number of iteration of the Poincaré map $\pmap$. The first five iterations are done forward only. The remaining four iterations, before the integration error causes the algorithm to stop, make the joining integrals small.}
+    \label{fig:turnstile-convergence}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/turnstile/verification_triangle.png}
         \caption{}
-        \label{fig:}
+        \label{fig:verif-triangle}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/turnstile/verification_loop.png}
         \caption{}
-        \label{}
+        \label{fig:verif-shoelace}
     \end{subfigure}
-    \caption{}
-    \label{}
+    \caption{Surface and evaluation point for the approximation of the flux through the lobe. In (a) a simple triangle is considered and in (b) the boundary of $\Sl$ is found by tracing points in $W^s$ and $W^u$. The $B^\phi$ component of the magnetic field is evaluated at a random inner point of the lobe.}
+    \label{fig:verification}
 \end{figure}
 
-verification with triangle, 
- -3.890e-01
-Area using the triangle approximation: -4.198e-01
-Area using the integral of A on the loop approximation: -0.38584216929450854
+To verify that the calculated value of the turnstile flux is making sense, $\Phi_{lobe}$ can be estimated using the simple approximation that~:
+\begin{equation}
+     \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} \approx \tilde{B}^\phi\vert_{x}\,\,\vert\Sl\vert
+\end{equation}
+with $\tilde{B}^\phi$ evaluated at the point $x$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value of $-3.879\cdot 10^{-1}$.
 
+This simple approximation of the area can be refined by using the so-called Shoelace formula on the boundary loop \figref{fig:verif-shoelace} computed by tracing field line : setting starting points on $W^s$ and $W^u$ in between $h$ and $m$. Using the same guess for $\tilde{B}^\phi\vert_x$ and obtaining that $\vert\Sl\vert \simeq 2.728\cdot 10^{-2}$ gives an estimated flux $\Phi_{lobe} \simeq  -3.890\cdot 10^{-1}$, even closer to the calculated flux. Finally, using the same loop, the integral of $\textbf{A}\cdot\textbf{dl}$ can also be approximated using the midpoint rule and determine $\Phi_{lobe} \simeq  -3.858\cdot 10^{-1}$. The redundancy in the value obtained here and the great agreement between them lets us believe that the turnstile flux is correctly calculated.
 
-shoelace formula 
-\begin{equation*}
-    \vert\Sigma_{lobe}\vert = \iint\limits_{\Sigma_{lobe}}1dx =  \iint\limits_{\Sigma_{lobe}}\frac{1}{2}\nabla\times (x\,\textbf{e}_y - y\,\textbf{e}_x)dx =  
-\end{equation*}
+\subsection{Influence of the perturbation amplitude}
 
-and the a dot dl along the contour.
+\begin{figure}
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{}
+        \caption{}
+        \label{fig:enter-label}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{}
+        \caption{}
+        \label{fig:enter-label}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{}
+        \caption{}
+        \label{fig:enter-label}
+    \end{subfigure}
+    \caption{}
+    \label{fig:enter-label}
+\end{figure}
+
 
 \subsection{Inner and outer turnstiles}
 
@@ -645,3 +678,4 @@ in the case of an island we have first that the need to goes $\pmap^m$ to come b
 \end{figure}
 
 we also see here that there are in fact two manifold structure, one joining the $x_1^\star$ and $x_2^\star$ by the inside and the othere joining them by the outside.
+
