@@ -11,7 +11,7 @@ The heteroclinic search is the longest part of the turnstile flux calculation pr
 
 \section{QUASR configurations}
 
-The \textit{QUAsi-symmetric Stellarator Repository}, \href{https://quasr.flatironinstitute.org/}{\textcolor{blue}{\textit{QUASR}}}, contains at the moment over 320'000 stellarator configurations and was created/assembled thanks to \cite{noauthor_quasr_nodate}.
+The \textit{QUAsi-symmetric Stellarator Repository}, \href{https://quasr.flatironinstitute.org/}{\textcolor{blue}{\textit{QUASR}}}, contains at the moment over 320'000 stellarator configurations and was created/assembled thanks to \cite{andrew_giuliani_quasr_nodate}.
 
 The selection of configurations can be tuned by coil length, number of field periods, type of quasi-symmetry and many other settings. The database explores the space of possible Stellarator fields, which is infinite, and catalogues a number of possible outcomes of Stellarator optimisation. 
 
@@ -51,8 +51,8 @@ The poincare section of such a is shown in \figref{fig:0229079-p} we can see tha
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/quasrs/clinic_outer_0229079.png}
-    \caption{}
+    \includegraphics[width=0.5\textwidth]{images/quasrs/clinic_outer_0229079.png}
+    \caption{Inner and outer tangle and heteroclinic points for an island crossing of the $n/m  = 6/16$ chain. There are two heteroclinic orbits for which the crossings are indicated by two different markers. The inner homoclinics are coloured blue, the outer ones red.}
     \label{fig:0229079-turn}
 \end{figure}
 
@@ -87,24 +87,34 @@ The poincare section of such a is shown in \figref{fig:0229079-p} we can see tha
 
 \begin{figure}[H]
     \centering
-    \includegraphics{images/quasrs/outer_0928241.png}
-    \caption{Inner and outer tangles around the O-point of the $\iota = $ island chain. Two homoclinics }
+    \includegraphics[width=0.8\textwidth]{images/quasrs/outer_0928241.png}
+    \caption{Inner and outer tangle and heteroclinic points for an island crossing of the $n/m  = 6/12$ chain. There are two heteroclinic orbits for which the crossings are indicated by two different markers. The inner homoclinics are coloured blue, the outer ones red.}
     \label{fig:turn-0928241}
+\end{figure}
+
+The case $\lambda_s, \lambda_u < 0$ and $\lambda_s, \lambda_u > 0$ are different. For the first 
+In fact due to to topological reasons the first case corresponds to a strange case of the the O/X point and the alternating hyperbolic are o points.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/theory/smeit_sawtooth.jpg}
+    \caption{[insert the image from sawtooth here $\dpmap$ is written as $M$ \cite{smiet_bifurcations_2020}.}
+    \label{fig:smeit-bifurcations}
 \end{figure}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c}
          & 1 & 2 & 3 & 4 \\
-         \hline Residue $\mathcal{R}$ & -2.16 & 1.10 & 0.55
+         \hline Residue $\mathcal{R}$ & -2.16 & -2.16 & 1.10 & 0.55
     \end{tabular}
-    \caption{Greene's Residue calculated for all the fixed points of the }
+    \caption{Greene's residue calculated for each of the four fixed point orbits in the 6/12 island chain. The two X-points have the same value for $\mathcal{R} = \mathcal{R}_1 = \mathcal{R}_2$. The two O-points, however, have different values for their residue.}
     \label{tab:greenes}
 \end{table}
 
-\tabref{tab:greenes} gives the Greene's Residue for the fixed point in the. the
+\tabref{tab:greenes} gives the Greene's Residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k\vert_{\z^\star})$, for the 4 fixed points orbits of the $6/12$ island chain and with the def of sec we see that while the point 1 and 2 are indeed hyperbolic fixed point X-point with the same value of the residue $\mathcal{R} < 0$. But the point 3 and 4 are O-point but actually point 3 is indeed an elliptic O-point but the 4 point has residue $0 < \mathcal{R}(3) < 1$ which means that it is an altearnating fixed point ! Here there is in fact a trangle structure around another tangle structure which would be a mobius strip ! This kind of point was found to be of importance in the sawtooth \cite{smiet_bifurcations_2020}.
 
-\subsection{Big island}\label{sec:quars-1329594}
+\subsection{Large island}\label{sec:quars-1329594}
 
 Configuration \#1329594 concept of resonant divertor.
 
@@ -133,7 +143,7 @@ we see fig that the turnstile is small. Here the turnstile flux calculation can 
     \centering
     \begin{subfigure}[t]{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth]{images/quasrs/poincare_1329594.png}
         \caption{}
         \label{fig:p-1329594}
     \end{subfigure}
@@ -150,10 +160,9 @@ we see fig that the turnstile is small. Here the turnstile flux calculation can 
         \caption{}
         \label{fig:turn-1329594}
     \end{subfigure}
-    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 1329594 in (a) with the X/O fixed points of the island $n/m = 3/5$ drawn as $X$ and $O$ marker. In (b) closer look at the manifold structure around the island. In (c) showing the inner and outer turnstiles and heteroclinic points for the island.}
+    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 1329594 in (a) with the X/O fixed points of the island $n/m = 3/5$ drawn as $X$ and $O$ marker. In (b) closer look at the manifold structure around an island crossing. In (c) the two heteroclinic orbits for which indicated by two different markers. The inner homoclinics are coloured blue, the outer ones red.}
     \label{fig:pmt-1329594}
 \end{figure}
-
 
 \section{Wendelstein 7-X}\label{sec:w7x}
 
@@ -190,13 +199,13 @@ Exiting the resonance zone takes the field line to a the sea that goes to the ed
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[c]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_cnpoints.png}
         \caption{}
         \label{fig:cl-a}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[c]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_points.png}
         \caption{}
@@ -217,8 +226,8 @@ An intuitive argument about the implication on the stochastic transport is that 
     \begin{tabular}{c|c|c}
         & $\Phi_{inner}/\tilde{B}_0^\phi$ [$10^{-5}$] & $\Phi_{outer}/\tilde{B}_0^\phi$ [$10^{-5}$]\\ 
         \hline \hyperref[sec:quars-0229079]{QUASR 0229079} & 1.66 & 2.29\\
-        \hline \hyperref[sec:quars-0928241]{QUASR 0928241} & 46.5 & 135.8\\
-        %\hline \hyperref{sec:quars}{QUASR} &   & \\
+        \hline \hyperref[sec:quars-0928241]{QUASR 1329594} & 46.5 & 135.8\\
+        \hline \hyperref[sec:quars-1329594]{QUASR} & 0.14 & 3.77\\
         \hline \hyperref[sec:w7x]{W7X GYM00-1750} & 0.82 & 63.00\\
     \end{tabular}
     \caption{Inner and outer turnstile fluxes normalized by the $\phi$ component of the magnetic field at the axis for the different stellarator configurations. The three QUASR configurations discussed and the W7X chaotic configuration.}
