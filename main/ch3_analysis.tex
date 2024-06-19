@@ -13,74 +13,75 @@ The heteroclinic search is the longest part of the turnstile flux calculation pr
 
 The \textit{QUAsi-symmetric Stellarator Repository}, \href{https://quasr.flatironinstitute.org/}{\textcolor{blue}{\textit{QUASR}}}, contains at the moment over 320'000 stellarator configurations and was created/assembled thanks to \cite{noauthor_quasr_nodate}.
 
-The configuration selection can be tuned by for instance their coil length, the number of field period, the type of quasi-symmetry and a lot of other settings. 
+The selection of configurations can be tuned by coil length, number of field periods, type of quasi-symmetry and many other settings. The database explores the space of possible Stellarator fields, which is infinite, and catalogues a number of possible outcomes of Stellarator optimisation. 
 
-It explores the space of possible stellaror field, which is infinite, and catalogue the possible results of stellartor optimization. The turnstiles are Three hand picked configurations are presented.
-
+Three hand-picked configurations with major differences in edge magnetic topology are reviewed in this section. This examination suggests that obtaining turnstile fluxes from edge islands of the hypothetical configurations is a feasible process and their inclusion as a target of optimization for the design of future devices is viable and imminent.
 
 \subsection{Many islands}\label{sec:quars-0229079}
-Configuration \#0229079
 
-\begin{figure}[h!]
+The first configuration is a $\nfp = 3$ stellarator with 3 coils per field period with many small islands and chaos in the edge. \figref{\ref{fig:coils-0229079}} shows the full torus view of it with two kinds of coils with different currents runed through them picture in grey and blue. A magnetic surface is also shown (what is the color scheme saying ?).
+
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{}
+        \includegraphics[width=\textwidth]{images/quasrs/config-0229079.png}
         \caption{}
-        \label{fig:}
+        \label{fig:coils-0229079}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=0.8\textwidth]{images/quasrs/iota-0229079.png}
         \caption{}
-        \label{}
+        \label{fig:iota-0229079}
     \end{subfigure}
-    \caption{(a) Coil structure computed surfaces of its magnetic field and (b) iota profile}
-    \label{}
+    \caption{QUASR configuration 0229079. (a) Coil structure and an external magnetic surface, the same colours indicate the same value of current flowing into the coils. (b) Rotational transform against the normalised toroidal flux and its mean value as a horizontal line.}
+    \label{fig:config-0229079}
 \end{figure}
 
-\begin{subfigure}
+The poincare section of such a is shown in \figref{fig:0229079-p} we can see that there are a lot of small islands in the edge. This island is one of the last where the integration is succeeding
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/quasrs/fixedpoint_0229079_1.png}
-    \caption{}
+    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 0229079. The X/O fixed points of the island chain $n/m = 6/16$ are drawn as $X$ and $O$ marker.}
     \label{fig:0229079-p}
-\end{subfigure}
+\end{figure}
 
-\begin{subfigure}[t]{0.29\textwidth}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/quasrs/clinic_outer_0229079.png}
     \caption{}
     \label{fig:0229079-turn}
-\end{subfigure}
+\end{figure}
 
-\subsection{Big island and chaotic edge}\label{sec:quars-0928241}
-Configuration \#0928241
+\subsection{Chaotic edge}\label{sec:quars-0928241}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth]{images/quasrs/config-0928241.png}
         \caption{}
-        \label{fig:}
+        \label{fig:coils-0928241}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=0.8\textwidth]{images/quasrs/iota-0928241.png}
         \caption{}
-        \label{}
+        \label{fig:iota-0928241}
     \end{subfigure}
-    \caption{View of the }
-    \label{}
+    \caption{QUASR configuration 0928241. (a) Coil structure and an external magnetic surface, the same colours indicate the same value of current flowing into the coils. (b) Rotational transform against the normalised toroidal flux and its mean value as a horizontal line.}
+    \label{fig:config-0928241}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics{images/quasrs/fixedpoint_ox_0928241.png}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 0928241. The X/O fixed points of the island chain $n/m = 6/12$ are drawn as $X$ and $O$ marker.}
+    \label{fig:p-0928241}
 \end{figure}
 
 
@@ -88,49 +89,69 @@ Configuration \#0928241
     \centering
     \includegraphics{images/quasrs/outer_0928241.png}
     \caption{Inner and outer tangles around the O-point of the $\iota = $ island chain. Two homoclinics }
-    \label{fig:enter-label}
+    \label{fig:turn-0928241}
 \end{figure}
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c|c}
-         & 1 \\
-         \hline Residue $\mathcal{R}$ & 
+    \begin{tabular}{c|c|c|c|c}
+         & 1 & 2 & 3 & 4 \\
+         \hline Residue $\mathcal{R}$ & -2.16 & 1.10 & 0.55
     \end{tabular}
-    \caption{Greene's Residue calculated for all the fixed points of the $\iotaslash$ = }
+    \caption{Greene's Residue calculated for all the fixed points of the }
     \label{tab:greenes}
 \end{table}
 
 \tabref{tab:greenes} gives the Greene's Residue for the fixed point in the. the
 
-\subsection{}\label{sec:quars-1329594}
+\subsection{Big island}\label{sec:quars-1329594}
 
-Configuration \#1329594
+Configuration \#1329594 concept of resonant divertor.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth]{images/quasrs/config-1329594.png}
         \caption{}
-        \label{fig:}
+        \label{fig:coils-1329594}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=0.8\textwidth]{images/quasrs/iota-1329594.png}
         \caption{}
-        \label{}
+        \label{fig:iota-1329594}
     \end{subfigure}
-    \caption{}
-    \label{}
+    \caption{QUASR configuration 1329594. (a) Coil structure and an external magnetic surface, the same colours indicate the same value of current flowing into the coils. (b) Rotational transform against the normalised toroidal flux and its mean value as a horizontal line.}
+    \label{fig:config-1329594}
 \end{figure}
+
+we see fig that the turnstile is small. Here the turnstile flux calculation can be used to try minize the chaos generated by the island in order to.
 
 \begin{figure}[H]
     \centering
-    \includegraphics{example-image-c}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:p-1329594}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{example-image-b}
+        \caption{}
+        \label{fig:manifold-1329594}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{example-image-c}
+        \caption{}
+        \label{fig:turn-1329594}
+    \end{subfigure}
+    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 1329594 in (a) with the X/O fixed points of the island $n/m = 3/5$ drawn as $X$ and $O$ marker. In (b) closer look at the manifold structure around the island. In (c) showing the inner and outer turnstiles and heteroclinic points for the island.}
+    \label{fig:pmt-1329594}
 \end{figure}
 
 
@@ -163,11 +184,11 @@ The tangle structure created by the stable and unstable manifold is shown in \fi
 
 A field line starting inside the magnetic island will always remain within a confined region of the Poincaré section. A field line from the chaotic layer, on the other hand, will eventually be ejected very far and end up hitting the plasma-facing components. The connection length $L_C$ plot \ref{fig:cl-a} shows this difference in the behaviour of the field lines. The distance travelled before hitting the PCF, i.e. before hitting the computational boundary surface that terminates the integration, is displayed. Higher values therefore mean a longer confinement time and are indicated by a more yellow colour.
 
-An interesting structure emerges by looking around the island, the connection length is high in certain local regions and then low in its neighbours. Several layers of connection length intensities can also be distinguished. Putting in relation \ref{fig:gym00-tangles} and \figref{fig:cl-a} gives \figref{fig:cl-b} where it can be observed that the tangle structure is identical, and in fact defines, the different connection length zones. The fact that the stable and unstable manifolds are the boundary of these zones brings us back to thinking about the definition of exit and entry sets. Remember that a point in the exit set will be mapped out of the resonance zone (the island) while a point in the entry set will be mapped in. As both forward and backward integration are included, note that the two sets are simply swapped when looking at the reverse direction. 
+An interesting structure emerges by looking around the island, the connection length is high in certain local regions and then low in its neighbours. Several layers of connection length intensities can also be distinguished. Putting in relation \ref{fig:gym00-tangles} and \figref{fig:cl-a} gives \figref{fig:cl-b} where it can be observed that the tangle structure is identical, and in fact defines, the different connection length zones. The fact that the stable and unstable manifolds are the boundary of these zones brings us back to thinking about the definition of exit and entry sets. Remember that a point in the exit set will be mapped out of the resonance zone (the island) while a point in the entry set will be mapped in. As both forward and backward integration are included there are in fact two entering and two exiting sets $\pmap(E)$, $\pmap(E)$ for forward and $\pmap(E)$$\pmap(E)$ for backward. but the points are initalized only on the inside.
 
 Exiting the resonance zone takes the field line to a the sea that goes to the edge quickly and resutlts in a small connection length $L_C$. The lobes inside of the resonancne zone are also subdivided by the trellis/tanlge structure of the manifold and take diff amount of mapping you need before actually ending up in the particular exiting-entering set and switching from being in the confined region to being on the outside of the resonance zone and going to the edge.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
@@ -200,6 +221,6 @@ An intuitive argument about the implication on the stochastic transport is that 
         %\hline \hyperref{sec:quars}{QUASR} &   & \\
         \hline \hyperref[sec:w7x]{W7X GYM00-1750} & 0.82 & 63.00\\
     \end{tabular}
-    \caption{Inner and outer turnstile fluxes normalized by the $\phi$ component of the magnetic field at the axis for the different stellarator configurations. The the three QUASR configurations discussed and the W7X chaotic configuration.}
+    \caption{Inner and outer turnstile fluxes normalized by the $\phi$ component of the magnetic field at the axis for the different stellarator configurations. The three QUASR configurations discussed and the W7X chaotic configuration.}
     \label{tab:inner-outer-fluxes}
 \end{table}
