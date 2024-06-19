@@ -61,7 +61,15 @@ where on the on the right the equivalent differential form formalism is introduc
 
 \chapter{Implementations}
 
-\section{Jaxing}\label{sec:jaxpot}
+the was implemented in the pyoculus package and is avalaible online at. the use of jax mentionned is handy as may allow to look at the tangle and turnstiles of structure using directly analytical or reconstructed data .
+
+\section{Potential}\label{sec:jaxpot}
+Using mathematica [ref] to integrate the 
+
+\begin{align*}
+    \frac{1}{4r}( \left( 4 \cdot \text{sf} + \text{shear} \cdot \left( 5r^2 - 10rR + 4R^2 + 2(z - Z)^2 \right) \right) \cdot \sqrt{-r^2 + 2rR - (z - Z)^2} \cdot (z - Z)\\
+    - i r(r - 2R) \cdot \left( 4 \cdot \text{sf} + \left( 3r^2 - 6rR + 4R^2 \right) \cdot \text{shear} \right) \cdot \log\left( -i z + \sqrt{-r(r - 2R) - (z - Z)^2} + i Z \right))
+\end{align*}
 
 \section{Jacobian of $\pmap$ in details}
 The Jacobian of F as a matrix form $\dpmap = \textbf{M} = \partial F^{\{\tilde{R},\tilde{Z}\}}/{\partial \{\tilde{R},\tilde{Z}\}} \in \mathbb{R}^{2\times2}$. For instance~:
@@ -100,4 +108,9 @@ Then to find a fixed point of the map we want to perform the following :
     (\tilde{R}_{n+1},\tilde{Z}_{n+1}) = (\tilde{R}_n,\tilde{Z}_n)
 \end{align*}
 
-
+there is two method that can be used to find those point, first using simply the fact that $\pmap^m x = x$ however we may find all which satisfies this but are not on the type that have mode number n. uses the change of variable in polar coordinate in a rz plane and the chain rule for :
+\begin{equation*}
+    \pmap(H(\rho,\theta)) = 
+\end{equation*}
+with the condition that $\theta$
+in the first method the we only check that the point found was indeed of the. the two method were found to work however the first one seems to converge a bit more and is used in this document, while the other works best when trying to optimize for only one coordinate, for instance when you know that a fixed point is at z=0 using stellarator symmetry.
