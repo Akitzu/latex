@@ -8,23 +8,23 @@ In the study of continuous dynamical systems, it is often convenient to consider
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.32\textwidth}
+    \begin{subfigure}[c]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/theory/w7x.png}
         \caption{W7-X, $\nfp = 5$}
         \label{fig:w7x-default}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.32\textwidth}
+    \begin{subfigure}[c]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/theory/ncsx.png}
         \caption{NCSX, $\nfp = 3$}
         \label{fig:ncsx-default}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.32\textwidth}
+    \begin{subfigure}[c]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/theory/lhd.png}
+        \includegraphics[width=0.94\textwidth]{images/theory/lhd.png}
         \caption{LHD, $\nfp = 10$}
         \label{fig:enter-label}
     \end{subfigure}
@@ -149,7 +149,7 @@ The method to find fixed point is simply using the newton algorithm, details in 
 the sensitivity to initial conditions.
 
 %%% -- CHAPTER --- %%%
-\chapter{Toybox}
+\chapter{Toybox}\label{ch:toybox}
 An analytical magnetic geometry is introduced to provide a simpler and more flexible approach to field line tracing analysis than treating the geometry of a complex toroidal device, as well as to validate the numerical calculation of further algorithms. Due to the linearity of the curl operator, a sum of vector potentials $\textbf{A}_i$ has a one-to-one correspondence with the element of the resulting magnetic fields $\textbf{B}_i$. Defining the model in this way has the advantage of making it possible to use automatic differentiation from the 
 \href{https://jax.readthedocs.io/en/latest/index.html}{\textcolor{blue}{\textit{JAX}}}
 package \cite{bradbury_jax_2018}. The vector potential is the only quantity that needs to be defined analytically. The resulting $\textbf{B}$ or, in fact, any derivative of any reasonable order of $A$ can then be computed. A tokamak-like equilibrium is implemented as the basis of this so-called \textit{Toybox}.
@@ -243,41 +243,25 @@ The superposition of $\psi_{sep}$ with $I = 10\,\pi/\mu_0$, $R_l = 6$ and $Z_l =
 \end{figure}
 
 \section{Perturbations}
-The \textit{ToyTok} is not chaotic and will make it not axisymmetric anymore.
 
-
-the hamiltonian formalism is describe for instance in \cite{viana_hamiltonian_2023} or in
-\cite{escande_description_2024} $\delta\textbf{A} = -\delta\psi_P\nabla\phi/2\pi$ which is adding adding in straight field line coordinates with. 
-
-In 
-
-In the toroidal coordinates the $\phi$ and $\theta$ angles are both $\in [0, 2\pi)$ with $R_\text{max}(\theta)$ and thus one can develop any component into Fourier series as for the magnetic vector potential $\textbf{A}$.
+Since the equilibria generated in the \textit{Toybox} so far are axisymmetric, Noether's theorem implies that there can be only closed flux surfaces and no chaos. To make it appear, perturbations $\delta\textbf{A}$ must be applied. Using simple toroidal coordinates $\phi$, $\theta$ and $0 < \rho < R_\text{max}(\theta)$, makes any function periodic in $\theta$ and $\phi$. Thus one can develop any component of the perturbation into a Fourier series as~:
 \begin{align*}
-    A^i(\rho,\phi,\theta) = \sum\limits_{n\in\mathbb{N}}\sum\limits_{m\in\mathbb{N}} A^i(\rho)\cos(n\phi + \varphi_n)\cos(m\theta + \varphi_m)
+    \delta A^i(\rho,\phi,\theta) = \sum\limits_{n\in\mathbb{N}}\sum\limits_{m\in\mathbb{N}} \delta A^i(\rho)\cos(n\phi + \varphi_n)\cos(m\theta + \varphi_m)
 \end{align*}
-One perturbation mode pair $(m,n)$ and remembering that the equilibrium is axisymmetric, thus one can choose the $\phi$ origin such that $\varphi_m = 0$, the perturbation becomes a choice of $\psi(\rho) = f(\rho)$.
 
-Here the two choices~:
+\cite{escande_description_2024} note that while $\delta\textbf{A}$ generally has 3 components, with a suitable redefinition of the perturbation in straight field line coordinates $\delta\textbf{A}$ can always be of the form $\delta\textbf{A} = -\delta\psi \nabla\phi$ with only a $\phi$ component. Although $\rho$ and $\theta$ are generally not straight field line coordinates, using the same approach, writing $\psi_\text{pert} = R^2\delta A^\phi$ and taking only one Fourier mode pair $(m,n)$ will provide the building block for the toybox perturbations.
 
+The resonant surface has a specific $q$ value and can be targeted, but applying the perturbation to a more widespread region was thought to be more effective and somewhat realistic. For the radial profile of $\psi_{pert}$,  $f(\rho) = R^2\delta A^\phi(\rho)$, the Normal and Maxwell-Boltzmann distribution are implemented~:
 \begin{enumerate}
-    \item $f(\rho, \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-(\rho-\mu)^2}{2\sigma^2}\right)$ from the Normal distribution
-    
-    \item $f(\rho, d) = \frac{\sqrt{2}}{\sqrt{\pi}}\frac{\rho^2}{d^3}\exp\left(\frac{-\rho^2}{2d^2}\right)$ from the Maxwell-Boltzmann distribution
+    \item A Normal distribution $f(\rho, \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-(\rho-\mu)^2}{2\sigma^2}\right)$ with mean  and mode $\mu$ and variance $\sigma^2$.
+    \item A Maxwell-Boltzmann distribution $f(\rho, d) = \frac{\sqrt{2}}{\sqrt{\pi}}\frac{\rho^2}{d^3}\exp\left(\frac{-\rho^2}{2d^2}\right)$ with mean $a$, mode, and variance $a$.
 \end{enumerate}
+\newcommand{\amp}{\varepsilon_\text{amp}}
+The last parameter that can be select in this implementation is the amplitude $\amp$ of the linear combination $\textbf{A} + \amp\delta\textbf{A}$. A fair way to compare the perturbations, for example by their magnetic energy, could be investigated, but is currently lacking.
 
-In fact, the transformation to toroidal does not have to be the one of a circle. One can, for instance, find the flux coordinate for a tokamak equilibrium. Here only a generalization to an ellipsoid is implemented~:
-\begin{align*}
-    \rho &= \sqrt{\left(\frac{R-R_a}{A}\right)^2 + \left(\frac{Z-Z_a}{B}\right)^2}\\
-    \phi &= \phi\\
-    \theta &= \text{arctan2}(\frac{Z-Z_a}{B}, \frac{R-R_a}{A})\\
-\end{align*}
+First we apply a Maxwell-Boltzmann distributed perturbation to the high aspect ratio equilibrium with the mode pair $m=3$, $n=2$ and to target the $q = 3/2$ surface we set $d = \rho/\sqrt{2}$ and $\amp = 0.1$. The resulting perturbation flux $\psi_\text{pert}$ is shown in \figref{fig:toyha-32-psi}. The more yellow the more $\psi_{pert}$ is  positive and the more purple the more negative. The perturbed magnetic field at $\rho=1.75$ is shown, it follows the curves of the constant $\psi_{pert}$. For the divergence-free condition to be satisfied, the flux/field intensity must be higher on the inside, which is indeed observed. \figref{fig:toyha-32-p} shows the resulting poincare section obtained. The crossings of the $q = 3/2$ island are clearly visible. There also seems to be one island closer to the axis and one outside.
 
-and when straight field line coordinate are defined, one can transform $\theta$ and $\rho$ to be the 
-
-talk about mode mixing : this is an choice in the way we apply the perturbation to mix mode.
-Chirikov overlap parameter
-
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.55\textwidth}
         \centering
@@ -292,24 +276,22 @@ Chirikov overlap parameter
         \caption{}
         \label{fig:toyha-32-p}
     \end{subfigure}
-    \caption{}
+    \caption{High aspect ratio Tokamak equilibrium perturbed with Maxwell-Boltzmann distributed perturbation $m/n = 3/2$, $d = 1.75/\sqrt{2}$ and $\amp = 0.1$. In (a) the contour of the perturbed flux $\psi_\text{pert}$ and the resulting perturbed field on the $\rho=1.75$ circle. In (b) Poincaré section at $\phi = 0$ for the perturbed magnetic configuration and the 3 crossing of the island.}
     \label{fig:toyha-32}
 \end{figure}
 
-we can see that they follow the field on the trargeted q for the high aspect and at the separatrix for the toytok. 
-
-however the toroidal coordinates are not the straight field and if we plot at a $\rho = const$ we can see that
+While the resulting perturbed high aspect configuration does not appear chaotic at first, we will further see that there is indeed chaos here. In fact the modes of perturbation are not only the $m$ and $n$ which are used in the implementation because the toroidal coordinates are not straight field line coordinates. \figref{fig:mode-mixing} shows the angle between the $B^\phi\partial_\phi$ and $\textbf{B}$ obtained by the $\arctan(B^\theta/B^\phi)$ with respect to the angle position $\theta$, $\phi$ on the $\rho = 1.75$ surface in the case of the unperturbed high aspect ratio equilibrium. The highest values are more red and indicate that the field is more oriented towards $\partial_\phi$. Lower values are shown in blue. The angle changes with $\theta$, which is not the case for straight field line coordinates\footnote{The basis transformation can be found for example in \cite[p.116]{dhaeseleer_flux_1991}.}, where it would be constant and equal to $\iotaslash(\rho) = 2/3$. This distinction introduces mode mixing, the initial delta distribution in Fourier space is broadened and thus chaos appears faster, which is a welcome feature in this case.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/high-aspect-ratio/fieldlines.png}
-    \caption{Angle between $B^\phi$ and $\textbf{B}$ in radian against the $\theta$ and $\phi$ angle for the magnetic surface $\rho = 1.75$.\label{fig:mode-mixing}}
+    \caption{Angle between $B^\phi\partial_\phi$ and $\textbf{B}$ in radian against the poloidal $\theta$ and toroidal $\phi$ angles for the magnetic surface at $\rho = 1.75$ and with $q(\rho) = 3/2$.}
+    \label{fig:mode-mixing}
 \end{figure}
 
-\figref{fig:mode-mixing} shows that while the field for the $B^\rho = 0$ we are not in straight field line coordinate as the angle clearly changes with respect to the $\theta$ and $\phi$ values. 
+A Maxwell-Boltzmann distributed perturbation can also be added to the single null Tokamak equilibrium. Checking the safety factor profile \figref{fig:toytok-base-iotaq} suggest picking a pair of modes $m=6$, $n=1$ and $d = \sqrt{2}$ (to target $\rho = 2$) and $\amp = 0.1$. Similar to the high aspect ratio case, the \figref{fig:toytok-61-psi} shows the $\psi_\text{pert}$ over the single null tokamak equilibrium. The orientation changes from pointing inward to outward 12 times. The Poincaré section of the resulting field is shown in figure \figref{fig:toytok-61-p}.
 
-The coordinate transformation [cite] 
-It induces chaos quickly as one can 
+The regime can be here seen to be chaotic and there are many islands/island chains. A set of points starting close to the X-point make a more dense layer on the position of the previous separatrix. The position of the O-point is not affected by the perturbation and the X-point is shifted by a relative change of order $10^{-3}$. A closer look at the field lines around the X-point is shown in \figref{fig:xpoint-chaos} with different colours for each field line and the X-point as a crossed marker. It reveals how the field lines are mix in this region. Some higher order islands are also discovered. 
 
 \begin{figure}
     \centering
@@ -326,54 +308,43 @@ It induces chaos quickly as one can
         \caption{}
         \label{fig:toytok-61-p}
     \end{subfigure}
-    \caption{}
+    \caption{Single null Tokamak equilibrium perturbed with Maxwell-Boltzmann distributed perturbation $m/n = 6/1$, $d = \sqrt{2}$ and $\amp = 0.1$. In (a) the contour of the perturbed flux $\psi_\text{pert}$ and the resulting perturbed field on the unperturbed separatrix. In (b) Poincaré section at $\phi = 0$ for the perturbed magnetic configuration.}
     \label{fig:toytok-61}
 \end{figure}
-
-A closer look at the x-point to show the correctness.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/toytok/perturbed-6-1/perturbed_6_1_closer.png}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \caption{Zoom in view around the X-point of the single null Tokamak equilibrium showing the chaotic behaviour of the nearby field line.}
+    \label{fig:xpoint-chaos}
 \end{figure}
 
-\chapter{Tangles and Turnstile}
+\chapter{Tangles and Turnstiles}\label{ch:tangleandturns}
+
+While , the trajectory found by following the magnetic field are an hamiltonian system.
+
+Applying perturbation to such a system can 
+KAM theory. diaphantine numbers
 
 small epsilon when chaos appear the separation of a separatrix when.
-KAM theory
-
-\begin{figure}[h!]
-    \centering
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{example-image-a}
-        \caption{}
-        \label{fig:}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{example-image-b}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \caption{}
-    \label{}
-\end{figure}
 
 tangles for the tokamap, the henon map
 we see that there were a separatrix and then they break to give.
 
-and a really great can be found in \cite{hohloch_homoclinic_2017}\cite{hohloch_transport_2012}.
 from poincare also called them trellis [cite]
+
+Without going into the formal definitions given for instance in \cite{hohloch_transport_2012}, a brief definition of the important concepts and the algorithms used to find them are covered.
 
 \section{Stable and Unstable Manifolds}
 
-manifold, manifold ordering.
+The exponential shrinking and expanding behaviour along the stable and unstable directions, given by the stable $\textbf{e}_s$ and unstable $\textbf{e}_u$ eigenvectors,
+of a saddle fixed point $x^\star$ can be expressed by stating that the point $x = x^\star + \varepsilon \textbf{e}_s$ will converge to $x^\star$ as we apply $\pmap$ and the points $x = x^\star + \varepsilon \textbf{e}_s$ converge to $x^\star$ as we apply $\pmap^{-1}$. The stable manifold $W^s$ is defined more precisely as the set for which $\pmap^k(x)\to x_s^\star$ as $k\to\infty$. Similarly, the unstable manifold $W^u$ is the set of points such that $\pmap^k(x)\to x_s^\star$ as $k\to -\infty$. This definition includes the points close to $x^\star$, but also their evolution. 
 
-algorithm to plot them, from.
+in the following we apply the concept with but n the case where $W^s$ and $W^u$ actually join two different saddle points $x_s^\star$ and $x_u^\star$ $x_u^\star$
+
+In the case of a two dimensional map, such as $\pmap$, the stable manifold theorem proves that there exist immersions $\gamma_u$ and $\gamma_s$ mapping $\mathbb{R}$ to $W^s$ and $W^u$ with $\gamma_s(0) = \gamma_u(0) = x^\star$ \cite{easton_trellises_1986}. It implies that the point on the stable and unstable manifold can be ordered by inducing the order of $\mathbb{R}$, yielding the stable and unstable orderings $>_s$ and $>_u$. The four components $W_+^s$, $W_-^s$, $W_+^u$ and $W_-^u$ correspond to the orientations $\pm\textbf{e}_s$, $\pm\textbf{e}_u$ and to the immersions on $\mathbb{R}^+$, $\mathbb{R}^-$. 
+
+A nice observation is that each of the four components, for example $W^s_+$, can be described by selecting a point $q \in W^s_+$ and setting the initial segment $S^+ = ]q,\pmap(q)]_s \subset W^s_+$. Applying $\pmap$ and $\pmap^{-1}$ to $S^+$ allows you to recover any part of the component by mapping enough time. For a single perturbed tokamak equilibrium without perturbation the separatrix is not broken and $W^s = W^u$. In the chaotic case, say the plasma region confined between $W^s_+ \neq W^u_+$, a simple algorithm to trace the manifold is then to follow the evolution of a $S^+$ and $U^+$ initial segments. 
 
 \begin{figure}[H]
     \centering
@@ -383,7 +354,7 @@ algorithm to plot them, from.
             \centering
             \includegraphics[width=\textwidth]{images/manifold/manifold_start.png}
             \caption{}
-            \label{fig:}
+            \label{fig:man-a}
         \end{subfigure}
         \vfill
         \vspace{10px}
@@ -392,7 +363,7 @@ algorithm to plot them, from.
             \centering
             \includegraphics[width=\textwidth]{images/manifold/manifold_closer.png}
             \caption{}
-            \label{fig:}
+            \label{fig:man-b}
         \end{subfigure}
     \end{minipage}%
     \begin{minipage}{0.5\textwidth} % Adjust width as needed
@@ -401,31 +372,27 @@ algorithm to plot them, from.
             \centering
             \includegraphics[width=\textwidth]{images/manifold/manifold.png}
             \caption{}
-            \label{fig:}
+            \label{fig:man-c}
         \end{subfigure}
     \end{minipage}
-    \caption{}
-    \label{fig:}
+    \caption{Different steps of the manifold plotting process for the perturbed Toy-Tokamak. The starting point in the linear regime is shown in (a) while (b) and (c) shows the evolution of those initial segments while applying  }
+    \label{fig:manifold-algo}
 \end{figure}
 
-laking behind due to the q-profile
-the shape first goes out and then comes back.
-
-the tangle structure they create
+The algorithm, proposed in \cite{wei_invariant_2023}, used to plot the stable and unstable manifold is illustrated in \figref{fig:manifold-algo}. It consists in initializing two points $x_s \in W^s$ and $x_u \in W^u$ and take starting points in the initial segments $S = ]x_s,\pmap^{-1}(x_s)]_s$ and $U = ]x_u,\pmap(x_u)]_u$. Taking the starting points to be equally spaced in exponential space $e^\lambda_s$ and $e^\lambda_u$ is a more appropriate way to encapsulated the changes in behaviour along. \figref{fig:man-a} shows the how the green circle is map closer to $x^\star$ to the triangle on to the fixed point and how the red circle is map further away to the. The by further mapping the $S$ and $U$ segments with the backward and forward evolution respectively the whole manifolds are recovered. \figref{fig:manifold-algo} (b) and (c) show this process as the the number of iterations of $\pmap^\pm$ increases.
 
 \section{Hetero/Homo-clinic points}
 
-what are they and algorithm to find them
+The intersection of $W^s$ and $W^u$ are of particular relevance as they are points for which $\pmap^k(x)$ converges to $x_s^\star$ for $k \to \infty$ and $x_u^\star$ for $k \to -\infty$. The points $p$ in $\mathcal{H} = W^s \cap W^u / {x^\star}$ are called heteroclinic points if points $x_s^\star \neq x_s^\star$ and homoclinics otherwise. An intuitive equivalence class in can be create such that $[p] = [q]$ if one is the obtained by mapping the other for some number of iterations. The equivalence class will sometimes be also refer to as the hetero/homoclinic in this case, which implicitly means all the occurrence of the trajectory.
 
-interested in primary homo-hetero clinic points, there definition.
+A particular type of intersection are the \textit{primary} homo/hetero-clinic points. 
+They are defined formally in \cite[p.14]{hohloch_homoclinic_2017}. Geometrically they represent intersections $p\in\mathcal{H}$ between the two manifold for which the curves that joins $x^\star$ to $p$ in $W^s$ and $W^u$ only intersect at their endpoint.
 
-algorithm to find them on 6/1 and the fact that we need to find another one, say that we can just initialize with lambda being half.
-
-the rosenbruck structure, and the sneaking returns when the amplitude is increased
-
-the fact that we have more than one
-higher order homoclinic points
-toyha in 3 2 
+An algorithm to find those crossing is presented here using recomendation and idea from Matt Landermann. 
+\begin{equation*}
+    \mathcal{P}^{-n_s}(x^s) - \mathcal{P}^{n_u}(x^u)
+\end{equation*}
+Again in the case of the perturbed 6/1 single null tokamak. 
 
 \begin{figure}[h!]
     \centering
@@ -433,31 +400,31 @@ toyha in 3 2
         \centering
         \includegraphics[width=\textwidth]{images/clinicsearch/clinic_start.png}
         \caption{}
-        \label{fig:}
+        \label{fig:clinic-search-a}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/clinicsearch/search_domain.png}
         \caption{}
-        \label{}
+        \label{fig:clinic-search-b}
     \end{subfigure}
-    \caption{}
-    \label{}
+    \caption{homoclinic points seach. (a) initial search guess mapped $n_s = 8$ and $n_u = 4$ times. (b) same path idea showing the initial segments for the where there is more than two homolcinics to search for.}
+    \label{fig:clinic-search}
 \end{figure}
+
+Once the first homoclinic point found, one would like to find the other one. surely better method can be thought of however it was found that by using the same method again minimizing $\mathcal{P}^{-n_s}(x^s) - \mathcal{P}^{n_u}(x^u)$ for an appropriately  selected starting guess would result in the point converging as well. If the value of the homoclinic point found was $eps1$ $eps2$ then they end up on the same point after ns nu iterations. as a point is map to lambda times itself in the linear regime a good guess to find $n_s$
 
 \begin{align*}
        x^s = x^\star+\lambda_s^{i/n_h}\varepsilon_s^1 \textbf{e}_s &\quad
 x^u = x^\star+\lambda_u^{i/n_h}\varepsilon_u^1 \textbf{e}_u\\
 &\text{with}\quad i = 1,...,n_h
 \end{align*}
-\begin{equation}
-    \mathcal{P}^{-n_s}(x^s) - \mathcal{P}^{n_u}(x^u)
-\end{equation}
+and by taking then $n_s+1$ and $n_u$ iteration we are now crossing again and the algo may converge.
 
-the idea to initilize with specific epsilon values to have a nice initial guess. The fact that this is the main point were robustness may be increased.
+Note on this is that the structure of the is similar to a rosenbruck optimization, were a valley is present when the two manifold are travelled in opposite directions. This can make it hard to find the minimum of the 
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
@@ -478,11 +445,14 @@ the idea to initilize with specific epsilon values to have a nice initial guess.
 
 \section{Turnstile}
 
-the definition of a bounded rezonance zone with island inside and a chaotic layer.
+The zone defined by having as boundary the segments $[x_s^\star,p]\cup[p,x_u^\star]$ with $p_\pm$ primary point points in the is defined to has the rezonance zone in \cite{meiss_thirty_2015}. It is in fact the bounded by the separatrix in the unperturbed case and the one where you find inside the island.
 
-the formal definition by Meiss
+In the case of the standard map Meiss look looks at the $(0,1)$ orbit for $K=1.5$. The separation between $W^u$ and $W^s$ are . This creates a turnstile gate behaviour for the lobe .
 
-\begin{figure}[h!]
+which is an analogue to the flux conservation of the $\pmap$. Meiss goes over the argument due to the definition of the entering and outgoing the 
+How the conservation of the flux implies that the entering and exiting sets have the same flux.
+
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
@@ -501,25 +471,22 @@ the formal definition by Meiss
     \label{}
 \end{figure}
 
-in the case of there are more
-
-How the conservation of the flux implies that the entering and exiting sets have the same flux.
-
-the algorithm meiss uses.
-
-In the particular context of the map $\pmap$ the would required $\Omega = \beta$.
+the area conservation in this case and the the are $1 = $ a can be written see the analogy with ($\nabla\cdot\textbf{A}$). And make the area of the lobe $R$ the evaluation of the $ey$ on the contour. Then using the exactness property of the map 
+\begin{equation}
+    
+\end{equation}
 
 \subsection{Adapting Meiss's action principle for the map $\pmap$}
 \newcommand{\Sl}{\Sigma_{lobe}}
 \newcommand{\Se}{\Sigma_{ev}}
 
 we will first discuss for the case of the toytok with the perturbation 6 1 that has 
-When there are two homoclinic , the turnstile flux is the sum of all incoming or outgoing sets. when two there are only one exiting and
+When there are two homoclinic , the turnstile flux is the sum of all incoming or outgoing sets is zero. when two there are only one exiting and
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/turnstile/tokamak-tangles.png}
-    \caption{Schematic representation of the intricate tangle structure formed by $W^s$ and $W^u$ in a chaotic configuration of the Toy-Tokamak with perturbation $m/n = 6/1$. A turnstile lobe is depicted as $\Sl$ with boundary $\gamma_0 + \gamma_1$ and the boundary of a more complex surface with identical flux $\Sigma = \Sl + \Se$ is especially emphasised in pink.}
+    \caption{Schematic representation of the calculation of the turnstile area in a homoclinic tangle. The tangle is formed by $W^s$ and $W^u$ in a chaotic configuration of the Toy-Tokamak with perturbation $m/n = 6/1$. A turnstile lobe is depicted as $\Sl$ with boundary $\gamma_0 + \gamma_1$ and the boundary of a more complex surface with identical flux $\Sigma = \Sl + \Se$ is especially emphasised in pink.}
     \label{fig:tangle-3d}
 \end{figure}
 
@@ -549,7 +516,7 @@ To take care of those joining integrals, note that the argument for $\Se$ is sti
 \begin{equation*}
     \int\limits_{\pmap^{-k}(\gamma_0)} \textbf{A}\cdot\textbf{dl} \leq \int\limits_{\pmap^{-k}(\gamma_0)} \Vert\textbf{A}\Vert \Vert\textbf{dl}\Vert \leq\, L(\pmap^{-k}(\gamma_0))\max\limits_{\textbf{x} \in\pmap^{-k}(\gamma_0)}\Vert\textbf{A(\textbf{x})}\Vert \lesssim L(\pmap^{-k}(\gamma_0)).
 \end{equation*}
-Following the trajectory of the homoclinic points $h_0$ and $m_0$ and tracing them enough time backward allows to reduce and at some point forget about the contribution of $\gamma_1$ to the flux. Since the flux through $\Sl$ and $\pmap^k(\Sl)$ is equal (again, flux conservation of $\pmap$), the same idea as for $\gamma_3$ can be applied to $\gamma_1$. Applying the map repetitively will make the length of $\pmap^k(\gamma_1)$ and thus its contribution to the flux calculation tend to zero. Including these considerations in \equref{eq:contour-2} and taking the the number of forward and backward iterations to infinity gives~:
+Following the trajectory of the homoclinic points $h_0$ and $m_0$ until they converge to the fixed point, the length of $\gamma_1$ reduces to zero and it's contribution to the integral also converges to zero. Since the flux through $\Sl$ and $\pmap^k(\Sl)$ is equal (again, flux conservation of $\pmap$), the same idea as for $\gamma_3$ can be applied to $\gamma_1$. Applying the map repetitively will make the length of $\pmap^k(\gamma_1)$ and thus its contribution to the flux calculation tend to zero. Including these considerations in \equref{eq:contour-2} and taking the the number of forward and backward iterations to infinity gives~:
 \begin{equation}\label{eq:flux-algorithm}
     \Phi_{lobe} = \lim\limits_{k\to\infty}\,\,\int\limits_{m_{-k}}^{m_{k}}\textbf{A}\cdot\textbf{dl} - \int\limits_{h_{-k}}^{h_{k}}\textbf{A}\cdot\textbf{dl}
 \end{equation}
@@ -592,7 +559,7 @@ The calculation of \equref{eq:flux-algorithm} requires enough iterations for the
 \end{figure}
 
 
-
+The evolution of the 
 The overall cost 
 necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it.
 
@@ -630,24 +597,43 @@ actual calculation with the path
 
 To verify that the calculated value of the turnstile flux is making sense, $\Phi_{lobe}$ can be estimated using the simple approximation that~:
 \begin{equation}
-     \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} \approx \tilde{B}^\phi\vert_{x}\,\,\vert\Sl\vert
+     \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} \approx \tilde{B}^\phi_{x_0}\,\,\vert\Sl\vert
 \end{equation}
-with $\tilde{B}^\phi$ evaluated at the point $x$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value of $-3.879\cdot 10^{-1}$.
+with $\tilde{B}^\phi$ evaluated at the point $x_0$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value of $-3.879\cdot 10^{-1}$.
 
 This simple approximation of the area can be refined by using the so-called Shoelace formula on the boundary loop \figref{fig:verif-shoelace} computed by tracing field line : setting starting points on $W^s$ and $W^u$ in between $h$ and $m$. Using the same guess for $\tilde{B}^\phi\vert_x$ and obtaining that $\vert\Sl\vert \simeq 2.728\cdot 10^{-2}$ gives an estimated flux $\Phi_{lobe} \simeq  -3.890\cdot 10^{-1}$, even closer to the calculated flux. Finally, using the same loop, the integral of $\textbf{A}\cdot\textbf{dl}$ can also be approximated using the midpoint rule and determine $\Phi_{lobe} \simeq  -3.858\cdot 10^{-1}$. The redundancy in the value obtained here and the great agreement between them lets us believe that the turnstile flux is correctly calculated.
 
-\subsection{Effect of the perturbation amplitude on the turnstile flux}
+\subsection{Impact of the perturbation amplitude on the turnstile flux}
 
+The 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/amplitudescan/turnstile_area.png}
+    \caption{}
+    \label{fig:scan-6-1}
+\end{figure}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{images/amplitudescan/turnstile_area.png}
+        \includegraphics[width=\textwidth]{images/amplitudescan/turnstile_area_12_2.png}
         \caption{}
-        \label{fig:scan-6-1}
+        \label{fig:scan-big1}
     \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/amplitudescan/turnstile_area_18_3.png}
+        \caption{}
+        \label{fig:scan-big2}
+    \end{subfigure}
+    \caption{}
+    \label{fig:scan-big}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/amplitudescan/turnstile_area_12_2.png}
@@ -665,9 +651,10 @@ This simple approximation of the area can be refined by using the so-called Shoe
 \end{figure}
 
 
-\subsection{Inner and outer turnstiles}
+\subsection{Turnstiles of a $m/n$ island (chain)}
 
-in the case of an island we have first that the need to goes $\pmap^m$ to come back on the same part of the poincare section. it means for example in the case of the high aspect ratio perturbed with a $n/m = 2/3$ perturbation that
+The turnstile calculation developed in the last sections 
+was discussed in the case of the broken separatrix of a single null Tokamak equilibrium. However the method is not restricted to Tokamaks, or $m=1$ islands, but can be used for any islands/island chain with $\iotaslash = n/m$. The adaptation just requires to use the same amount of iteration as for finding the fixed point, effectively mapping back to the same position in the Poincaré section. In fact, as discussed in [sec], one has gcd(m,n) different islands.
 
 \begin{figure}[h!]
     \centering
@@ -675,18 +662,17 @@ in the case of an island we have first that the need to goes $\pmap^m$ to come b
         \centering
         \includegraphics[width=\textwidth]{images/high-aspect-ratio/heteroclinics_outer_3.png}
         \caption{}
-        \label{fig:}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/high-aspect-ratio/closeup.png}
         \caption{}
-        \label{}
     \end{subfigure}
-    \caption{}
-    \label{}
+    \caption{Inner and outer stable and unstable manifolds for the high aspect ratio Tokamak equilibrium with a $m/n = 3/2$ perturbation: (a) general view, (b) zoomed in near a saddle point. The heteroclinics for inner and outer manifolds are shown.}
+    \label{fig:inner-outer}
 \end{figure}
 
-we also see here that there are in fact two manifold structure, one joining the $x_1^\star$ and $x_2^\star$ by the inside and the othere joining them by the outside.
+In \figref{fig:inner-outer} it means for example in the case of the high aspect ratio perturbed with a $n/m = 2/3$ perturbation that
 
+the sum of all the flux lobes gives effectively 0 further showing thet the alculation is correct.

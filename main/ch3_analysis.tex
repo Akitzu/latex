@@ -2,36 +2,123 @@
 
 \chapter{Turnstiles in Stellarator fields}
 
-the biosavart and the interpolated field. all the gym00 configurations
+The tools introduced in Ch.\ref{ch:tangleandturns} in the case of the \textit{ToyBox} of Ch.\ref{ch:toybox} can be applied equally well to a more general magnetic field of an arbitrary toroidal device. In Stellarators, where both the poloidal and toroidal components of the magnetic field are generated, in equilibrium, by a set of coils and associated currents, the Biot-Savart law can be used to determine the value of the field at any point in space. Therefore, for an existing or hypothetical configuration, the Poincaré map $\pmap$ can be defined and the turnstile fluxes can be calculated, thus allowing to quantify the stochasticity, the degree of chaos, present due to a given island (chain).
+
+Concretely, the framework provided by 
+\href{https://simsopt.readthedocs.io/en/latest}{\textcolor{blue}{\textit{Simsopt}}} from \citeauthor{medasani_hiddensymmetriessimsopt_2024} is employed to calculate the field. It is a very general and well-structured way of dealing with stellarator configurations. It is intended for stellarator design and optimisation and interacts well with some other plasma-specific codes, such as VMEC or SPEC. Simsopt can be used to calculate the field using Biot-Savart directly for each evaluation or to interpolate the field on a mesh, which greatly speeds up the calculation but is less accurate. It also enables the evaluation of the magnetic vector potential $\textbf{A}$.
+
+The heteroclinic search is the longest part of the turnstile flux calculation process and is conducted using the interpolated $\textbf{B}$. On the other hand, the direct calculation of $\textbf{B}$ is used to more precisely search for X-points and determine the turnstile flux.
 
 \section{QUASR configurations}
 
-\subsection{Configuration \#0229079}
+The \textit{QUAsi-symmetric Stellarator Repository}, \href{https://quasr.flatironinstitute.org/}{\textcolor{blue}{\textit{QUASR}}}, contains at the moment over 320'000 stellarator configurations and was created/assembled thanks to \cite{noauthor_quasr_nodate}.
+
+The configuration selection can be tuned by for instance their coil length, the number of field period, the type of quasi-symmetry and a lot of other settings. 
+
+It explores the space of possible stellaror field, which is infinite, and catalogue the possible results of stellartor optimization. The turnstiles are Three hand picked configurations are presented.
 
 
-
-\subsection{Configuration \#0928241}
-
-
-
-\subsection{Configuration \#1329594}
-
-
-
-\section{Wendelstein-7X}
+\subsection{Many islands}\label{sec:quars-0229079}
+Configuration \#0229079
 
 \begin{figure}[h!]
     \centering
-    \begin{subfigure}[c]{0.49\textwidth}
+    \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth]{images/w7x-gym00-1750/gym00_1750.png}
+        \includegraphics[width=\textwidth]{}
         \caption{}
         \label{fig:}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[c]{0.49\textwidth}
+    \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym99_1750_fixedpoints.png}
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{(a) Coil structure computed surfaces of its magnetic field and (b) iota profile}
+    \label{}
+\end{figure}
+
+\begin{subfigure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/quasrs/fixedpoint_0229079_1.png}
+    \caption{}
+    \label{fig:0229079-p}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.29\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/quasrs/clinic_outer_0229079.png}
+    \caption{}
+    \label{fig:0229079-turn}
+\end{subfigure}
+
+\subsection{Big island and chaotic edge}\label{sec:quars-0928241}
+Configuration \#0928241
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \caption{View of the }
+    \label{}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/quasrs/fixedpoint_ox_0928241.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/quasrs/outer_0928241.png}
+    \caption{Inner and outer tangles around the O-point of the $\iota = $ island chain. Two homoclinics }
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c}
+         & 1 \\
+         \hline Residue $\mathcal{R}$ & 
+    \end{tabular}
+    \caption{Greene's Residue calculated for all the fixed points of the $\iotaslash$ = }
+    \label{tab:greenes}
+\end{table}
+
+\tabref{tab:greenes} gives the Greene's Residue for the fixed point in the. the
+
+\subsection{}\label{sec:quars-1329594}
+
+Configuration \#1329594
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{}
         \label{}
     \end{subfigure}
@@ -39,49 +126,80 @@ the biosavart and the interpolated field. all the gym00 configurations
     \label{}
 \end{figure}
 
-explanation of what it is, thanks to mat
-
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.45\textwidth} % Adjust width as needed
-        \centering
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_cnpoints.png}
-            \caption{}
-            \label{fig:}
-        \end{subfigure}
-        \vfill
-        \vspace{10px}
-        \vfill
-        \begin{subfigure}[b]{0.99\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_points.png}
-            \caption{}
-            \label{fig:}
-        \end{subfigure}
-    \end{minipage}%
-    \begin{minipage}{0.5\textwidth} % Adjust width as needed
-        \centering
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_connlength.png}
-            \caption{}
-            \label{fig:}
-        \end{subfigure}
-    \end{minipage}
-    \caption{}
-    \label{fig:}
+    \includegraphics{example-image-c}
+    \caption{Caption}
+    \label{fig:enter-label}
 \end{figure}
 
-\section{Inner vs outer turnstiles}
+
+\section{Wendelstein 7-X}\label{sec:w7x}
+
+Wendelstein 7-X is a 5 field period device with a total of 50 modular coils located in Greifswald, Germany. Per field period, in addition to the 10 modular coils that generate the standard W7X field, 4 planar coils can be used to further vary the magnetic field. In this existing stellarator experiment, the shape of the coils is difficult, if not impossible, to alter. The current, on the other hand, can be easily adjusted to vary the magnetic topology.
+
+The standard configuration, shown in \figref{fig:w7x-default}, is obtained by running a current of 1.62 MA in the modular coils and none in the planar coils. This configuration of W7-X was designed to be non-chaotic and exploits the 5/5 island chain in the edge as an island divertor concept. However, other more chaotic configurations can be explored. For example, reducing the currents in the modular coils to 1.1095 MA and those in the planar coils are set to -0.3661 MA creates the GYM00-1750 obtained by Robert Davies. Its Poincar\'e section \figref{fig:gym00-poincare} displays a smaller $n/m = 5/4$ island and a chaotic edge region.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/w7x-gym00-1750/gym00_1750.png}
+        \caption{}
+        \label{fig:gym00-poincare}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym99_1750_fixedpoints.png}
+        \caption{}
+        \label{fig:gym00-tangles}
+    \end{subfigure}
+    \caption{Wendelstein 7-X chaotic GYM00-1750 configuration Poincaré plot (a) and tangle structure with heteroclinics in (b). A $n/m=4/5$ island can be observed and chaos is present in the edge.}
+    \label{}
+\end{figure}
+
+The tangle structure created by the stable and unstable manifold is shown in \figref{fig:gym00-tangles}. The complex lattice structure intersects many times and the primary heteroclinics are nicely located. In this context, in order to trace $W^s$ and $W^u$ with higher precision, the field is evaluated directly from the Biot-Savart law and the integration is carried out, again using Runge-Kutta Dopri5, with a relative tolerance of 1e-14. However, after a small time evolution, the initial segment still becomes a fuzzy layer and not a perfect 2d line. Tuning the integrator to the device or perhaps using a different integration scheme may help reduce the fuzziness and make the tangles clearer. Although not to be trusted blindly, the Runge-Kutta algorithm is very robust for many ODE systems and is relied upon here.
+
+A field line starting inside the magnetic island will always remain within a confined region of the Poincaré section. A field line from the chaotic layer, on the other hand, will eventually be ejected very far and end up hitting the plasma-facing components. The connection length $L_C$ plot \ref{fig:cl-a} shows this difference in the behaviour of the field lines. The distance travelled before hitting the PCF, i.e. before hitting the computational boundary surface that terminates the integration, is displayed. Higher values therefore mean a longer confinement time and are indicated by a more yellow colour.
+
+An interesting structure emerges by looking around the island, the connection length is high in certain local regions and then low in its neighbours. Several layers of connection length intensities can also be distinguished. Putting in relation \ref{fig:gym00-tangles} and \figref{fig:cl-a} gives \figref{fig:cl-b} where it can be observed that the tangle structure is identical, and in fact defines, the different connection length zones. The fact that the stable and unstable manifolds are the boundary of these zones brings us back to thinking about the definition of exit and entry sets. Remember that a point in the exit set will be mapped out of the resonance zone (the island) while a point in the entry set will be mapped in. As both forward and backward integration are included, note that the two sets are simply swapped when looking at the reverse direction. 
+
+Exiting the resonance zone takes the field line to a the sea that goes to the edge quickly and resutlts in a small connection length $L_C$. The lobes inside of the resonancne zone are also subdivided by the trellis/tanlge structure of the manifold and take diff amount of mapping you need before actually ending up in the particular exiting-entering set and switching from being in the confined region to being on the outside of the resonance zone and going to the edge.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_cnpoints.png}
+        \caption{}
+        \label{fig:cl-a}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym00_1750_points.png}
+        \caption{}
+        \label{fig:cl-b}
+    \end{subfigure}
+    \caption{Minimum connection length between backward and forward tracing for the chaotic W7-X configuration, computed using EMC3-Lite. In (a) around the top island crossing and in (b) superimposing the computation of the manifolds of the saddle.}
+    \label{fig:connection-length}
+\end{figure}
+
+\section{Inner and outer turnstile fluxes}
+
+The turnstile fluxes have been calculated for the tangles of the specific island considered in each of the configurations presented. In magnetic islands, there is a tangle closest to the magnetic axis, the inner or inner tangle, and a tangle farthest from the axis, the exterior or outer tangle. \tabref{tab:inner-outer-fluxes} gives the flux calculated for the inner and outer turnstiles for each configuration, normalised by the toroidal component of the magnetic field evaluated at the axis $\tilde{B}_0^\phi$. The value of the inner turnstile fluxes are, for all the magnetic fields analysed here, lower than for the outer turnstiles. In the case of the chaotic W7X configuration it is even of the order of 100 times more flux on the outside than on the inside.
+
+An intuitive argument about the implication on the stochastic transport is that it is bigger on the outside than on the inside and thus there also have more chaos outside. Transport can be intuitively explained and the whole island now acts like a custom officer. To go from the inner region to the inside of the island requires to enter by the inner turnstile gate which is small. However once the the second one passed then the second one is much bigger which make it faster to the edge. It is like when you wait long to get control at the border and when you have been controlled you are free to exit as fast a you like the custom office.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c|c}
-         &  \\
-         & 
+    \begin{tabular}{c|c|c}
+        & $\Phi_{inner}/\tilde{B}_0^\phi$ [$10^{-5}$] & $\Phi_{outer}/\tilde{B}_0^\phi$ [$10^{-5}$]\\ 
+        \hline \hyperref[sec:quars-0229079]{QUASR 0229079} & 1.66 & 2.29\\
+        \hline \hyperref[sec:quars-0928241]{QUASR 0928241} & 46.5 & 135.8\\
+        %\hline \hyperref{sec:quars}{QUASR} &   & \\
+        \hline \hyperref[sec:w7x]{W7X GYM00-1750} & 0.82 & 63.00\\
     \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
+    \caption{Inner and outer turnstile fluxes normalized by the $\phi$ component of the magnetic field at the axis for the different stellarator configurations. The the three QUASR configurations discussed and the W7X chaotic configuration.}
+    \label{tab:inner-outer-fluxes}
 \end{table}
