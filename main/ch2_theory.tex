@@ -344,7 +344,8 @@ in the following we apply the concept with but n the case where $W^s$ and $W^u$ 
 
 In the case of a two dimensional map, such as $\pmap$, the stable manifold theorem proves that there exist immersions $\gamma_u$ and $\gamma_s$ mapping $\mathbb{R}$ to $W^s$ and $W^u$ with $\gamma_s(0) = \gamma_u(0) = x^\star$ \cite{easton_trellises_1986}. It implies that the point on the stable and unstable manifold can be ordered by inducing the order of $\mathbb{R}$, yielding the stable and unstable orderings $>_s$ and $>_u$. The four components $W_+^s$, $W_-^s$, $W_+^u$ and $W_-^u$ correspond to the orientations $\pm\textbf{e}_s$, $\pm\textbf{e}_u$ and to the immersions on $\mathbb{R}^+$, $\mathbb{R}^-$. 
 
-A nice observation is that each of the four components, for example $W^s_+$, can be described by selecting a point $q \in W^s_+$ and setting the initial segment $S^+ = ]q,\pmap(q)]_s \subset W^s_+$. Applying $\pmap$ and $\pmap^{-1}$ to $S^+$ allows you to recover any part of the component by mapping enough time. For a single perturbed tokamak equilibrium without perturbation the separatrix is not broken and $W^s = W^u$. In the chaotic case, say the plasma region confined between $W^s_+ \neq W^u_+$, a simple algorithm to trace the manifold is then to follow the evolution of a $S^+$ and $U^+$ initial segments. 
+A nice observation is that each of the four components, for example $W^s_+$, can be described by selecting a point $q \in W^s_+$ and setting the initial segment $S^+ = ]q,\pmap(q)]_s \subset W^s_+$. Applying $\pmap$ and $\pmap^{-1}$ to $S^+$ allows you to recover any part of the component by mapping enough time. For a single perturbed tokamak equilibrium without perturbation the separatrix is not broken and $W^s = W^u$.
+note that they are 3d but we can consider there 2d shape as their evolution is continuous in $\phi$. In the chaotic case, say the plasma region confined between $W^s_+ \neq W^u_+$, a simple algorithm to trace the manifold is then to follow the evolution of a $S^+$ and $U^+$ initial segments. 
 
 \begin{figure}[H]
     \centering
@@ -458,17 +459,16 @@ How the conservation of the flux implies that the entering and exiting sets have
         \centering
         \includegraphics[width=\textwidth]{images/turnstile/01Resonance.png}
         \caption{}
-        \label{fig:}
+        \label{fig:standardmap-turn}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/turnstile/2DLobe.png}
         \caption{}
-        \label{}
+        \label{fig:meiss-countour}
     \end{subfigure}
-    \caption{\cite{meiss_thirty_2015}}
-    \label{}
+    \caption{Schematic representation of a turnstile in (a) for the resonance zone of the (0,1)-orbit of the standard map with $K = 1.5$, (b) for the tangle structure formed by the manifolds $W^s(p)$ and $W^u(f)$ of two $f$ and $p$ saddles. In both cases the orbit intersections of primary homo/heteroclinics are denoted by $h_i$ and $m_i$. The figures are taken from \cite{meiss_thirty_2015}.}
 \end{figure}
 
 the area conservation in this case and the the are $1 = $ a can be written see the analogy with ($\nabla\cdot\textbf{A}$). And make the area of the lobe $R$ the evaluation of the $ey$ on the contour. Then using the exactness property of the map 
@@ -532,7 +532,7 @@ The calculation of \equref{eq:flux-algorithm} requires enough iterations for the
             \centering
             \includegraphics[width=\textwidth]{images/turnstile/coutour_fwd.png}
             \caption{}
-            \label{fig:}
+            \label{fig:flux-poincare-conv-a}
         \end{subfigure}
     \end{minipage}
     \hfill
@@ -542,7 +542,7 @@ The calculation of \equref{eq:flux-algorithm} requires enough iterations for the
             \centering
             \includegraphics[width=\textwidth]{images/turnstile/coutour_c1.png}
             \caption{}
-            \label{fig:}
+            \label{fig:flux-poincare-conv-b}
         \end{subfigure}
         \vfill
         \vspace{10px}
@@ -551,28 +551,19 @@ The calculation of \equref{eq:flux-algorithm} requires enough iterations for the
             \centering
             \includegraphics[width=\textwidth]{images/turnstile/coutour_c2.png}
             \caption{}
-            \label{}
+            \label{fig:flux-poincare-conv-c}
         \end{subfigure}
     \end{minipage}%
     \caption{Evolution of the turnstile lobe boundary for forward and backward iterations, note here that $\pmap$ sends points in a counterclockwise manner. The transition to the X-point can be observed in (a) where the manifolds are close to one another. In (b) and (c) the stretching of $\pmap^k(\gamma_0)$ and $\pmap^{-k}(\gamma_1)$ can be witnessed as well as the straightening/shrinking of $\pmap^{-k}(\gamma_0)$ in red and $\pmap^{k}(\gamma_1)$ in green.}
-    \label{fig:}
+    \label{fig:flux-poincare-conv}
 \end{figure}
 
-
-The evolution of the 
-The overall cost 
-necessary integration against only 2 once the homoclinics are found, this allows to use a higher tolerance on the integrator. Note in the case you also need to be sure that your grid is fine enough to have the intersections in it.
-
-The complexity is different, here it is used for verification.
-
-we see here in figure 
-
-actual calculation with the path 
+\figref{fig:flux-poincare-conv} shows the forward and backward mappings of the contour of a lobe and thus the evolution of the joining curves. The initial lobe on low field side, exterior of the tokamak, is mapped around conter clockwise as shown in \figref{fig:flux-poincare-conv-a}. The integral on the homoclinic trajectory \eqref{eq:flux-algorithm} is shown in \figref{fig:turnstile-convergence} and for the five first iterations are done forward only and makes a transit from the HFS to the LFS and the value of the integral is jumping around. Then from that point, the last four iterations make the joining curves shrink, as shown in \figref{fig:flux-poincare-conv-b} and \figref{fig:flux-poincare-conv-c} and the integral converges. After the ninth iteration the points are again in the range where the error due to integration make the regime not linear and the point start getting further away. However as seen in \figref{fig:flux-poincare-conv-c} the can be stopped before by approximating the joining integrals where $W^s$ and $W^u$ straight. The calculation of the turnstile flux gives a numerical value of $\Phi_{lobe} = -3.879\cdot 10^{-1}$\footnote{Again without specifying the unit of the Toybox.}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/turnstile/turnstile_area_final.png}
-    \caption{Lobe flux $\Phi_{lobe}$ calculation as in \equref{eq:flux-algorithm} against the number of iteration of the Poincaré map $\pmap$. The first five iterations are done forward only. The remaining four iterations, before the integration error causes the algorithm to stop, make the joining integrals small.}
+    \caption{Lobe flux $\Phi_{lobe}$ calculation as in \equref{eq:flux-algorithm} against the number of iteration of the Poincaré map $\pmap$. The first five iterations are done forward only. The remaining four iterations, before the integration error causes the algorithm to stop, make the joining integrals small by forward and backward iterations.}
     \label{fig:turnstile-convergence}
 \end{figure}
 
@@ -599,20 +590,25 @@ To verify that the calculated value of the turnstile flux is making sense, $\Phi
 \begin{equation}
      \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} \approx \tilde{B}^\phi_{x_0}\,\,\vert\Sl\vert
 \end{equation}
-with $\tilde{B}^\phi$ evaluated at the point $x_0$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value of $-3.879\cdot 10^{-1}$.
+with $\tilde{B}^\phi$ evaluated at the point $x_0$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value .
 
 This simple approximation of the area can be refined by using the so-called Shoelace formula on the boundary loop \figref{fig:verif-shoelace} computed by tracing field line : setting starting points on $W^s$ and $W^u$ in between $h$ and $m$. Using the same guess for $\tilde{B}^\phi\vert_x$ and obtaining that $\vert\Sl\vert \simeq 2.728\cdot 10^{-2}$ gives an estimated flux $\Phi_{lobe} \simeq  -3.890\cdot 10^{-1}$, even closer to the calculated flux. Finally, using the same loop, the integral of $\textbf{A}\cdot\textbf{dl}$ can also be approximated using the midpoint rule and determine $\Phi_{lobe} \simeq  -3.858\cdot 10^{-1}$. The redundancy in the value obtained here and the great agreement between them lets us believe that the turnstile flux is correctly calculated.
 
 \subsection{Impact of the perturbation amplitude on the turnstile flux}
+\newcommand{\tf}{\Phi_{lobe}}
 
-The 
+Now that we have the calculation of the turnstile flux ready, it will be possible to determine some experimental law for its relationship in some real cases. Here however we first look at the relationship with the amplitude of the perturbation  \figref{fig:scan-6-1} gives the turnstile flux $\tf$ as a function of the amplitude for the 6/1 perturbation applied in the single null Toy-Tokamak. The evolution of $\tf$ is linear with respect to the amplitude with a slope $\approx 3.5$, it goes to zero when $\amp = 0$. For the range scanned from 0 to 0.7 there are no failure in the algorithm. For amplitude bigger we see that the process fails sometimes which is due to the homoclinic search not succeeding. The density of succeeded calculation becomes lower as more as $\amp$ is increased.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/amplitudescan/turnstile_area.png}
-    \caption{}
+    \caption{Turnstile flux against the amplitude $\amp$ of the $6/1$ perturbation applied on the single null Toy-Tokamak equilibrium.}
     \label{fig:scan-6-1}
 \end{figure}
+
+However this was performed be trying to find automatically the two homoclinics. \figref{fig:scan-wacky} shows the poincare section for selected value of the $\amp$ between 0 and 1 ; it can be seen that the manifold structure are becoming really complicated while the algorithm is still able to find calcualte the flux for most of the time.
+
+In the case of the 18/3 we have seen that there were 6 different homoclinic orbits to be found and actually for the 12/2 there are 4. it seems here that the relation is simply equal to the $n$ mode however some other perturbation did not follow that and due to the mixed mode perturbation it is hard to conclude something, maybe there a more complicated thing using the $gcd$ or literature that talks about this and it is a really interesting thing to further consider. Still for such a case the algorithm 
 
 \begin{figure}[H]
     \centering
@@ -626,9 +622,9 @@ The
         \centering
         \includegraphics[width=\textwidth]{images/amplitudescan/turnstile_area_18_3.png}
         \caption{}
-        \label{fig:scan-big2}
+        \label{fig:scan-wacky}
     \end{subfigure}
-    \caption{}
+    \caption{Poincaré section for the perturbed equilibrium with the manifold plotted at for (a) and (b).}
     \label{fig:scan-big}
 \end{figure}
 
@@ -646,7 +642,7 @@ The
         \caption{}
         \label{fig:scan-18-3}
     \end{subfigure}
-    \caption{}
+    \caption{Turnstile flux against amplitude of the (a) $12/2$ and (b) $18/3$ perturbation.}
     \label{fig:amp-scan}
 \end{figure}
 
