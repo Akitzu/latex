@@ -119,7 +119,25 @@ Especially by looking at the eigenvalues $\lambda_1$ and $\lambda_2$ of the jaco
     \item $\lambda_1 = \lambda_2 = \pm 1$
 \end{enumerate}
 
-To find the fixed point of the field line map the Newton method will be used. The O-points are relatively simple to find when using an initial guess in the right region. For many X-points, the strong exponential behaviour around them make the jacobian matrix ill conditioned. The region of convergence is then very small. This might be show stopper for some higher order island where the initial starting guess need to be made in a too precise region.
+To find the fixed point of the field line map the Newton method will be used. The O-points are relatively simple to find when using an initial guess in the right region. For many X-points, the strong exponential behaviour around them make the jacobian matrix ill conditioned. The region of convergence is then very small. This might be show stopper for some higher order island where the initial starting guess need to be made in a too precise region. Around the xpoint of ncsx and of the toybox presented in next section.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{}
+        \caption{\label{fig:fp-ncsx}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/high-aspect-ratio/iota_q.pdf}
+        \caption{\label{fig:fp-toybox}}
+    \end{subfigure}
+    \caption{}
+    \label{fig:fp-search}
+\end{figure}
+
 
 %%% -- CHAPTER --- %%%
 \chapter{Toybox}\label{ch:toybox}
@@ -552,7 +570,7 @@ To verify that the calculated value of the turnstile flux is making sense, $\Phi
 \begin{equation}
      \Phi_{lobe} = \int_{\Sl} \textbf{B}\cdot\textbf{dS} \approx \tilde{B}^\phi_{x_0}\,\,\vert\Sl\vert
 \end{equation}
-with $\tilde{B}^\phi$ evaluated at the point $x_0$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(\tilde{R}, \tilde{Z}) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value .
+with $\tilde{B}^\phi$ evaluated at the point $x_0$ inside of the lobe and $\vert\Sl\vert$ the area of the lobe. Choosing the triangle approximation shown in \figref{fig:verif-triangle} for the surface gives an area $\vert\Sl\vert \simeq 2.9439\cdot 10^{-2}$. Evaluating $\tilde{B}^\phi$ at the point $(R, Z) = (6.791, -4.046)$, shown as the black dot, gives $\tilde{B}^\phi \simeq -14.262$ and results in an estimated value for the flux $\Phi_{lobe} \simeq -4.198\cdot 10^{-1}$, which is close to the calculated value .
 
 This simple approximation of the area can be refined by using the so-called Shoelace formula on the boundary loop \figref{fig:verif-shoelace} computed by tracing field line : setting starting points on $W^s$ and $W^u$ in between $h$ and $m$. Using the same guess for $\tilde{B}^\phi\vert_x$ and obtaining that $\vert\Sl\vert \simeq 2.728\cdot 10^{-2}$ gives an estimated flux $\Phi_{lobe} \simeq  -3.890\cdot 10^{-1}$, even closer to the calculated flux. Finally, using the same loop, the integral of $\textbf{A}\cdot\textbf{dl}$ can also be approximated using the midpoint rule and determine $\Phi_{lobe} \simeq  -3.858\cdot 10^{-1}$. The redundancy in the value obtained here and the great agreement between them lets us believe that the turnstile flux is correctly calculated.
 
