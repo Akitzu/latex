@@ -2,6 +2,8 @@
 \newcommand{\dpmap}{\mathcal{D}\mathcal{P}}
 \newcommand{\pmap}{\mathcal{P}}
 \newcommand{\nfp}{n_\text{fp}}
+\newcommand{\shear}{\alpha_s}
+\newcommand{\qaxis}{q_a}
 \newcommand{\z}{x}
 
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. For particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
@@ -130,7 +132,7 @@ More specifically in axisymmetric equilibria (i.e. perfect Tokamaks), following 
 \begin{align*}
     \textbf{B} = B^i\partial_i = -\frac{1}{R}\frac{\partial\psi}{\partial Z}\partial_R +\frac{1}{R}\frac{\partial\psi}{\partial R}\partial_Z + \left(\frac{\partial A^R}{\partial Z} - \frac{\partial A^Z}{\partial R}\right)\partial_\phi.
 \end{align*}
-with $\psi = R^2 A^\phi$. The choice of Gauge can be exploited to assume $A^Z = 0$. For completeness, note that in the formulation of the Grad-Sharfranov equation, the $B^\phi$ term is related to a function $F(\psi)$ as $B^\phi = (\mu_0) F/R^2$.
+with $\psi = R^2 A^\phi$. The choice of Gauge can be exploited to assume $A^Z = 0$. For completeness, note that in the formulation of the Grad-Sharfranov equation, the last term, giving the $\phi$ component of the field, is related to a function $F(\psi)$ as $(\mu_0) F/R^2$.
 
 A convenient geometry to study for the flux surfaces is nested toroids centered on the magnetic axis of RZ-coordinates $(R_0, Z_0)$. Introducing toroidal coordinates $(\rho, \phi, \theta)$, with $\rho$ the distance from the axis, the poloidal flux is thus $\psi(R, Z) \propto (R - R_0)^2 + (Z - Z_0)^2 = \rho^2$. In fact, due to the freedom in the dimension of the implementation, the equality can be choosen. For large aspect ratio tokamaks $R_0/\rho >> 1$ the safety factor profile can be approximated by~:
 \begin{align*}
@@ -146,13 +148,13 @@ The $\theta$ component can be derived directly from coordinate transformation, a
 \end{align*}
 The $\phi$ component of $\textbf{B}$\footnote{In the implementation used in this document, the $B^\phi$ has been oriented along the -$\partial_\phi$ direction, which has no direct effect on the calculation themselves, but may occasionally cause some sign reversal, e.g. the latter value of the current in the circular loop coil. It also flips the way the field line rotate around the axis.} is introduced heuristically as~:
 \begin{align*}
-    B^\phi = 2\sqrt{R^2-\rho^2}\,(\text{sf}+\frac{\text{shear}}{2}\rho^2)/R^2
+    B^\phi = 2\sqrt{R^2-\rho^2}\,(\qaxis+\frac{\shear}{2}\rho^2)/R^2
 \end{align*}
 with its corresponding $A^R$ provided in \appref{sec:jaxpot}. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
 \begin{align*}
-     q(\rho) = (\text{sf}+\frac{\text{shear}}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_0 + \rho\cos{\theta}}d\theta = \text{sf}+\frac{\text{shear}}{2}\rho^2
+     q(\rho) = (\qaxis+\frac{\shear}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_0 + \rho\cos{\theta}}d\theta = \qaxis+\frac{\shear}{2}\rho^2
 \end{align*}
-where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:toyha-basis-p} shows the cross section obtained by tracing the field line over a full toroidal revolution for the equilibrium with $R_0 = 6$, $Z_0 = 0$, $\text{sf} = 0.8875$ and $\text{shear} = 0.4$. While the effective number of field periods is $\nfp = \infty$, calculating the Poincare section by integrating over $2\pi$ remains correct even when perturbations are added and the axisymmetry breaks. The density of intersections is higher on the inside than on the outside. Since $B^\rho = 0$ and $\Tilde{B}^\phi/\tilde{B}^\theta \propto \sqrt{(\rho/R)^2-1}$ for constant $\rho$, a field line revolves faster in $\phi$ when $\theta \sim \pi$ then when $\theta \sim 0$ and thus make more crossings.
+where the last two term cancel for $\rho < R$. At this point, we can make sense of the sf and shear constants as the on axis safety factor and the actual shear $dq/d\rho$. \figref{fig:toyha-basis-p} shows the cross section obtained by tracing the field line over a full toroidal revolution for the equilibrium with $R_0 = 6$, $Z_0 = 0$, $\qaxis = 0.8875$ and $\shear = 0.4$. While the effective number of field periods is $\nfp = \infty$, calculating the Poincare section by integrating over $2\pi$ remains correct even when perturbations are added and the axisymmetry breaks. The density of intersections is higher on the inside than on the outside. Since $B^\rho = 0$ and $\Tilde{B}^\phi/\tilde{B}^\theta \propto \sqrt{(\rho/R)^2-1}$ for constant $\rho$, a field line revolves faster in $\phi$ when $\theta \sim \pi$ then when $\theta \sim 0$ and thus make more crossings.
 
 \begin{figure}
     \centering
@@ -167,7 +169,7 @@ where the last two term cancel for $\rho < R$. At this point, we can make sense 
         \includegraphics[width=\textwidth]{images/high-aspect-ratio/iota_q.pdf}
         \caption{\label{fig:toyha-basis-iotaq}}
     \end{subfigure}
-    \caption{High aspect ratio Toy-Tokamak equilibrium with $R_0 = 6$, $Z_0 = 0$, $\text{sf} = 0.8875$ and $\text{shear} = 0.4$. (a) Poincar\'e section computed with Runge-Kutta algorithm. (b) Rotational transform $\iota/2\pi$ and $q$ profile with respect to the distance $\rho$ from the axis.}
+    \caption{High aspect ratio Toy-Tokamak equilibrium with $R_0 = 6$, $Z_0 = 0$, $\qaxis = 0.8875$ and $\shear = 0.4$. (a) Poincar\'e section computed with Runge-Kutta algorithm. (b) Rotational transform $\iota/2\pi$ and $q$ profile with respect to the distance $\rho$ from the axis.}
     \label{fig:toyha-basis}
 \end{figure}
 
@@ -179,7 +181,7 @@ An essential feature of the diverted tokamak edge structure is the separatrix. C
 \end{align*}
 with $K, E$ the complete elliptic integral of the first and second kind and with $\alpha^2 = (R_l-R)^2 + Z^2$, $\beta^2 = (R_l+R)^2+Z^2$ and $k = 1 - \alpha^2/\beta^2$. To get a general position from this expression, $Z$ can be substituted  with $Z-Z_l$.
 
-The superposition of $\psi_{sep}$ with $I = 10\,\pi/\mu_0$, $R_l = 6$ and $Z_l = -5.5$ on the $\psi_{eq}$ for nested toroids with $R_0 = 6, Z_0 = 0, \text{sf} = 0.91, \text{shear} = 1.2$ is shown in \figref{fig:toytok-base-psi}. $\psi_{sep}$ produces only a field lying in the poloidal plane, and by taking the current direction in the loop identical to the direction of $B^\phi_{eq}$, the poloidal component of the field cancels out somewhere between the former axis and the position of the loop, producing the desired X-point. The resulting analytical Tokamak equilibrium is shown in \figref{fig:toytok-base-p}. The separatrix appears clearly. It can be appreciated that for small distances with respect to the axis the $q$-profile is still quadratic \figref{fig:toytok-base-p} and tends to infinity as it approaches the separatrix.
+The superposition of $\psi_{sep}$ with $I = 10\,\pi/\mu_0$, $R_l = 6$ and $Z_l = -5.5$ on the $\psi_{eq}$ for nested toroids with $R_0 = 6, Z_0 = 0, \qaxis = 0.91, \shear = 1.2$ is shown in \figref{fig:toytok-base-psi}. $\psi_{sep}$ produces only a field lying in the poloidal plane, and by taking the current direction in the loop identical to the direction of $B^\phi_{eq}$, the poloidal component of the field cancels out somewhere between the former axis and the position of the loop, producing the desired X-point. The resulting analytical Tokamak equilibrium is shown in \figref{fig:toytok-base-p}. The separatrix appears clearly. It can be appreciated that for small distances with respect to the axis the $q$-profile is still quadratic \figref{fig:toytok-base-p} and tends to infinity as it approaches the separatrix.
 
 \begin{figure}[H]
     \centering
@@ -301,7 +303,7 @@ This seemingly erratic behaviour is however structured with the apparition of ev
 
 In the fusion research, the fact to follow the field line is such a hamiltonian \cite{escande_description_2024}\cite{abdullaev_magnetic_2014}\cite{viana_hamiltonian_2023} system that often is prone to chaos. This can be a feature or a bug depending on the configuration. 
 
-A measure of transport due to chaos is \cite{meiss_thirty_2015} which works in the more general case of volume-preserving maps. The transport is measured by exit and entry fluxes. For area-preserving maps, transport is impeded by invariant manifolds forming partial barriers. For exact volume-preserving maps, flux computation reduces to finding the difference between the actions of key orbits, such as homoclinic orbits to a saddle or cantorus. More mathy definition can be found in well \cite{hohloch_transport_2012}\cite{hohloch_homoclinic_2017}. He make the point that  characterisation of transport in deterministic dynamical systems involves the computation of exit and transition time distributions in phase space. 
+A measure of transport due to chaos is \cite{meiss_thirty_2015} which works in the more general case of volume-preserving maps. The transport is measured by exit and entry fluxes. For area-preserving maps, transport is impeded by invariant manifolds forming partial barriers. For exact volume-preserving maps, flux computation reduces to finding the difference between the actions of key orbits, such as homoclinic orbits to a saddle or cantorus. More mathy definition about the Floer homology, can be found in well \cite{hohloch_transport_2012}\cite{hohloch_homoclinic_2017}. He make the point that  characterisation of transport in deterministic dynamical systems involves the computation of exit and transition time distributions in phase space. 
 
 The resulting idea is that there are partial barriers formed by two curve and forming a infinite grid structure which, a link to the fractal. This structre now often called tangles were first studied by H. Poincare in the three body problem of celestial mechanics \cite{poincare_methodes_1899}. He used to called them trellis as the interconnection formed resemble such a strange object.
 
@@ -607,7 +609,7 @@ In the case of the 18/3 we have seen that there were 6 different homoclinic orbi
 \end{figure}
 
 
-\subsection{Turnstiles of a $m/n$ island (chain)}
+\subsection{Turnstiles of a $m/n$ island chain}
 
 The turnstile calculation developed in the last sections was discussed in the case of the broken separatrix of a single null Tokamak equilibrium. However the method is not restricted to Tokamaks, or $m=1$ islands, but can be used for any islands/island chain with $\iotaslash = n/m$. The adaptation just requires to use the same amount of iteration as for finding the fixed point, effectively mapping back to the same position in the Poincaré section. In fact, as discussed in [sec], one has gcd(m,n) different islands.
 
