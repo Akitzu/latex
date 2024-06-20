@@ -22,14 +22,17 @@
 \input{head/titlepage.tex}
 \include{head/dedication}
 \setcounter{page}{0}
+\cleardoublepage
 \include{head/acknowledgements}
-\include{head/preface}
+\cleardoublepage
 \include{head/abstracts}
+\cleardoublepage
 
 \cleardoublepage
 \pdfbookmark{\contentsname}{toc}
 \tableofcontents
 
+\cleardoublepage
 % % Following content is OPTIONAL (List of figures + tables)
 % \cleardoublepage
 % \phantomsection
@@ -51,6 +54,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% MAIN: The chapters of the thesis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \mainmatter
 \include{main/ch1_introduction}
 %\cleardoublepage
