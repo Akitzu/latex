@@ -58,6 +58,9 @@ The poincare section of such a is shown in \figref{fig:0229079-p} we can see tha
 
 \subsection{Chaotic edge}\label{sec:quars-0928241}
 
+The configuration {\textcolor{blue}{0928241}}
+
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
@@ -92,15 +95,21 @@ The poincare section of such a is shown in \figref{fig:0229079-p} we can see tha
     \label{fig:turn-0928241}
 \end{figure}
 
-The case $\lambda_s, \lambda_u < 0$ and $\lambda_s, \lambda_u > 0$ are different. For the first 
-In fact due to to topological reasons the first case corresponds to a strange case of the the O/X point and the alternating hyperbolic are o points.
+The starting point for the FLT where set such that the two islands par of the island chain in the edge could be seen. However, and disturbingly at first, only one of the two has closed surfaces. It could be that the island is super tiny, can it disapear ? 
+
+The fact that O-point are elliptic point is not the best definition. Indeed there is a more topological definition of the difference between O/X-point relying on their topological index. 
+
+By noting this, the case $\lambda_s, \lambda_u < 0$ and $\lambda_s, \lambda_u > 0$ are two distinct point, the second is the usual X-point saddle but the first one is in fact also a different kind of O-point. The first case was as alternating hyperbolic point in \cite{smiet_bifurcations_2020}. Depending on the value of the trace one can differentiate alternating elliptic O-point from elliptic O-point from hyperbolic X-points. The Greene's Residues 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/theory/smeit_sawtooth.jpg}
-    \caption{[insert the image from sawtooth here $\dpmap$ is written as $M$ \cite{smiet_bifurcations_2020}.}
+    \caption{Characterization of the fixed point by the value of the trace of the jacobian matrix $\dpmap$ of the field line map (written M here) taken from \cite{smiet_bifurcations_2020}.}
     \label{fig:smeit-bifurcations}
 \end{figure}
+
+For the four fixed point found in the $\iotaslash = 6/12$ island chain are regrouped in \tabref{tab:greenes}. Point 1 and 2 correspond have 
+\tabref{tab:greenes} gives the Greene's Residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k\vert_{\z^\star})$, for the 4 fixed points orbits of the $6/12$ island chain and with the def of sec we see that while the point 1 and 2 are indeed hyperbolic fixed point X-point with the same value of the residue $\mathcal{R} < 0$. But the point 3 and 4 are O-point but actually point 3 is indeed an elliptic O-point but the 4 point has residue $0 < \mathcal{R}(3) < 1$ which means that it is an altearnating fixed point ! Here there is in fact a tangle structure around another tangle structure which would be a mobius strip ! The chaos is much more present in the inside of this region for the alternating hyperbolic due to the presence of an third tangle structure on the inside of the resonance zone itself !
 
 \begin{table}[H]
     \centering
@@ -112,11 +121,13 @@ In fact due to to topological reasons the first case corresponds to a strange ca
     \label{tab:greenes}
 \end{table}
 
-\tabref{tab:greenes} gives the Greene's Residue $\mathcal{R} = \frac{1}{2} - \frac{1}{4}\text{Tr}(\dpmap^k\vert_{\z^\star})$, for the 4 fixed points orbits of the $6/12$ island chain and with the def of sec we see that while the point 1 and 2 are indeed hyperbolic fixed point X-point with the same value of the residue $\mathcal{R} < 0$. But the point 3 and 4 are O-point but actually point 3 is indeed an elliptic O-point but the 4 point has residue $0 < \mathcal{R}(3) < 1$ which means that it is an altearnating fixed point ! Here there is in fact a trangle structure around another tangle structure which would be a mobius strip ! This kind of point was found to be of importance in the sawtooth \cite{smiet_bifurcations_2020}.
-
 \subsection{Large island}\label{sec:quars-1329594}
 
-Configuration \#1329594 concept of resonant divertor.
+The last QUASR configuration which will be looked at is the configuration \href{https://quasr.flatironinstitute.org/model/1329594}{\textcolor{blue}{1329594}}
+
+In \figref{fig:config-1329594}, the coil configuration is shown. The coil structure is really intricated. It seems like the field periodicity is equal to six but in fact it is equal to 3. the number of coil per field period is two and the . it is a quasi-helically symmetric stellarator. Its aspect ratio is of 9.97. 
+
+It was looked for high mean $\iotaslash$ which is the case here at a value of 1.8 and in fact it is surely why this almost looks like a $\nfp = 6$ device. indeed a high iota value mean more twisting, therefore doing the turn taking a nfp = 3 and doubling it is kind of what happens. The iota profile calculation has only four points which is not much and only one in the edge. it goes from about 1.84 to 1.76 at the edge.
 
 \begin{figure}[H]
     \centering
@@ -137,7 +148,9 @@ Configuration \#1329594 concept of resonant divertor.
     \label{fig:config-1329594}
 \end{figure}
 
-we see fig that the turnstile is small. Here the turnstile flux calculation can be used to try minize the chaos generated by the island in order to.
+\figref{fig:p-1329594} shows the Poincaré section. The island is of the order of a third of the main region and the profile is really elongated. Only one orbit does all the crossings and the island is a $n/m = 3/5$. It is not a clear relation with the iota profile, it may also be that this device in reality a $\nfp = 6$ device for which the optimization was set for a nfp = 3 and which gave back this. This would mean that the $\iotaslash = 6/5 = 1.2$ which may be more realistic.
+
+Nevertheless the the turnstiles are small compared to the size of the island and the configuration has very little chaos. An optimization could still try to reduce the chaos further by shaping the coils or adjusting the current just a little bit to make this turnstiles, and in particular the outer one smaller. Or to maybe to combine a somewhat big island with a bigger turnstile to. The question is do we want or not chaos here for instance but we are now able to make it more or less chaotic.
 
 \begin{figure}[H]
     \centering
@@ -147,20 +160,20 @@ we see fig that the turnstile is small. Here the turnstile flux calculation can 
         \caption{}
         \label{fig:p-1329594}
     \end{subfigure}
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[c]{0.54\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth]{images/quasrs/homoclinics_1329594.png}
+        \includegraphics[width=\textwidth]{images/quasrs/homoclinics_1329594.png}
         \caption{}
         \label{fig:manifold-1329594}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[c]{0.44\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth]{images/quasrs/homoclinics_1329594_cu.png}
+        \includegraphics[width=\textwidth]{images/quasrs/homoclinics_1329594_cu.png}
         \caption{}
         \label{fig:turn-1329594}
     \end{subfigure}
-    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 1329594 in (a) with the X/O fixed points of the island $n/m = 3/5$ drawn as $X$ and $O$ marker. In (b) closer look at the manifold structure around an island crossing. In (c) the two heteroclinic orbits for which indicated by two different markers. The inner homoclinics are coloured blue, the outer ones red.}
+    \caption{Poincaré section at $\phi=0$ of the QUASR configuration 1329594 in (a) with the X-points of the of island $n/m = 3/5$ drawn as $X$ marker. In (b) : look at the manifold structure around the left island crossing. In (c) : closer around the lower X-point of the island. The two heteroclinic orbits are indicated by distinct markers : circles and crosses. The inner ones are coloured in blue, the outer ones in red.}
     \label{fig:pmt-1329594}
 \end{figure}
 
@@ -170,16 +183,16 @@ Wendelstein 7-X is a 5 field period device with a total of 50 modular coils loca
 
 The standard configuration, shown in \figref{fig:w7x-default}, is obtained by running a current of 1.62 MA in the modular coils and none in the planar coils. This configuration of W7-X was designed to be non-chaotic and exploits the 5/5 island chain in the edge as an island divertor concept. However, other more chaotic configurations can be explored. For example, reducing the currents in the modular coils to 1.1095 MA and those in the planar coils are set to -0.3661 MA creates the GYM00-1750 obtained by Robert Davies. Its Poincar\'e section \figref{fig:gym00-poincare} displays a smaller $n/m = 5/4$ island and a chaotic edge region.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \begin{subfigure}[c]{0.49\textwidth}
+    \begin{subfigure}[c]{0.51\textwidth}
         \centering
         \includegraphics[width=0.8\textwidth]{images/w7x-gym00-1750/gym00_1750.png}
         \caption{}
         \label{fig:gym00-poincare}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[c]{0.49\textwidth}
+    \begin{subfigure}[c]{0.47\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/w7x-gym00-1750/gym99_1750_fixedpoints.png}
         \caption{}
