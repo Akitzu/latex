@@ -1,116 +1,113 @@
 \appendix
 
-\chapter{Geometric Basis}
+\cleardoublepage
 
-the basis vectors of the tangent space are $\{\partial_\rho, \partial_\phi, \partial_\theta\}$ and the euclidean metric become~:
+\chapter{Geometry concepts}\label{sec:geom}
 
-$g = d\rho\otimes d\rho + (R_a+\rho\cos(\theta))^2\, d\phi\otimes d\phi + \rho^2\,d\theta\otimes d\theta $.
-
+The space $\mathcal{M}\coloneqq\mathbb{R}^3$ with the usual euclidean inner product is seen in differential geometry as a Riemannian manifold. Roughly defined, for each point $p\in\mathcal{M}$, the space of linear differential operator at $p$ is a tangent plane that passes through $p$ noted $T_p\mathcal{M}$. The usual way we think about vector may now be to think about $v = \sum_iv^i\frac{\partial}{\partial x^i} = v^i\partial_i \in T_p\mathcal{M}$, with the Einstein summation convention. Then a vector field is at each point $p$ a vector in the tangent space at $p$. The inner product $g_p$ can also be defined for each point and then for the two vector field $u,v \in T\mathcal{M}$ the metric $g$ is its value at each point. For a choice of coordinates (chart) $g$ can be expressed explicitly and if we choose the Cartesian $(x,y,z)$, Cylindrical $(R,\phi,Z)$ and Toroidal $(\rho, \phi, \theta)$ coordinates, then it can be written as~:
 \begin{align*}
-    \textbf{x} = (x,\,y,\,z) = (R\,\cos(\phi),\,R\,\sin(\phi),\,Z)\\
-    \partial_{i'}^y = \frac{\partial}{\partial y^{i'}} = \frac{\partial x^i}{\partial y^{i'}}\frac{\partial}{\partial x^i} = \frac{\partial x^i}{\partial y^{i'}}\partial_i^x\\
-    \\
-    \partial_R = \cos(\phi)\,\partial_x + \sin(\phi)\,\partial_y\\
-    \partial_\phi = -R\,\sin(\phi)\,\partial_x + R\,\cos(\phi)\,\partial_y\\
-    \partial_Z = \partial_z
+    g &= dx\otimes dx + dy\otimes dy + dz\otimes dz,\\
+    g &= dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ,\\
+    g &= d\rho\otimes d\rho + (R_a+\rho\cos(\theta))^2\, d\phi\otimes d\phi + \rho^2\,d\theta\otimes d\theta.
 \end{align*}
-
+Either one of the expression for $g$ can be transform into the other by a change of basis $x \leftrightarrow y$ with the rules that $dx$ changes in a contravariant way and $\partial_x$ as a covariant way~;
+\begin{align*}
+    \frac{\partial}{\partial y^{i'}} &= \frac{\partial x^i}{\partial y^{i'}}\frac{\partial}{\partial x^i}\\
+    dy^{i'} &= \frac{\partial y^{i'}}{\partial x^{i}}dx^i.
+\end{align*}
+For instance if we take $x$ the cartesian coordinates and $y$ the cylindrical coordinates~:
 \begin{align*}
     g &= dx\otimes dx + dy\otimes dy + dz\otimes dz = \delta_{ij}\,dx^i\otimes dx^j\\
     &= \delta_{ij}\frac{\partial x^i}{\partial y^{i'}}\frac{\partial x^j}{\partial y^{j'}}\,dy^{i'}\otimes dy^{j'} = \frac{\partial x^i}{\partial y^{i'}}\frac{\partial x^i}{\partial y^{j'}}\,dy^{i'}\otimes dy^{j'}\\
-    &= dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ
+    &= dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ.
 \end{align*}
-
-\begin{align*}
-    \textbf{B} &= B^i\partial_i^x = B^x\partial_x + B^y\partial_y + B^z\partial_z\\
-     &= B^{i'}\partial_{i'}^y =  B^R\partial_R + B^\phi\partial_\phi + B^Z\partial_Z
-\end{align*}
-
-using this formalism there is a really elegant way to describe the differential operators without the need to remind the hard formulation in each coordinate system:
+To bother introducing those definition has a really elegant advantage. If we note more the fact that there exists a way to go from $T_p\mathcal{M}$ to the space of $dx$ and vice and versa by the lowering $\flat$ and raising $\sharp$ operators. And introduce another operator called the Hodge star dual $\star$, then the usual differential operators on a function $f$ or on a vector field $F$ become~:
 \begin{align*}
     \nabla f &= (df)^\sharp\\
     \nabla\cdot F &= \star d \star (F^\flat)\\
     \nabla\times F &= (\star d (F^\flat))^\sharp\\
-    \Delta f &= \star d \star d f\\
+    \Delta f &= \star d \star d f
 \end{align*}
+which are expressions without explicit appearance of the coordinates! The tricky way into the geometry is now worth the journey. For example, the gradient in cylindrical coordinates~:
+\begin{align*}
+    \nabla f = (df)^\sharp = (\partial_RfdR + \partial_\phi fd\phi + \partial_ZfdZ)^\sharp = (g^{R,R}\partial_Rf)\partial_R + (g^{\phi,\phi}\partial_\phi f)\partial_\phi + (g^{Z,Z}\partial_Zf)\partial_Z
+\end{align*}
+with the element of the inverse of the metric $g$. Defining the orthonormal basis as $e_R = \partial_R$, $e_\phi = 1/R\,\partial_\phi$ and $e_Z = \partial_Z$ we see that it gives the expected gradient~:
+\begin{equation*}
+    \nabla f = \partial_Rf\,\partial_R + \frac{1}{R^2}\partial_\phi f\,\partial_\phi + \partial_Zf\,\partial_Z = \partial_Rf\,e_R+ \frac{1}{R}\partial_\phi f\,e_\phi + \partial_Rf\,e_Z.
+\end{equation*}
 
 \section{Integration of the action}
 
-For the algorhithm in []. The vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$.
-
-$g = dR\otimes dR + R^2\,d\phi\otimes d\phi + dZ\otimes dZ$
-
-The curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ along $\gamma$~:
+For the algorithm in Sec.\ref{sec:turnstile-action}, we need to integrate the vector potential $\textbf{A} \in T\,\mathbb{R}^3$ is $\textbf{A} =  A^i\partial_i^\text{cyl}$ along the trajectory of the homo/hetero-clinics. In cylindrical coordinates the curvilinear integral of the scalar product $\textbf{A}\cdot\textbf{dl}$ along $\gamma$ between $0$ and $\phi$ is~:
 \begin{align*}
-    \int_0^\phi g(\textbf{A},\textbf{dl}) = \int_0^\phi g(\textbf{A}(\gamma(s)),\dot{\gamma}(s))ds\\ = \int_0^\phi (A^R\dot{\gamma}^R + R^2A^\phi\dot{\gamma}^\phi + A^Z\dot{\gamma}^Z) ds
+    \int_0^\phi g(\textbf{A},\textbf{dl}) = \int_0^\phi g(\textbf{A}(\gamma(s)),\dot{\gamma}(s))ds = \int_0^\phi (A^R\dot{\gamma}^R + R^2A^\phi\dot{\gamma}^\phi + A^Z\dot{\gamma}^Z) ds
 \end{align*}
-Thus for a $q=m/n=1/0$ fixed point of an axisymmetric equilibrium $n_\text{fp} = 1$, it gives $2\pi R^2A^\phi = 2\pi R\tilde{A}^\phi$ with $\tilde{A}^\phi$ the $\phi$ component into the usual orthonormal cylindrical basis.
+For example, integrating along a toroidal loop of constant radius R in the axisymmetric case gives $R^2A^\phi = 2\pi\psi$ which links $\psi$ with the poloidal flux $\psi_p$.
 
-\chapter{Flux conservation with differential forms}\label{forms}
+\section{Flux conservation with differential forms}\label{forms}
 
+The field line map defined in \equref{eq:pmap} is flow preserving. It was shown in section \ref{sec:pmap} that it implies the relation \equref{eq:pmap-det} for the determinant of the Jacobian matrix $\dpmap$. 
+A simpler way is to use differential forms. 
+If we write the flux in the form formalism, then $\beta = B^\phi dR\wedge dZ$ and the integral becomes~:
 \begin{equation*}
     \iint\limits_{\Sigma}\textbf{B}\cdot\textbf{dS} = \iint\limits_{\pmap(\Sigma)}\textbf{B}\cdot\textbf{dS} \Leftrightarrow \int\limits_{\Sigma}\beta = \int\limits_{\pmap(\Sigma)}\beta = \int\limits_{\Sigma}\pmap^\star\beta
 \end{equation*}
-
-where on the on the right the equivalent differential form formalism is introduced with $\beta = B^\phi dR\wedge dZ$ the flux form and $\pmap^\star\beta$ the pullback of $\beta$ through the $F$ map.
-
+with $\pmap^\star\beta$ the pullback of $\beta$ through the field line map $\pmap$. Intuitively it takes the form which was in $\pmap(\Sigma)$ back to $\Sigma$. Then the flux conservation becomes $\pmap^\star\beta(\pmap(x)) = \beta(x)$ and using the relation between the differential forms~:
 \begin{align*}
-    \beta &= \beta_{ij}dx^i\wedge dx^j = \beta_{ij}dx^i\otimes dx^j\\
-    F^\star\beta &= M^{i'}_{\,\:i}M^{j'}_{\,\:j}\beta_{i'j'}dx^i\wedge dx^j = \frac{1}{2}\beta_{i'j'}\left(M^{i'}_{\,\:i}M^{j'}_{\,\:j}-M^{i'}_{\,\:j}M^{j'}_{\,\:i}\right)dx^i\otimes dx^j\\ &= \frac{1}{2}\beta_{i'j'}\delta^{i'j'}_{ij} \det(\textbf{M})dx^i\otimes dx^j = \beta_{ij}\det(\textbf{M})dx^i\otimes dx^j
+    \pmap^\star\beta &= \beta_{i'j'}
+    d(\dpmap^{i'}_{\,\:i}x^i)\wedge d(\dpmap^{j'}_{\,\:j}x^j)\\ &= \beta_{i'j'}\left(\dpmap^{i'}_{\,\:i}\dpmap^{j'}_{\,\:j}-\dpmap^{i'}_{\,\:j}\dpmap^{j'}_{\,\:i}\right)dx^i\wedge dx^j = \beta_{ij}\det(\dpmap)dx^i\wedge dx^j
 \end{align*}
+and we see that it implies here~:
+\begin{equation*}
+    \det(\dpmap) = \beta_{R\,Z}(x)/\beta_{R\,Z}(\pmap(x)) = B^\phi(x)/B^\phi(\pmap(x))
+\end{equation*}
+and we got the same formula back as a direct calculation.This shows the power of differential forms.
 
 \chapter{Implementations}
 
-the was implemented in the pyoculus package and is avalaible online at. the use of jax mentionned is handy as may allow to look at the tangle and turnstiles of structure using directly analytical or reconstructed data .
-
 \section{Potential}\label{sec:jaxpot}
-Using mathematica [ref] to integrate the 
-
+Using Mathematica (\citeauthor{inc_mathematica_nodate}) to integrate the toroidal field $-B^\phi$ from \equref{eq:bphi-quad} by $dZ$ gives the $A^R$ vector potential as~:
 \begin{align*}
-    \frac{1}{4r}( \left( 4 \cdot \text{sf} + \text{shear} \cdot \left( 5r^2 - 10rR + 4R^2 + 2(z - Z)^2 \right) \right) \cdot \sqrt{-r^2 + 2rR - (z - Z)^2} \cdot (z - Z)\\
-    - i r(r - 2R) \cdot \left( 4 \cdot \text{sf} + \left( 3r^2 - 6rR + 4R^2 \right) \cdot \text{shear} \right) \cdot \log\left( -i z + \sqrt{-r(r - 2R) - (z - Z)^2} + i Z \right))
+    A^R = &\frac{1}{4r} \text{Real}[ \left( 4 \cdot \qaxis + \shear \cdot \left( 5r^2 - 10rR + 4R^2 + 2(z - Z)^2 \right) \right) \cdot \sqrt{-r^2 + 2rR - (z - Z)^2} \cdot (z - Z)\\
+    &- i r(r - 2R) \cdot \left( 4 \cdot \qaxis + \left( 3r^2 - 6rR + 4R^2 \right) \cdot \shear \right) \cdot \log\left( -i z + \sqrt{-r(r - 2R) - (z - Z)^2} + i Z \right)]
 \end{align*}
+which is implement as it is using the Numpy library from JAX.
 
 \section{Jacobian of $\pmap$ in details}
-The Jacobian of F as a matrix form $\dpmap = \textbf{M} = \partial F^{\{\tilde{R},\tilde{Z}\}}/{\partial \{\tilde{R},\tilde{Z}\}} \in \mathbb{R}^{2\times2}$. For instance~:
+The Jacobian of the field line map as a matrix form $\dpmap \coloneqq \partial \pmap^{\{\tilde{R},\tilde{Z}\}}/{\partial \{\tilde{R},\tilde{Z}\}} \in \mathbb{R}^{2\times2}$. Here we distinguish between $R,Z$ in the starting plane, noted as $\tilde{R},\tilde{Z}$, and the general evolution around the torus $R = \gamma^R, Z = \gamma^Z$, which is a handy abuse of notation. For instance~:
 \begin{align*}
-    M^{\tilde{R}}_{\,\:\tilde{R}} = \frac{\partial}{\partial \tilde{R}}\left[\int_{\phi_i}^{T+\phi_i}\dot{\gamma}^R(\phi)d\phi\right] + 1 = \int_{\phi_i}^{T+\phi_i}\partial_{\tilde{R}}\dot{\gamma}^R(\phi)d\phi + 1 = \int_0^{2\pi}\partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right]d\phi + 1 = *
+    \dpmap^{\tilde{R}}_{\,\:\tilde{R}} = \frac{\partial}{\partial \tilde{R}}\left[\int_{\phi_i}^{T+\phi_i}\dot{\gamma}^R(\phi)d\phi\right] + 1 = \int_{\phi_i}^{T+\phi_i}\partial_{\tilde{R}}\dot{\gamma}^R(\phi)d\phi + 1 = \int_{\phi_i}^{\phi_i+T}\partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right]d\phi + 1 = ...
 \end{align*}
-
+with $B^R$ and $B^\phi$ being evaluated at~:
 \begin{align*}
-  B^R = B^R(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))\\
-    B^\phi = B^\phi(R(\phi, \tilde{R}, \tilde{Z}), \phi, Z(\phi, \tilde{R}, \tilde{Z}))
+  B^R = B^R(R(\tilde{R}, \phi, \tilde{Z}), \phi, Z(\tilde{R}, \phi, \tilde{Z}))\\
+    B^\phi = B^\phi(R(\tilde{R}, \phi, \tilde{Z}), \phi, Z(\tilde{R}, \phi, \tilde{Z})).
 \end{align*}
+The integrand can then be developed using the chain rule~:
 \begin{align*}
-    \partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right] &= \partial_{R}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}R + \partial_{Z}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}Z = \frac{1}{B^\phi}\frac{\partial B^R}{\partial\tilde{R}} - \frac{B^R}{(B^\phi)^2}\frac{\partial B^\phi}{\partial\tilde{R}} \\&= \frac{1}{B^\phi}\left(\frac{\partial B^R}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^R}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right) - \frac{B^R}{(B^\phi)^2}\left(\frac{\partial B^\phi}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^\phi}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right)
+    \partial_{\tilde{R}}\left[\frac{B^R}{B^\phi}\right] &= \partial_{R}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}R + \partial_{Z}\left[\frac{B^R}{B^\phi}\right]\partial_{\tilde{R}}Z = \frac{1}{B^\phi}\frac{\partial B^R}{\partial\tilde{R}} - \frac{B^R}{(B^\phi)^2}\frac{\partial B^\phi}{\partial\tilde{R}} \\&= \frac{1}{B^\phi}\left(\frac{\partial B^R}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^R}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right) - \frac{B^R}{(B^\phi)^2}\left(\frac{\partial B^\phi}{\partial R}\frac{\partial R}{\partial\tilde{R}}+\frac{\partial B^\phi}{\partial Z}\frac{\partial Z}{\partial\tilde{R}}\right).
 \end{align*}
-
-In matrix form
-
-\begin{align}
-    \textbf{M} = \int_{\phi_i}^{T+\phi_i}\begin{pmatrix}
+Without showing the same kind of equality for the other integrands, we can write in matrix form that~:
+\begin{align*}
+    \dpmap = \int_{\phi_i}^{T+\phi_i}\begin{pmatrix}
         \partial_{R}\left[B^R/B^\phi\right] & \partial_{Z}\left[B^R/B^\phi\right]\\
         \partial_{R}\left[B^Z/B^\phi\right] & \partial_{Z}\left[B^Z/B^\phi\right]
     \end{pmatrix}\cdot\begin{pmatrix}
         \partial_{\tilde{R}}R & \partial_{\tilde{Z}}R\\
         \partial_{\tilde{R}}Z & \partial_{\tilde{Z}}Z
     \end{pmatrix}d\phi + \mathbb{I}_2
-\end{align}
-
-\section{Pyoculus Newton}
-
-Then to find a fixed point of the map we want to perform the following :
-\begin{align*}
-    F(\tilde{R}^*, \tilde{Z}^*) = (\tilde{R}^*, \tilde{Z}^*)\,\quad\text{with}\quad \delta\textbf{x}=(\delta \tilde{R}, \delta \tilde{Z})\\
-    F(\tilde{R}^*+\delta \tilde{R}, \tilde{Z}^*+\delta \tilde{Z}) = (\tilde{R}^*, \tilde{Z}^*) + M\delta\textbf{x}+ o(\Vert \delta\textbf{x}\Vert^2)\\
-    F(\tilde{R}_n,\tilde{Z}_n) = (\tilde{R}^*, \tilde{Z}^*) + M((\tilde{R}_n,\tilde{Z}_n) - (\tilde{R}^*, \tilde{Z}^*))+ o(\Vert \delta\textbf{x}\Vert^2)\\
-    F(\tilde{R}_n,\tilde{Z}_n) - (\tilde{R}^*, \tilde{Z}^*)  = M(\tilde{R}_n,\tilde{Z}_n) - M(\tilde{R}^*, \tilde{Z}^*)+ o(\Vert \delta\textbf{x}\Vert^2)\\
-    (\tilde{R}_{n+1},\tilde{Z}_{n+1}) = (\tilde{R}_n,\tilde{Z}_n)
 \end{align*}
 
-there is two method that can be used to find those point, first using simply the fact that $\pmap^m x = x$ however we may find all which satisfies this but are not on the type that have mode number n. uses the change of variable in polar coordinate in a rz plane and the chain rule for :
+\section{Pyoculus Newton}\label{sec:newton}
+
+In order to find the fixed point of the field line map applied $k$ times $\pmap^k$, the Newton method is used~:
 \begin{equation*}
-    \pmap(H(\rho,\theta)) = 
+    x_{n+1} = x_n - J_F(x_n)F(x_n)    
 \end{equation*}
-with the condition that $\theta$
-in the first method the we only check that the point found was indeed of the. the two method were found to work however the first one seems to converge a bit more and is used in this document, while the other works best when trying to optimize for only one coordinate, for instance when you know that a fixed point is at z=0 using stellarator symmetry.
+with $F(x) = \pmap^k(x) - x$ and $J_F$ its jacobian in matrix form. Two ideas can be used to find the fixed point of a $m/n$ island chain. We can first simply try to find the fixed point of the map applied $k$ times, where $k$ is the order of the orbit of the fixed point. This is what is being done in most cases in this paper. However, we may find point that do not have the right winding number around. For instance the magnetic axis is always a fixed point for any number of application of $\pmap$. Another way is to pass to the poloidal coordinates centered at the axis for the $RZ$ plane and to record the evolution of the angle. Writing $H$ the change from poloidal to cartesian in the plane and using the chain rule gives the needed $F$ and $J_F$ quantities~:
+\begin{align*}
+    F(\rho,\theta) &= \pmap^k(H(\rho,\theta)) - H(\rho,\theta)\\
+    J_F(\rho,\theta) &= J_{\pmap^k}(H(\rho,\theta))J_H(\rho,\theta) - J_H(\rho,\theta).
+\end{align*}
+The condition that $\Delta\theta(k) = 2\pi$ can be used to be sure that the right $\iotaslash$ is found. Both methods were found to work, but the first seems to converge a bit more. The second works best when you are trying to optimise for only one coordinate, for example when you know that a fixed point is at z=0 using stellarator symmetry.

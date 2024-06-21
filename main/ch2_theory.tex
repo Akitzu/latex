@@ -1,10 +1,4 @@
-\chapter{Poincare map}
-\newcommand{\dpmap}{\mathcal{D}\mathcal{P}}
-\newcommand{\pmap}{\mathcal{P}}
-\newcommand{\nfp}{n_\text{fp}}
-\newcommand{\shear}{\alpha_s}
-\newcommand{\qaxis}{q_a}
-\newcommand{\z}{x}
+\chapter{Poincare map}\label{sec:pmap}
 
 In the study of continuous dynamical systems, it is often convenient to consider a discrete map defined by the intersection of the trajectories with a lower-dimensional subspace and which captures some properties of the continuous case. For particles following the magnetic field of a toroidal apparatus, the intersection of their trajectories with a constant $\phi$ cross-section reveals the distinct region of different field line behaviour~: closed surfaces, islands, chaotic regions, and is known as a \textit{Poincare} section.
 
@@ -30,20 +24,20 @@ In the study of continuous dynamical systems, it is often convenient to consider
         \caption{LHD, $\nfp = 10$}
         \label{fig:lhd-default}
     \end{subfigure}
-    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator. The field lines are trace using Runge Kutta Dopri5.}
+    \caption{Poincare section at $\phi = 0$ for (a) Wendelstein-7X, (b) the (aborted) National Compact Stellarator Experiment and (c) the Large Helical Device stellarator.}
     \label{fig:poincare-example}
 \end{figure}
 
-Using Biot-Savart law to get the field generated from the known currents and coil geometry and by neglecting the gyro-motion around the field lines, the crossings can be numerically recorded. In \figref{fig:poincare-example} the Poincaré sections for three well known devices are computed using Runge-Kutta integration scheme. The closed flux surfaces appear from the magnetic axis up to the edge region. For W7-X and NCSX configuration, one island is predominant. For LHD on the contrary, the edge region is chaotic and multiple small islands are present in the chaotic edge region. Such a figure can be produced experimentally in stellarators by firing an electron beam, sweeping a fluorescent rod and using a long camera exposure \cite{pedersen_confirmation_2016}. To define a map that gives the evolution of the position of the crossings in the $\phi$ semi-plane, first note that for each initial point $\textbf{x}_0$ there is an associated curve $\gamma(t)$ depending on time which is link to the flow $\gamma(t) = \Phi(\textbf{x}_0, t)$ of the magnetic vector field. The cylindrical coordinates are a natural choice here.
+Using Biot-Savart law to get the field generated from the known currents and coil geometry and by neglecting the gyro-motion around the field lines, the crossings can be numerically recorded. In \figref{fig:poincare-example} the Poincaré sections for three well known devices are computed using Runge-Kutta integration scheme. For W7X and NCSX configuration, we see that there is one smaller island chain which is predominant. For LHD on the contrary, the edge region is chaotic and multiple small islands are present in the chaotic edge region. Such a figure can be produced experimentally in stellarators by firing an electron beam, sweeping a fluorescent rod and using a long camera exposure \cite{pedersen_confirmation_2016}. To define a map that gives the evolution of the position of the crossings in the $\phi$ semi-plane, first note that for each initial point $\textbf{x}_0$ there is an associated curve $\gamma(t)$ which is link to the flow $\gamma(t) = \Phi(\textbf{x}_0, t)$ of the magnetic vector field. The cylindrical coordinates are a natural choice here.\\[5pt]
 
 \noindent
 \makebox[\textwidth]{%
   \begin{tcolorbox}[colback=lightgray!10, colframe=black, width=0.85\textwidth, boxrule=0.5mm, sharp corners]
-    \textbf{Geometric consideration} : Throughout this document, the convention adpoted is that of the contravariant component for vectors. That is, for example, $\textbf{B}$ in cylindrical coordinates has the form $B^R = \textbf{B}\cdot\nabla R$, $B^\phi = \textbf{B}\cdot\nabla\phi$ and $B^Z = \textbf{B}\cdot\nabla Z$. In the formalism of differential geometry, one writes $B=B^i\partial_i$. The basis $\{\partial_i\}_i$ is orthogonal and holonomic but the element may not be unitary, as for $\partial_\phi$. On the other hand, the component in the common orthonormal basis $e_i$ will be written with subscript as $\tilde{B}^i$. [SEE APP]
+    \textbf{Geometric consideration} : Throughout this document, the convention adpoted is that of the contravariant component for vectors. That is, for example, $\textbf{B}$ in cylindrical coordinates has the form $B^R = \textbf{B}\cdot\nabla R$, $B^\phi = \textbf{B}\cdot\nabla\phi$ and $B^Z = \textbf{B}\cdot\nabla Z$. In the formalism of differential geometry, one writes $B=B^i\partial_i$. The basis $\{\partial_i\}_i$ is orthogonal and holonomic but the element may not be unitary, as for $\partial_\phi$. On the other hand, the component in the common orthonormal basis $e_i$ will be written with subscript as $\tilde{B}^i$. See \appref{sec:geom}. for more details.
   \end{tcolorbox}
 }
 
-The trajectory curve $\gamma : \mathbb{R}^+ \rightarrow \mathbb{R}^+\times[0,2\pi[\times\mathbb{R} \eqqcolon \mathcal{M}$, $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ we are interested in is such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. Specifying the initial point $\gamma(0) = \textbf{x}_0$ identifies a specific curve~:
+The trajectory curve $\gamma : \mathbb{R}^+ \rightarrow \mathbb{R}^3 \eqqcolon \mathcal{M}$, which is $t \mapsto \gamma(t) = (R(t),\,\phi(t),\,Z(t))$ in cylindrical coordinates  we are interested in $\gamma$ such that the tangent vector at each point is given by $\dot{\gamma}(t)= \textbf{B} = B^i\partial_i \in T_{\gamma(t)}\mathcal{M}$. Specifying the initial point $\gamma(0) = \textbf{x}_0$ identifies a specific curve~:
 \begin{align*}
     \gamma(t) = \int_0^t\dot{\gamma}(s)ds + \textbf{x}_0 \quad \text{with} \quad   \dot{\gamma}^i(t)= (\frac{dR}{dt},\,\frac{d\phi}{dt},\,\frac{dZ}{dt}) = (B^R, B^\phi, B^Z).
 \end{align*}
@@ -60,21 +54,18 @@ Due to the choice of coordinates the field will have at most a $\phi$ periodicit
 
 The Poincare section is identical for $\phi_i$ and $\phi_i+kT$, $k\in\mathbb{Z}$. Writing $\Omega$ the set of initial points in the $\phi_i$ plane for which $\gamma$ is effectively re-parametrizable between $\phi_i$ and $\phi_i + T$, allows to define the map $\pmap : \Omega \rightarrow \mathbb{R}_+\times\mathbb{R}$ as~:
 \begin{equation}\label{eq:pmap}
-    (\tilde{R},\tilde{Z}) \mapsto \pmap(\tilde{R},\tilde{Z}) = \int_{\phi_i}^{\phi_i+T}(
+    (R,Z) \mapsto \pmap(R,Z) = \int_{\phi_i}^{\phi_i+T}(
         \dot{\gamma}^R(s),\,
         \dot{\gamma}^Z(s)
-    )\,ds + (\tilde{R},\tilde{Z})
+    )\,ds + (R,Z)
 \end{equation}
-with $\textbf{x}_0 = (\tilde{R},\,\phi_i,\,\tilde{Z})$. 
-The point $(R,Z) \in \Omega$ are point in the initial section and should not be confused with the $\gamma^R$ and $\gamma^Z$ components.
-
-
-\figref{fig:th-poincare-map} represent an hypothetical $\nfp = 3$ configuration where an initial starting point $z_0\coloneqq (\tilde{R}_i,\tilde{Z}_i)$ gets map to the $\phi_i + T$ cross section. The evolution of the intersection for $z_0$ is then simply $z_{i+1} = \pmap(z_i)$ and $z_n = \pmap^n(z_0)$. 
+with $\textbf{x}_0 = (R,\,\phi_i,\,Z)$. 
+The point $(R,Z) \in \Omega$ are point in the initial section and should not be confused with the $\gamma^R$ and $\gamma^Z$ components. \figref{fig:th-poincare-map} represent an hypothetical $\nfp = 3$ configuration where an initial starting point $x_0\coloneqq (R_i,Z_i)$ gets map to the $\phi_i + T$ cross section. The evolution of the intersection for $x_0$ is then simply $x_{i+1} = \pmap(x_i)$ and $x_n = \pmap^n(x_0)$. 
 
 \begin{figure}[H]
     \centering
     \includegraphics{images/theory/poincare-torus.pdf}
-    \caption{Trajectory of a particle in a toroidal device (Tokamak/Stellarator) from a starting point $(\tilde{R}, \tilde{Z})$ in a $\phi = \phi_i$ section to a point in the $\phi = \phi_i + T$ plane with $T$ the azymuthal periodicity of the magnetic field.}
+    \caption{Trajectory of a particle in a toroidal device (Tokamak/Stellarator) from a starting point $(R, Z)$ in a $\phi = \phi_i$ section to a point in the $\phi = \phi_i + T$ plane with $T$ the azymuthal periodicity of the magnetic field.}
     \label{fig:th-poincare-map}
 \end{figure}
 
@@ -86,55 +77,55 @@ The determinant of the Jacobian matrix for a general flow $\Phi(\textbf{x}_0, t)
 \begin{equation}\label{eq:det-div-flow}
     \text{det}(\mathcal{D}\Phi(\textbf{x}_0, t)) = \text{det}(\mathcal{D}\Phi(\textbf{x}_0, 0))\exp\left(\int_0^t\text{Tr}(\nabla v(s)) ds\right) = \exp\left(\int_0^t \nabla\cdot v(s) ds\right)
 \end{equation}
-with $v(\Phi(\textbf{x}_0, s))$ written implicitly as $v(s)$. In the case of the flow in cylindrical coordinates, \citeauthor{wei_invariant_2023} use \equref{eq:det-div-flow} to derive the relation~(Eq.8):
+with $v(\Phi(\textbf{x}_0, s))$ written implicitly as $v(s)$. In the case of the flow in cylindrical coordinates, \citeauthor{wei_invariant_2023} use \equref{eq:det-div-flow} to derive the relation~:
 \begin{equation*}\label{eq:det-div-pmap}
     \text{det}(\mathcal{D}\Phi(\textbf{x}_0, \phi_i, \phi_e)) = \exp\left(\int_{\phi_i}^{\phi_e} \frac{R\,(\nabla\cdot v)}{\tilde{v}^\phi} ds\right)\frac{\tilde{v}^\phi(\phi_i)}{\tilde{v}^\phi(\phi_e)}.
 \end{equation*}
 It gives for the determinant of $\dpmap \in \mathbb{R}^{2\times2}$ that~:
 \begin{equation}\label{eq:pmap-det}
-    \text{det}(\dpmap(\tilde{R}, \tilde{Z})) = B^\phi(\tilde{R},\phi_i, \tilde{Z})/B^\phi(\pmap^{\tilde{R}}(\tilde{R},\tilde{Z}), \phi_i+T,\pmap^{\tilde{Z}}(\tilde{R},\tilde{Z})).
+    \text{det}(\dpmap(R, Z)) = B^\phi(R,\phi_i, Z)/B^\phi(\pmap^{R}(R,Z), \phi_i+T,\pmap^{Z}(R,Z)).
 \end{equation}
 The last identity may also be recovered more directly using differential forms as in \cite{meiss_thirty_2015}, the derivation is given in \appref{forms}.
 
 \section{Fixed points}
 
-The map $\nmap$ \equref{eq:pmap} defines a map from $\Omega$ to $\Omega$. Such a map has interesting properties. Take for example Brouwers' fixed point theorem, e.g. \cite{michel_chipot_handbook_2008}, which states that any map from the disk to the disk has at least one fixed point. This means that there must be at least one point, which through the field line map, ends up exactly where it started! In fusion this point, and the field line through it has a special name, it is called the `magnetic axis' (and is often used as the `axis' of a coordinate system constructed on the basis of a magnetic field). More generally, a point $\x^\star\in\Omega$ that is mapped to itself after $k$ iteration of the field line map is part of a periodic orbits, representing the crossing of a closed field line.
+The field line map $\pmap$ given by \equref{eq:pmap} defines a map from $\Omega$ to $\Omega$. Such a map has interesting properties. Take for example Brouwers's fixed point theorem, e.g. \cite{michel_chipot_handbook_2008}, which states that any map from the disk to the disk has at least one fixed point. This means that there must be at least one point, which through the field line map, ends up exactly where it started! In fusion this point, and the field line through it has a special name, it is called the `magnetic axis' (and is often used as the `axis' of a coordinate system constructed on the basis of a magnetic field). More generally, a point $x^\star\in\Omega$ mapped to itself after $k$ iteration of the field line map is part of a periodic orbits, representing the crossing of a closed field line.
 
-The magnetic field twist around the magnetic axis in order to average out the $\nabla\textbf{B}$ drift. The twisting is quantify by the rotational transform $\iotaslash$ which indicates the fraction of poloidal turns performed after one toroidal turn. When $\iotaslash = n/m$ is rational, each field line rotates an angle $2\pi\iotaslash$. That means that each field line comes back to where it started after at most $m$ complete transits around the torus. For such a surface, it can be energetically more favorable to break up into an 'island chain'; instead of every field line returning to the same surface, there remains one closed field line around which the other field lines wind around, called the o-point of the island, and another field line with winding number m/n of that surface called the x-point. 
+The magnetic field twist around the magnetic axis in order to average out the $\nabla\textbf{B}$ drift. The twisting is quantify by the rotational transform $\iotaslash$ which indicates the fraction of poloidal turns performed after one toroidal turn. When $\iotaslash = n/m$ is rational, each field line rotates an angle $2\pi\iotaslash$. That means that each field line comes back to where it started after at most $m$ complete transits around the torus. For such a surface, it can be energetically more favorable to break up into an 'island chain'; instead of every field line returning to the same surface, there remains one closed field line around which the other field lines wind around, called the O-point of the island, and another field line with winding number n/m of that surface called the X-point. 
 
-In Tokamaks, islands break the axisymmetry of the field and reduce confinement and they are unwanted. The action by which they are created is called a 'tearing mode', as the unbroken surfaces are 'torn open'. In Stellarators, there is no underlying symmetry and the islands can be a present, static feature of the equilibrium. Sometimes, like in W7X they are even desired and optimized for, as they generate a divertor-like structure [CITE]. Due to its relation with magneto-hydrodynamic stability limit, it is also more common to use the safety factor $q=1/\iotaslash$.
+In Tokamaks, islands break the axisymmetry of the field and reduce confinement. They are then unwanted. The action by which they are created is called a 'tearing mode', as the unbroken surfaces are 'torn open'. In Stellarators, there is no underlying symmetry and the islands can be a present, static feature of the equilibrium. Sometimes, like in W7X they are even desired and optimized for, as they generate a divertor-like structure \cite{feng_review_2022}. Due to its relation with magneto-hydrodynamic stability limit, it is also more common to use the safety factor $q=1/\iotaslash$ in Tokamaks.
 
-X/O-points of a $\iotaslash = n/m$ magnetic island close after $m$ toroidal turns. As there is $\nfp$ symmetry planes in one turn, there are a fixed point of $\pmap^{m\cdot\nfp}$. But the minimum number of iterations to close the orbit $k\in\mathbb{N}^\star$ is called the order of the orbit and is not in general equal to $m\cdot\nfp$. After $k$ application of the field line map the winding around the axis is $\Delta\theta(k) = 2\pi\iotaslash\,k/\nfp = 2\pi\cdot n/m \cdot k/\nfp$. To make one full rotation $k$ must be $k = m\,\nfp/n$, which is the correct order for of the orbit. The number of island is the greatest common divider between $m$ and $n$.
-
-The NCSX stellarator is with 3 field periods and an island in the edge with $\iotaslash = 3/7$, shown in \figref{fig:ncsx-default}. There is only $1 = \gcd(3,7)$ island that rotates around the axis and the number of application of $\pmap$ for one of its fixed point to loop around is $k = 7\cdot3/3 = 7$.
+X/O-points of a $\iotaslash = n/m$ magnetic island close after $m$ toroidal turns. As there is $\nfp$ symmetry planes in one turn, they are a fixed point of $\pmap^{m\cdot\nfp}$. But the minimum number of iterations to close the orbit $k\in\mathbb{N}^\star$ is called the order and is not in general equal to $m\cdot\nfp$. After $k$ application of the field line map the winding around the axis is $\Delta\theta(k) = 2\pi\iotaslash\,k/\nfp = 2\pi\cdot n/m \cdot k/\nfp$. To make one full rotation $k$ must then be $k = m\,\nfp/n$, which is the correct order for of the orbit. The number of island is the greatest common divider between $m$ and $n$. NCSX stellarator is with 3 field periods and an island in the edge with $\iotaslash = 3/7$, shown in \figref{fig:ncsx-default}. There is only $1 = \gcd(3,7)$ island that rotates around the axis and the number of application of $\pmap$ for one of its fixed point to loop around is $k = 7\cdot3/3 = 7$.
 
 To distinguish between O and X points, the behaviour of nearby field lines can be described using the Taylor expansion~:
 \begin{equation*}
     \pmap^k(\z^\star+\delta \z) = \z^\star + \langle\dpmap^k\vert_{\z^\star},\, \delta\z\rangle + \smallO(\Vert\delta\z\Vert^2).
 \end{equation*}
-Especially by looking at the eigenvalues $\lambda_1$ and $\lambda_2$ of the jacobian $\dpmap^k\vert_{\z^\star}$. Using \equref{eq:pmap-det}, the determinant of $\dpmap^k\vert_{\z^\star}$  is equal to 1 or equivalently it is an element of $\text{SL}(2,\mathbb{R})$. Depending on the value of the trace the eigenvalues are either~:
+Especially by looking at the eigenvalues $\lambda_1$ and $\lambda_2$ of the jacobian $\dpmap^k\vert_{\z^\star}$. Using \equref{eq:pmap-det}, the determinant of $\dpmap^k\vert_{\z^\star}$  is equal to 1 or equivalently the matrix is an element of $\text{SL}(2,\mathbb{R})$. Depending on the value of the trace the eigenvalues are either~:
 \begin{enumerate}
-    \item Complex conjugate and of modulus 1 ; $\lambda_{1,2} = e^{\pm i\theta}$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert < 2$. They indicate rotation around the fixed point. The nearby field lines rotates around this fixed point making it an O-point.
-    \item Both real with $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert > 2$ and $\mathcal{R}$.
-    \item $\lambda_1 = \lambda_2 = \pm 1$
+    \item Complex conjugate and of modulus 1 ; $\lambda_{1,2} = e^{\pm i\theta}$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert < 2$. They indicate rotation around the fixed point making it an O-point.
+    \item Both real with $\vert\lambda_s\vert < 1$ and $\vert\lambda_u\vert > 1$, when $\vert \text{Tr}(\dpmap^k\vert_{\z^\star})\vert > 2$. When they are positive, it indicates an X-point.
+    \item $\lambda_1 = \lambda_2 = \pm 1$ which is then $\pm \mathbb{I}$.
 \end{enumerate}
 
-To find the fixed point of the field line map the Newton method will be used. The O-points are relatively simple to find when using an initial guess in the right region. For many X-points, the strong exponential behaviour around them make the jacobian matrix ill conditioned. The region of convergence is then very small. This might be show stopper for some higher order island where the initial starting guess need to be made in a too precise region. Around the xpoint of ncsx and of the toybox presented in next section.
+To find the fixed point of the field line map the Newton method will be used \appref{sec:newton}. The O-points are relatively easy to find when using an initial guess in the right region. However, for many X-points, the strong exponential behaviour around them make the jacobian matrix ill conditioned. \figref{fig:fp-search} shows the region of convergence around the X/O-point of NCSX and of a Toybox Tokamak, as the one presented in next section but with smaller aspect ratio.
+
+For NCSX we see that the region of convergence, for example around the two upper X-points, is small compared to that of the nearby O-points. Even more, we can see that there are points close to the X-point at $Z = 0$ that converge to the O-point on the other side of the configuration. For the Toy Tokamak, the region of convergence is even smaller. It converges quickly to another O-point of a $m = 1$ island. The step taken in the Newton method are heavily directed along a diagonal, which was found to coinciding with the position of starting point giving ill condition for the Jacobian matrix.
 
 \begin{figure}
     \centering
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[c]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/fp/convergence_domain_checkonly.png}
         \caption{\label{fig:fp-ncsx}}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[c]{0.58\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/fp/fige-10.png}
         \caption{\label{fig:fp-toybox}}
     \end{subfigure}
-    \caption{}
+    \caption{Convergence region of the Newton algorithm for (a) NCSX configuration for the X and O points of the $n/m = 3/7$ island. (b) Analytic single null Toy-Tokamak. The point in (R,Z) are coloured by the point where they converged to, marked as X/O. The point that are not converging are coloured in grey.}
     \label{fig:fp-search}
 \end{figure}
 
@@ -165,9 +156,9 @@ The $\theta$ component can be derived directly from coordinate transformation, a
     B^\theta = \frac{\cos{\theta}}{\rho}B^Z - \frac{\sin{\theta}}{\rho}B^R = \frac{2}{R} = \frac{2}{R_0+\rho\cos{\theta}}.
 \end{align*}
 The $\phi$ component of $\textbf{B}$\footnote{In the implementation used in this document, the $B^\phi$ has been oriented along the -$\partial_\phi$ direction, which has no direct effect on the calculation themselves, but may occasionally cause some sign reversal, e.g. the latter value of the current in the circular loop coil. It also flips the way the field line rotate around the axis.} is introduced heuristically as~:
-\begin{align*}
+\begin{align}\label{eq:bphi-quad}
     B^\phi = 2\sqrt{R^2-\rho^2}\,(\qaxis+\frac{\shear}{2}\rho^2)/R^2
-\end{align*}
+\end{align}
 with its corresponding $A^R$ provided in \appref{sec:jaxpot}. Inserting $B^\theta$ and $B^\phi$ in \eqref{eq:q-profile-th} gives~:
 \begin{align*}
      q(\rho) = (\qaxis+\frac{\shear}{2}\rho^2)\frac{\sqrt{R^2-\rho^2}}{2\pi}\int\limits_{0}^{2\pi}\frac{1}{R_0 + \rho\cos{\theta}}d\theta = \qaxis+\frac{\shear}{2}\rho^2
@@ -313,31 +304,25 @@ The regime can be here seen to be chaotic and there are many islands/island chai
 
 \chapter{Tangles and Turnstiles}\label{ch:tangleandturns}
 
-Hamiltonian dynamical systems may display some dependency on the initial position. Such that starting point that are indistinguishably close at time $t_0$ give completely different outcome, and while the system is deterministic !
+Hamiltonian dynamical systems can show a certain dependence on the initial condition. Such that starting points that are almost equal at time $t_0$ evolve to completely different results, while the system is deterministic!\footnote{A really nice book to read about is Chaos by James Gleick.} This has often been described as the butterfly effect, where a flap of the wind from a butterfly on the other side of the world is enough to change the initial state so that the end result - let's not wish for bad things - a snowstorm occurs or not. However, this seemingly erratic behaviour is structured by the appearance of ever-repeating patterns : fractals. 
 
-This was often put in word as the butterfly effect, a flap in the winds of a butterfly at the end other end of the world can change the initial state enough so that the end result is a, let's not wish us bad things, a snow storm happening or not.\footnote{A really nice book to read about chaos is James Gleick.}
+H. Poincare, in his work on celestial mechanics \cite{poincare_methodes_1899}, was considering asymptotic solution of the three body motion problem and remarked an infinite intersection behaviour of the asymptotic trajectories. The two curves were forming a infinitly fine grid, which he called a trellis because of its resemblance to the strange garden wall. The trellis, now also referred to as tangle, is key in understanding the chaos. \citeauthor{hohloch_transport_2012} and \cite{hohloch_homoclinic_2017} provides a rigorous mathematical definitions for those concepts.
 
-This seemingly erratic behaviour is however structured with the apparition of ever repeating pattern, zooming and zooming and. Some progress beautiful math is at the core of chaos, KAM theory.
+In the case of volume-preserving maps, \cite{meiss_thirty_2015} relates the asymptotic curves, called in fact unstable and stable manifold, to a measure of transport. Indeed he defines a resonance region for which there are gates to go in and out, the exiting and incoming fluxes, which forms a turnstile. He points out that the characterisation of transport in deterministic dynamical systems involves the computation of exit and transition time distributions in phase space.
 
-In the fusion research, the fact to follow the field line is such a hamiltonian \cite{escande_description_2024}\cite{abdullaev_magnetic_2014}\cite{viana_hamiltonian_2023} system that often is prone to chaos. This can be a feature or a bug depending on the configuration. 
+In the case of magnetic confinement, the curve described by following the field line describes a Hamiltonian system and is prone to chaos. \cite{viana_hamiltonian_2023} states that under certain conditions the equations for magnetic field lines can be reformulated in canonical form, also argued by \cite{escande_description_2024}. In this paradigm, \cite{abdullaev_magnetic_2014} proposes two mapping methods to study magnetic field lines near the separatrix of poloidal divertor tokamaks in the presence of external non-axisymmetric magnetic perturbations. They use them for the study of the properties of open stochastic field lines near the separatrix. 
 
-A measure of transport due to chaos is \cite{meiss_thirty_2015} which works in the more general case of volume-preserving maps. The transport is measured by exit and entry fluxes. For area-preserving maps, transport is impeded by invariant manifolds forming partial barriers. For exact volume-preserving maps, flux computation reduces to finding the difference between the actions of key orbits, such as homoclinic orbits to a saddle or cantorus. More mathy definition about the Floer homology, can be found in well \cite{hohloch_transport_2012}\cite{hohloch_homoclinic_2017}. He make the point that  characterisation of transport in deterministic dynamical systems involves the computation of exit and transition time distributions in phase space. 
-
-The resulting idea is that there are partial barriers formed by two curve and forming a infinite grid structure which, a link to the fractal. This structre now often called tangles were first studied by H. Poincare in the three body problem of celestial mechanics \cite{poincare_methodes_1899}. He used to called them trellis as the interconnection formed resemble such a strange object.
-
-The study of tangle and turnstiles in the case of the field line map will be part of the \href{https://github.com/zhisong/pyoculus}{\textcolor{blue}{\textit{Pyoculus}}} package.
-
-It will hopefully be a strong foundation toolkit to look into the chaos : to strengthen the understanding of the in of chaotic systems.
+For the field line map, the study of tangles and turnstiles requires some numerical algorithms : computing the manifolds, finding the homo/heteroclinics, calculating the turnstile fluxes are all tasks that need to be tackled. The algorithms presented here will be part of the \href{https://github.com/zhisong/pyoculus}{\textcolor{blue}{\textit{Pyoculus}}} package and will hopefully be useful for a better understanding of chaos in the future.
 
 \section{Stable and Unstable Manifolds}\label{sec:manif}
 
-The exponential behaviour along the stable and unstable directions, given by the stable $\textbf{e}_s$ and unstable $\textbf{e}_u$ eigenvectors, of a saddle fixed point $x^\star$ can be expressed by stating that for small $\varepsilon$ the points $x = x^\star + \varepsilon\,\textbf{e}_s$ will converge to $x^\star$ as we apply $\pmap$ and the points $x = x^\star + \varepsilon\,\textbf{e}_s$ converge to $x^\star$ as we apply $\pmap^{-1}$. More specifically, the stable manifold $W^s(x_s^\star)$ is defined as the set for which $\pmap^k(x)\to x_s^\star$ as $k\to\infty$. Similarly, the unstable manifold $W^u(x_u^\star)$ is the set of points such that $\pmap^k(x)\to x_u^\star$ as $k\to -\infty$. This definition includes not only the points in the linear regime, but also the points forming their trajectory. In the following, the manifolds are just written as $W^s$ and $W^u$ both when $x_s^\star = x_u^\star$ and when it is not.
+The exponential behaviour along the stable and unstable directions, given by the stable $\textbf{e}_s$ and unstable $\textbf{e}_u$ eigenvectors, of a saddle fixed point $x^\star$ can be expressed by stating that for small $\varepsilon$ the points $x_s = x^\star + \varepsilon\,\textbf{e}_s$ will converge to $x^\star$ as we apply $\pmap$ and the points $x_u = x^\star + \varepsilon\,\textbf{e}_u$ converge to $x^\star$ as we apply $\pmap^{-1}$. More specifically, the stable manifold $W^s(x_s^\star)$ is defined as the set for which $\pmap^k(x)\to x_s^\star$ as $k\to\infty$. Similarly, the unstable manifold $W^u(x_u^\star)$ is the set of points such that $\pmap^k(x)\to x_u^\star$ as $k\to -\infty$. These definitions includes not only the points in the linear regime, but also the points forming their trajectory. In the following, the manifolds are simply written as $W^s$ and $W^u$ both when $x_s^\star = x_u^\star$ and when it is not.
 
-In the case of a two dimensional map, such as $\pmap$, the stable manifold theorem proves that there exist immersions $\gamma_u$ and $\gamma_s$ mapping $\mathbb{R}$ to $W^s$ and $W^u$ with $\gamma_s(0) = \gamma_u(0) = x^\star$ \cite{easton_trellises_1986}. It implies that the point on the stable and unstable manifold can be ordered by inducing the order of $\mathbb{R}$, yielding the stable and unstable orderings $>_s$ and $>_u$. The four components $W_+^s$, $W_-^s$, $W_+^u$ and $W_-^u$ correspond to the orientations $\pm\textbf{e}_s$, $\pm\textbf{e}_u$ and to the mapping of $\mathbb{R}^+$, $\mathbb{R}^-$ through $\gamma_s$ and $\gamma_u$.
+In the case of a two dimensional map, such as for the field line map, \cite{easton_trellises_1986} states that the stable manifold theorem proves that there exist immersions $\gamma_s$ and $\gamma_u$ mapping $\mathbb{R}$ to $W^s$ and $W^u$ with $\gamma_s(0) = \gamma_u(0) = x^\star$. It implies that the point on the stable and unstable manifold can be ordered by induction of the order of $\mathbb{R}$, yielding the stable and unstable orderings $>_s$ and $>_u$. Intuitively, this means that if we take the fixed point $x^\star$, there are two curves that we can follow : the stable and unstable manifold and two direction for each corresponding to the orientations $\pm\textbf{e}_s$, $\pm\textbf{e}_u$. It gives then four components $W_+^s$, $W_-^s$, $W_+^u$ and $W_-^u$ which corresponds as well to the mapping of $\mathbb{R}^+$, $\mathbb{R}^-$ through $\gamma_s$ and $\gamma_u$.
 
-Each of the four components, for example $W^s_+$, can then be described by picking $q \in W^s_+$ and considering the initial segment $S^+ = ]q,\pmap(q)]_s \subset W^s_+$. By applying $\pmap$ and $\pmap^{-1}$ to $S^+$ for a sufficient number of iterations, it is possible to recover any part of the component.
+Each of the four components, for example $W^s_+$, can then be described by picking $q \in W^s_+$ and considering the segment $S^+ = ]q,\pmap(q)]_s \subset W^s_+$. By applying $\pmap$ and $\pmap^{-1}$ to $S^+$ for a sufficient number of iterations, the segment will be going forward or backward and draw the manifold. It is then possible to recover the whole manifold just by considering $S^+$.
 
-For a single null tokamak equilibrium, the separatrix consists of two components $W^s_+ = W^u_+$. They are in principle 3-dimensional, but again, since their evolution is continuous in $\phi$, their 2-dimensional intersection with a phi-plane is considered. In the chaotic case, $W^s_+$ and $W^u_-$ are no longer equal. A simple algorithm to draw them out then consists to follow the evolution of an initial segment $S^+$ and $U^+$.
+For a single null tokamak equilibrium, the separatrix consists of two components, for instance $W^s_+ = W^u_+$. They form in principle a 3-dimensional surface. Since their evolution is continuous in $\phi$, their 2-dimensional intersection with a phi-plane is considered. In the chaotic case, $W^s_+$ and $W^u_-$ are no longer equal. A simple algorithm to draw/compute them then consists to follow the evolution of two segments $S^+$ and $\mathcal{U}^+$.
 
 \begin{figure}[H]
     \centering
@@ -368,23 +353,24 @@ For a single null tokamak equilibrium, the separatrix consists of two components
             \label{fig:man-c}
         \end{subfigure}
     \end{minipage}
-    \caption{Different steps of the manifold plotting process for the perturbed Toy-Tokamak. The starting point in the linear regime is shown in (a) while (b) and (c) shows the evolution of those initial segments while applying  }
+    \caption{Different steps of the manifold plotting process for the perturbed Toy-Tokamak. The starting points set in the linear regime are shown in (a) while (b) and (c) shows the evolution of the segments $\mathcal{U}^+$ and $S^+$ as the field lines are traced forward/backward.}
     \label{fig:manifold-algo}
 \end{figure}
 
-The algorithm, proposed in \cite{wei_invariant_2023}, used is illustrated in \figref{fig:manifold-algo}. It consists of initialising a point on each of the manifolds: $x_s \in W^s$, $x_u \in W^u$ in the linear regime and getting their initial segments $S = ]x_s,\pmap^{-1}(x_s)]_s$ and $U = ]x_u,\pmap(x_u)]_u$. Then $S$ and $U$ are discretized with $x_{i,s/u} = x^\star + \varepsilon_i\,\textbf{e}_{s,u}$, one can set the initial $\varepsilon_i$ to be equally spaced in the exponential space $e^{\lambda_s}$ and $e^{\lambda_u}$ to better capture the change in behaviour due to exponentiality. 
+The algorithm used, proposed in \cite{wei_invariant_2023}, is illustrated in \figref{fig:manifold-algo}. It consists in initialising a point on each of the manifolds: $x_s \in W^s_+$, $x_u \in W^u_+$ well in the linear regime and getting the segments $S = ]x_s,\pmap^{-1}(x_s)]_s$ and $\mathcal{U} = ]x_u,\pmap(x_u)]_u$ by tracing the point for one crossing. Then as $\mathcal{S}$ and $\mathcal{U}$ are still in the linear regime they can be discretized with $x_{i,s/u} = x^\star + \varepsilon_i\,\textbf{e}_{s,u}$. And the initial $\varepsilon_i$ can be set to be equally spaced in the exponential space $e^{\lambda_s}$ and $e^{\lambda_u}$ to better capture the change in behaviour.
 
-\figref{fig:man-a} shows how applying $\pmap$ on the starting circles, $x_{i,s}$ in green and $x_{i,u}$ in red, maps them respectively closer and further away to the point denoted by a triangle. By further mapping the $S$ and $U$ segments with the backward and forward evolution, the entire manifolds are recovered. \figref{fig:man-b} illustrates the progress as the number of iterations increases. The short length of the initial segments is observed to increase as they leave the linear regime. At a certain point they become slightly shorter, but as they approach the saddle again they get increasingly stretched out. \figref{fig:man-c} shows how they start to wrap around the separatrix coil and go back and forth as they continue to expand, hence creating the tangle.
+\figref{fig:man-a} shows how applying $\pmap^\pm$ on the starting point denoted by circle markers : $x_{i,s}$ in green and $x_{i,u}$ in red, map them respectively closer and further away to the point marked with a triangle. By further mapping the $\mathcal{S}$ and $\mathcal{U}$ segments with the backward and forward evolution, the entire manifolds are recovered. \figref{fig:man-b} illustrates the progress as the number of iterations increases. The initially short length of the segments increase as they leave the linear regime. At a certain point they become slightly shorter, but as they approach the saddle again they get increasingly stretched out. \figref{fig:man-c} shows how they start to wrap around the separatrix coil and go back and forth as they continue to expand. We see how this creates the tangle.
 
 \section{Hetero/Homo-clinic points}
 
-The intersection of $W^s$ and $W^u$ are of particular relevance as they are points for which $\pmap^k(x)$ converges to $x_s^\star$ for $k \to \infty$ and $x_u^\star$ for $k \to -\infty$. The points $p$ in $\mathcal{H} = W^s \cap W^u / \{x^\star\}$ are called heteroclinic points if points $x_s^\star \neq x_s^\star$ and homoclinics otherwise. An immediate equivalence class for the points $p$, $q$ in $\mathcal{H}$ is given by $[p] = [q]$ if $p$ can be obtained by mapping the point $q$ for some number of forward or backward iterations. The 3d trajectory of an homo/heteroclinic in the toroidal device is linked to the 2d crossings with the relation $[p_i] = [p_j]$.
+The intersection of $W^s$ and $W^u$ are of particular relevance as they are points for which $\pmap^k(x)$ asymptotically converges to $x_s^\star$ for $k \to \infty$ and $x_u^\star$ for $k \to -\infty$. The points $p$ in $\mathcal{H} = W^s \cap W^u / \{x_s^\star, x_u^\star\}$ are called heteroclinic points if $x_s^\star \neq x_s^\star$ and homoclinics otherwise. One immediate thing to note is that if at some point we have $h$ a homoclinic point. Then any evolution point of $h$ forward or backward will still be a homoclinic point. An equivalence class for the points $p$, $q$ in $\mathcal{H}$ is given by : $[p] = [q]$ if $p$ can be obtained by mapping the point $q$ for some number of forward or backward iterations. The 3d trajectory of a homo/heteroclinic in the toroidal device is linked to the 2d crossings by the relation $[p_i] = [p_j]$ if they belong to the same field line.
 
-A particular type of intersection, the \textit{primary} homo/hetero-clinic points, is of interest. They are defined formally in \cite[p.14]{hohloch_homoclinic_2017} and they represent geometrically the intersections $p\in\mathcal{H}$ between the two manifold for which the curves that joins $x^\star$ to $p$ in $W^s$ and $W^u$ only intersect at their endpoint. They are formally defined in \cite[p.14]{hohloch_homoclinic_2017} and geometrically represent the intersections $p\in\mathcal{H}$ between the two manifolds for which the curves connecting $x^\star$ to $p$ in $W^s$ and $x^\star$ to $p$ in $W^u$ intersect only at their endpoints. An algorithm for finding these crosspoints is presented here, based on a suggested approach by Matt Landermann. In Sec.\ref{sec:manif}, it has been seen that after $6$ forward/backward iterations the two curves $\mathcal{P}^{-6}(S)$ and $\mathcal{P}^{6}(U)$, images of the initial segments, are intersecting. Writing $x_{0,s}$ and $x_{0,u}$ two starting points in $S$ and $U$, the goal is to find the root of~:
+A particular type of intersection, the \textit{primary} homo/hetero-clinic points, is of interest. They are defined formally in \cite[p.14]{hohloch_homoclinic_2017} and they represent geometrically the intersections $p\in\mathcal{H}$ between the two manifold for which the curves that joins $x^\star$ to $p$ in $W^s$ and $W^u$ only intersect at their endpoint. An algorithm for finding these crosspoints is presented here, based on an approach suggested by Matt Landermann. In Sec.\ref{sec:manif}, it has been seen that after $6$ forward/backward iterations the two curves $\mathcal{P}^{-6}(S)$ and $\mathcal{P}^{6}(\mathcal{U})$ are intersecting. Writing $x_{0,s}$ and $x_{0,u}$ two starting points in $\mathcal{S}$ and $\mathcal{U}$, the goal is to find the root of~:
 \begin{equation*}
     \mathcal{P}^{-6}(x_{0,s}) - \mathcal{P}^{6}(x_{0,u})
 \end{equation*}
-which can be achieved by an optimization process\footnote{Using for instance scipy root}. In a more general context, if $S$ and $U$ cross after $j$ iteration on $S$ and $k$ iteration on $U$, then every $(n_s, n_u)$ pair such that their sum equals $j+k$ will also work and the hetero/homoclinics can be searched in a region closer to the fixed point, where the shape of one of the manifolds is a bit more twisted, making the algorithm converge better. \figref{fig:clinic-search-a} shows the initial step for the primary homoclinic search in the perturbed Toy-Tokamak with $n_s = 8$ and $n_u = 4$. The optimisation tries to find starting points such that the length of the black arrow is zero.
+which can be achieved by an optimization process\footnote{
+In this case and for all the configuration discussed, \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html}{\textcolor{blue}{scipy.optimize.root}} default algorithm was used.}. In a more general context, if $\mathcal{S}$ and $\mathcal{U}$ cross after $-j$ iteration for $\mathcal{S}$ and $k$ iteration for $\mathcal{U}$, then every $(n_s, n_u)$ pair such that their sum equals $j+k$ will also give images of the segments that intersect. The hetero/homoclinics can be searched in a region closer to the fixed point, where the shape of one of the manifolds is a bit more twisted, making the algorithm converge better. \figref{fig:clinic-search-a} shows the initial step for the primary homoclinic search in the perturbed Toy-Tokamak we have been looking at. The initial crossing $6+6$ was shifted to $n_s = 8$ and $n_u = 4$. The optimisation tries to find starting points such that the length of the black arrow is zero.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[c]{0.41\textwidth}
@@ -400,44 +386,42 @@ which can be achieved by an optimization process\footnote{Using for instance sci
         \caption{}
         \label{fig:clinic-search-b}
     \end{subfigure}
-    \caption{homoclinic points seach. (a) initial search guess mapped $n_s = 8$ and $n_u = 4$ times. (b) same path idea showing the initial segments for the where there is more than two homolcinics to search for.}
+    \caption{Homoclinic points search space. (a) initial guess mapped $n_s = 8$ and $n_u = 4$. The length of the difference of the ending points is the black arrow and the algorithm tries a point such that its length is zero. (b) With perturbation $m/n = 18/3$ and starting and ending points are position of first found homoclinic. There are then 6 primary homoclinics orbits to search for.}
     \label{fig:clinic-search}
 \end{figure}
 
-This works well to find a first homoclinic point. However there are at least another primary homoclinics to find in the intersection. 
+This works well to find a first homoclinic point. However there are at least another primary homoclinics to find. The initial points for the segment $\mathcal{S}$ and $\mathcal{U}$ can be retaken with $\varepsilon_s^1$ and $\varepsilon_u^1$ the values for the first homoclinic point found. Now, as \figref{fig:clinic-search-b} shows it, the segments will cross but have equal starting and ending points. The number of intersection in between are then equal to the number of other primary homoclinics that are yet to be found.
 
-By resetting the initial segment to take the homoclinic as their starting point will show how many other primary intersection are yet to be found. 
+In the single null Toy-Tokamak with $18/3$ perturbation, there are a total of 6 primary crossings. And in the case of the $12/2$, there was found to be 4 primary homoclinics. It seems that the relation is simply the mode $n$, but some other perturbations examined did not follow this pattern. The number of primary homoclinics being greater than two may be due to the mixed mode perturbation, it is hard to say for sure. The question is really interesting and it may well be that there is some clever way of relating them with the mode perturbation to the mathematics of prime numbers. This needs to be explored further \footnote{Perhaps there is already some literature on the subject}. The numbers were found to always come in pairs in the toy box, but no explanation was found as to why.
 
-\figref{fig:clinic-search-b} shows this new 
-
-segments with the same toybox but with a perturbation $m/n = 18/3$. We see that there are 6 primary crossings in total and in the 12/2 case has 4 primary homoclinics. It seems that the relation is simply the mode $n$ however some other perturbation did not follow that and due to the mixed mode perturbation it is hard to conclude something. maybe there is a clever way to relate  the mode perturbation and related to the mathematics of prime number. This an interesting subject to further consider.
-
-Here a clever search of the two curve may exist. However using the same idea as for the first, minimizing this time $\mathcal{P}^{-n_s-1}(x^s) - \mathcal{P}^{n_u}(x^u)$, but using a starting point of the form     
+Here a clever way to search for the remaining intersection of the two curve may exist. However using the same idea as for the first one, minimizing this time $\mathcal{P}^{-n_s-1}(x^s) - \mathcal{P}^{n_u}(x^u)$, but using a starting point of the form~:     
 \begin{align*}
        x^s = x^\star+\lambda_s^{i/n_h}\varepsilon_s^1 \textbf{e}_s \quad
 x^u = x^\star+\lambda_u^{i/n_h}\varepsilon_u^1 \textbf{e}_u \quad\text{with}\quad i = 1,...,n_h
 \end{align*}
-will in most cases converge to the right homoclinic. This works because due to the taylor expansion the starting epsilon will be mapped to $\lambda_{s,u}\varepsilon$ and thus after $\lambda_{s,u}^{n/n}$ one recovers the first point while having $n_h$ intersections. Note that in general this optimization is not a easy task as the structure of the distance function looks like a rosenbruck optimization, were a valley is present when the two manifold are travelled in opposite directions. A robust understanding/way to know the number of primary homoclinics and algorithm to find them is welcome but, i think, yet to be thought of at least for the problem described here.
+where $n_h$ is the number of homoclinics to find. In most cases the procedure converge to the right homoclinic. This intuitively works because a starting epsilon will be mapped to $\lambda_{s,u}\varepsilon$. Then by taking points of the form $\lambda_{s,u}^{i/n_h}$, we will have $n_h$ points with equal separation in exponential space $\exp(\lambda_{s,u})$.
+
+In general the optimization problem tackled here is not an easy one. The distance between the end points have plateau when the two segments are travelled in opposite directions. This has an analogy for instance with the Rosenbruck function optimization problem, where the low gradient in a wide valley give the algorithm a hard time. A robust understanding and way of knowing the number of primary homoclinics and an appropriate method are the welcome and exciting next steps.
 
 \section{Turnstile}
 
-In the non chaotic case of the tokamak, the separatrix defines the boundary of the confined region and is also called the Last Closed Flux Surface. 
-
-When chaos is present, on can still define an interior region by setting as boundary the segment $[x_s^\star,p]\cup[p,x_u^\star]$
-and $[x_s^\star,q]\cup[q,x_u^\star]$ for p and q primary heteroclinic in the manifold that were the unbroken separatrix. This region is where the remaining closed field line of a tokamak are and where the island will be in general. Meiss calls it the resonance zone \cite{meiss_thirty_2015}, and looks a the well studied chirikov standard ap on the cylinder ~:
+In non chaotic case, magnetic islands are bounded by a last close flux surface but when chaos is present, the separatrix is broken into the stable and unstable manifold. Using the definition of primary homo/heteroclinic points, a region bounded by the manifolds can still be defined. It is such that the interior contains the O-point. In the heteroclinic case, there are two pair of stable/unstable manifold that define the boundary by taking the initial segment $[x_s^\star,p]\cup[p,x_u^\star]$
+and $[x_s^\star,q]\cup[q,x_u^\star]$ with p and q the primary heteroclinic, one on each pair of $W^s$, $W^u$. Meiss calls this region the resonance zone \cite{meiss_thirty_2015}. He looks at the (0,1) orbit of the well studied Chirikov standard map on the cylinder ~:
 \begin{align*}
-   p_{n+1} &= p_{n} -\frac{K}{2\pi}\sin(2\pi\theta_n)\\
-   \theta_{n+1} &\equiv \theta_{n} + p_{n+1} \pmod{1} 
+   p_{n+1} &= p_{n} -\frac{K}{2\pi}\sin(2\pi\theta_n),\\
+   \theta_{n+1} &\equiv \theta_{n} + p_{n+1} \pmod{1},
 \end{align*}
-The map is area preserving and its usufull because there is the k parameter that plays the role of a perturbation and brings in more chaos as it increases. Particularly, Meiss looks at the $(0,1)$ orbit when $K=1.5$. \figref{fig:standardmap-turn} shows the resonance region for this orbit and highlights the stable and unstable manfiolds. $w^s$ and $W^u$ define also boundary of lobe, taking one of the lobe and we see that it will be map to a next lobe. This is such that there will a time when the lobe is mapped out or in of the resonance zone. Due to the area preservation property we can say that the exiting set, $E$ such that the point go out applying the map, and the entry set $I$ for point outside of the resonance map in, have the same area. The area of the lobes are indicative of the degree of chaos because we know that if we compare it with the island total area it represents the relative amount of the island being subject to the chaos, while the rest are closed surfaces. Meiss shows how to calculate this indicative area in a general map which conserved an exact volume form $\Omega$ which is the $\Omega = d\alpha$ and finally uses a propriety of the exactness of the map, if the map is volume preserving and exact then he puts the general equality~:
+when $K=1.5$. The K parameter, which plays the role of a perturbation, is a convenient way to introduce chaos. As it increases, so does the chaos. \figref{fig:standardmap-turn} shows the resonance region for the (0,1)-orbit and highlighting the stable and unstable manifolds. By taking the initial segments of $m_1^+$ for the upper and $m_1^-$ for the lower homoclinics, the resonance zone is recovered. $W^s$ and $W^u$ are also the boundaries of smaller lobes that we can see at the edge of the resonance zone. The dark green lobe for example. Points in one lobe are mapped to another through the standard map, shown by the $f$ arrows. It can then be realized that this behaviour will lead a set on the interior of the resonance region to be mapped out, precisely here the dark green set. But also for a set of point on the outside to be mapped in the region. Due to the exactness property of the standard map, the sum of the area of exiting sets $E$ is equal to that of the entry sets $I$.
+
+The area of the lobes indicates the degree of chaos. The lobe will be stretched out in a folding and squeezing process, but its area will remain the same. Meiss introduces a formula for how to compute this indicative area in a general map that preserves an exact volume form $\Omega = d\alpha$ and is exact~:
 \begin{equation}
-    \mu(R) = \int_R \Omega = \int_{\partial R} d\alpha =  \int_{\mathcal{U}} \alpha - \int_{\mathcal{S}} \alpha = 
+    \mu(R) = \int_R \Omega = \int_{\partial R} d\alpha =  \int_{\mathcal{U}} \alpha - \int_{\mathcal{S}} \alpha = \sum\limits_{t = -\infty}^{\infty}(\lambda(m_t) - \lambda(h_t))
 \end{equation}
-This obscure mathematical formulation can be explain for the standard map as follow : as $1 = \nabla\times (x\,\textbf{e}_y)$ we can use stokes theorem to write~:
+with $\lambda$ a Lagrangian-like function found from $\alpha$ and $f$. The path of the integral are given in \figref{fig:meiss-countour}. This obscure mathematical formulation can be clarified slightly for the standard map~; as $1 = \nabla\times (x\,\textbf{e}_y)$ we can use Stokes' theorem to write~:
 \begin{equation}
     \mu(R) = \int_R 1 = \int_{\partial R} \nabla\times (x\,\textbf{e}_y) =  \int_{\mathcal{U}} x\,\textbf{e}_y\cdot\textbf{dl} - \int_{\mathcal{S}} x\,\textbf{e}_y\cdot\textbf{dl}.
 \end{equation}
-In the case of a the last part says that summing on the lagrangian function as the time goes to infinty and minum infinity. 
+Then the last equality uses exactness and surprising link between $\mathcal{U}$ and $\mathcal{S}$ that $\mathcal{U} = f^n(\mathcal{S})$ to write the sum on the homoclinics intersections $m_i^+$ and $h_i^+$ for instance.
 
 \begin{figure}[H]
     \centering
@@ -457,11 +441,11 @@ In the case of a the last part says that summing on the lagrangian function as t
     \caption{Schematic representation of a turnstile in (a) for the resonance zone of the (0,1)-orbit of the standard map with $K = 1.5$, (b) for the tangle structure formed by the manifolds $W^s(p)$ and $W^u(f)$ of two $f$ and $p$ saddles. In both cases the orbit intersections of primary homo/heteroclinics are denoted by $h_i$ and $m_i$. The figures are taken from \cite{meiss_thirty_2015}.}
 \end{figure}
 
-\subsection{Adapting Meiss's action principle for the map $\pmap$}
+\subsection{Adapting Meiss's action principle for the map $\pmap$}\label{sec:turnstile-action}
 \newcommand{\Sl}{\Sigma_{lobe}}
 \newcommand{\Se}{\Sigma_{ev}}
 
-There is a nice analogy with the conservation of the flux and the fact that $B$ equals ($\nabla\times\textbf{A}$), more precisely the mathematical description of the maxwell equations using differential forms. In the case of the $\pmap$, then we a priori don't now that there is only one lobe for the turnstile, we do know that for the total sum $\mu(E) = mu(I)$. The calculation of the flux through one lobe is still then the most general.
+Looking at the field line map, there is a nice analogy with the conservation of flux and $B$ equals $\nabla\times\textbf{A}$. More precisely looking at the mathematical description of Maxwell's equations using differential forms. In the case of $\pmap$ we don't know a priori that there is only one lobe for the turnstile, we do expect however for the total sum $\mu(E) = \mu(I)$. Calculating the flux through one lobe is still the most general thing to do.
 
 \begin{figure}[H]
     \centering
@@ -500,7 +484,7 @@ Following the trajectory of the homoclinic points $h_0$ and $m_0$ until they con
 \begin{equation}\label{eq:flux-algorithm}
     \Phi_{lobe} = \lim\limits_{k\to\infty}\,\,\int\limits_{m_{-k}}^{m_{k}}\textbf{A}\cdot\textbf{dl} - \int\limits_{h_{-k}}^{h_{k}}\textbf{A}\cdot\textbf{dl}
 \end{equation}
-where the similarity with the equation provided for the standard map \cite[Eq. 21]{meiss_thirty_2015} is now striking.
+where the similarity with the equation provided for the standard map \cite[Eq. 21]{meiss_thirty_2015} is now striking. The complicated description of the joining curves, that would require hundreds of point are reduce to the calculation of $\textbf{A}\cdot\textbf{dl}$ on only two trajectories! 
 
 The calculation of \equref{eq:flux-algorithm} requires enough iterations for the distance between the homoclinics to converges to 0. However, due to the exponential behaviour around the X-points and the inherent lack of infinity in double precision, once the field line is close to the fixed point, only a small number of crossings will be recorded before the numerical error causes the point shifted away, ending the possibility of convergence. To overcome this, and in fact to make the algorithm much more robust, a small tweak is introduced. In \equref{eq:contour-1} the difficulty of a numerical computation would have been to get the shape of the manifold precisely. Here instead for a certain finite value of $k$ : $\pmap^k(\gamma_2)$ and $\pmap^{-k}(\gamma_0)$ are mapped back into the linear regime of $x_s^\star$ and $x_u^\star$. There, the manifolds are simply segments and the joining integrals can be approximated by the midpoint rule, which requires only few evaluations of the vector potential $\textbf{A}$, but no additional field line tracing.
 
@@ -538,7 +522,7 @@ The calculation of \equref{eq:flux-algorithm} requires enough iterations for the
     \label{fig:flux-poincare-conv}
 \end{figure}
 
-\figref{fig:flux-poincare-conv} shows the forward and backward mappings of the contour of a lobe and thus the evolution of the joining curves. The initial lobe on low field side, exterior of the tokamak, is mapped around conter clockwise as shown in \figref{fig:flux-poincare-conv-a}. The integral on the homoclinic trajectory \eqref{eq:flux-algorithm} is shown in \figref{fig:turnstile-convergence} and for the five first iterations are done forward only and makes a transit from the HFS to the LFS and the value of the integral is jumping around. Then from that point, the last four iterations make the joining curves shrink, as shown in \figref{fig:flux-poincare-conv-b} and \figref{fig:flux-poincare-conv-c} and the integral converges. After the ninth iteration the points are again in the range where the error due to integration make the regime not linear and the point start getting further away. However as seen in \figref{fig:flux-poincare-conv-c} the can be stopped before by approximating the joining integrals where $W^s$ and $W^u$ straight. The calculation of the turnstile flux gives a numerical value of $\Phi_{lobe} = -3.879\cdot 10^{-1}$\footnote{Again without specifying the unit of the Toybox.}.
+\figref{fig:flux-poincare-conv} shows the forward and backward mappings of the contour of a lobe and thus the evolution of the joining curves. The initial lobe is on the low field side : the right lobe in \figref{fig:flux-poincare-conv-b}. It is mapped around counter clockwise as shown in \figref{fig:flux-poincare-conv-a}. The integral on the homoclinic trajectory \eqref{eq:flux-algorithm} is shown in \figref{fig:turnstile-convergence} and for the five first iterations are performed forward only. It makes a transit from the low field side to the high field side and the value of the integral is jumping around. Then from that point, the last four iterations are forward and backward iterations making the joining curves shrink, as shown in \figref{fig:flux-poincare-conv-b} and \figref{fig:flux-poincare-conv-c}. Making the integrals converge. After the ninth iteration the points are again in the range where the error due to integration make the regime not linear and the point starts getting further away. However as seen in \figref{fig:flux-poincare-conv-c} the algorithm can be stopped before by approximating the joining integrals where $W^s$ and $W^u$ are straight. The calculation of the turnstile flux gives a numerical value of $\Phi_{lobe} = -3.879\cdot 10^{-1}$\footnote{Again without specifying the unit of the Toybox.}.
 
 \begin{figure}[H]
     \centering
@@ -577,7 +561,7 @@ This simple approximation of the area can be refined by using the so-called Shoe
 \subsection{Impact of the perturbation amplitude on the turnstile flux}
 \newcommand{\tf}{\Phi_{lobe}}
 
-Now that we have the calculation of the turnstile flux ready, it will be possible to determine some experimental law for its relationship in some real cases. Here however we first look at the relationship with the amplitude of the perturbation  \figref{fig:scan-6-1} gives the turnstile flux $\tf$ as a function of the amplitude for the 6/1 perturbation applied in the single null Toy-Tokamak. The evolution of $\tf$ is linear with respect to the amplitude with a slope $\approx 3.5$, it goes to zero when $\amp = 0$. For the range scanned from 0 to 0.7 there are no failure in the algorithm. For amplitude bigger we see that the process fails sometimes which is due to the homoclinic search not succeeding. The density of succeeded calculation becomes lower as more as $\amp$ is increased.
+Now that we have the calculation of the turnstile flux ready, it will be possible to determine some experimental law for its relationship in some real cases. Here however we first look at the relationship with the amplitude of the perturbation in the $m/n=6/1$ case in \figref{fig:scan-6-1}. It gives the turnstile flux $\tf$ as a function of the amplitude for applied in the single null Toy-Tokamak. The evolution of $\tf$ is linear with respect to the amplitude with a slope of approximately $3.5$. It nicely goes to zero when $\amp = 0$ which is expected, if you do not have a perturbation then there is no turnstile and every point on the separatrix is an homoclinic. For the range scanned from 0 to 0.7 there are no failure in the algorithm. For amplitude bigger we see that the process fails sometimes which is due to the homoclinic search not succeeding. The density of succeeded calculation becomes lower as more as $\amp$ is increased.
 
 \begin{figure}[H]
     \centering
@@ -586,9 +570,9 @@ Now that we have the calculation of the turnstile flux ready, it will be possibl
     \label{fig:scan-6-1}
 \end{figure}
 
-However this was performed be trying to find automatically the two homoclinics. \figref{fig:scan-wacky} shows the poincare section for selected value of the $\amp$ between 0 and 1 ; it can be seen that the manifold structure are becoming really complicated while the algorithm is still able to find calcualte the flux for most of the time.
+This was performed be trying to find automatically the two homoclinics. \figref{fig:scan-wacky} shows the Poincaré section for selected value of the $\amp$ between 0 and 1 ; it can be seen that the manifold structure are becoming really complicated while the algorithm is still able to find calculate the flux for most of the time. It can be seen how the lobes, in the case $\amp = 0.94$, starts elongating around~: the safety factor profile causes the more outward part of the tangle to rotate counter clockwise slower in forward iteration, unstable manifold in red, and inversely for the stable manifold. While it was growing by expanding outward, it is now starting to come back to the manifolds. The background field is nearly only a chaotic sea, and the name `perturbation' looses its meaning.
 
-In the case of the 18/3 we have seen that there were 6 different homoclinic orbits to be found and actually for the 12/2 there are 4. 
+In the case of the 18/3 we have seen that there were 6 different homoclinic orbits to be found and for the 12/2 there are 4. In \figref{fig:amp-scan} we see a small linear range compare to the 6/1 case for both higher order perturbation. It is possible that the tangle re-intersects itself changing the number of homoclinics points and causing the search to be wrong.\footnote{Maybe a primary-secondary flip or other process from \cite{hohloch_homoclinic_2017}.}
 
 \begin{figure}[H]
     \centering
@@ -629,7 +613,7 @@ In the case of the 18/3 we have seen that there were 6 different homoclinic orbi
 
 \subsection{Turnstiles of a $m/n$ island chain}
 
-The turnstile calculation developed in the last sections was discussed in the case of the broken separatrix of a single null Tokamak equilibrium. However the method is not restricted to Tokamaks, or $m=1$ islands, but can be used for any islands/island chain with $\iotaslash = n/m$. The adaptation just requires to use the same amount of iteration as for finding the fixed point, effectively mapping back to the same position in the Poincaré section. In fact, as discussed in [sec], one has gcd(m,n) different islands.
+The turnstile calculation developed in the last sections was discussed in the case of the broken separatrix of a single null Tokamak equilibrium. However the method is not restricted to Tokamaks or $m=1$ islands, but can be used for any islands/island chain with $\iotaslash = n/m$. The adaptation just requires to use the same amount of iteration as for finding the fixed point, effectively mapping back to the same position in the Poincaré section.
 
 \begin{figure}[h!]
     \centering
@@ -648,6 +632,5 @@ The turnstile calculation developed in the last sections was discussed in the ca
     \label{fig:inner-outer}
 \end{figure}
 
-In \figref{fig:inner-outer} it means for example in the case of the high aspect ratio perturbed with a $n/m = 2/3$ perturbation that
-
-the sum of all the flux lobes gives effectively 0 further showing thet the alculation is correct.
+In \figref{fig:inner-outer} shows the tangle on the inside `inner' and on the outside `outer' tangle. Both the inner (blue) and outer (red) tangles have 4 heteroclinic orbits, the different markers. 
+A closer look at the upper X-point shows how the inner turnstile flux $\Phi_\text{inner} = 4.17e-4$ is an order of magnitude lower than the outer turnstile flux $\Phi_\text{outer} = 29.47e-4$. There is here 4 different lobe, 2 entering and two exiting lobes. The sum of the lobes is 0. for the inner and 2.3e-5 for the outer one, effectively showing that $\mu(I) = mu(E)$.

@@ -1,11 +1,17 @@
 \chapter{Conclusion}
-IN this work using meiss we laid the theoretical ground of algorithmically computing the turnstile area for a field given by a magnetical configuration. 
 
-A robust method of calculating the turnstile fluxes was presented and
+The chaotic behaviour of the magnetic field in magnetic fusion devices at the edge has a major impact on the impact pattern on the plasma-facing components. In particular, they need to be studied for the future design of the plasma-facing divertors, which will have to withstand high thermal loads.
 
+A simple definition was given for the field line map : which takes an initial point in a given toroidal section and maps it to the next field period. The fixed point of that map were shown to be closed field lines and O/X points, depending on the eigenvalues of the Jacobian.
 
-it will be usefull for stellarator optimization, the calculation of the turnstile flux is robust however the challange is to know what are the 
+An analytical toybox has been introduced to simplify the calculation and to be able to test the further algorithm while still using the field line tracing paradigm used for real cases. The toybox requires only the analytical formulation of the vector potentials and computes the resulting fields by automatic differentiation. Its basic block is closed nested toroidal flux surfaces with a toroidal component that generates a quadratic safety factor profile. Other potentials can be added to this building block, including the axisymmetric potential of a circular current loop and, importantly, perturbations. Both were used to make a single null analytical Tokamak equilibirum. The perturbation added in toroidal coordinates, non-straight field, quickly induces chaos and two distributions have been implemented for the radial profiles, Maxwell-Boltzmann and Gaussian. 
 
-while the process was performed by hand a not too difficult it requires with a sufficient tolerance of the algorithm no more than 10 minutes, which, if a robust way would fast and relevant way of caluating chaos 
+Applying a 6/1 Maxwell-Boltzmann perturbation to the single null equilibrium, we were first able to find its x-point. Then the algorithms : to compute the stable and unstable manifold of this hyperbolic fixed point. to find the homoclinic intersections were presented. It was found that while the 6/1 had two homoclinic points, 12/2 and 18/3 for example had 4 and 6 different homoclinic orbits.
 
-algorithm that records robustly 
+Using an adaptation of Meiss's work in the case of the standard map, we were able to demonstrate a method of calculating the turnstile flux and show that the resulting numerical value was indeed meaningful. This flux is at the core of quantifying the degree of chaos due to a certain island or around the Tokamak separatrix. The algorithm was used to show the linear dependence of the turnstile flux with increasing perturbation amplitude for a wide range of values starting from zero. 
+
+Then, using the coils, currents of specific stellarator configurations and the Biot-Savart law, we were able to calculate the turnstile fluxes in the case of 3 hypothetical QUASR stellarators. It was shown that the calculation can be performed in real stellarators and that the turnstile flux can be used for future optimisation of stellarator designs. In the case of W7X, we showed how the connection length plot of a chaotic edge configuration relates to the tangle structure created by the stable and unstable manifold of the 4/5 island present.
+
+Finally, for those stellarator islands, the fact that there is an inner and outer tangle structure with a distinct value for the turnstile flux was discussed, which will certainly have an impact on transport, and it was argued that it will act as a sort of customs office for the line coming from the inside. However, a more profound argument is certainly desirable.
+
+It remains to make Pyoculus an easy to use and complete software, so that the interested user will be able to study the evolution of the turnstile flux and have not only an eye, but a microscope into chaos. The main aspect where the method presented in this document should be improved is in finding the homo/heteroclinic intersections of manifolds. Quantifying the number of intersections is an interesting question, the answer to which will hopefully reveal many more questions.
